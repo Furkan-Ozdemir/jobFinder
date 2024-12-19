@@ -2,13 +2,14 @@ import "./button.scss";
 
 type Props = {
   color: "dark" | "transparent";
+  type: "button" | "submit" | "reset";
   children: React.ReactNode;
 };
 
 export default function Button(props: Props) {
-  const { color, children } = props;
+  const { color, children, type } = props;
   return (
-    <button type="button" className={`button button--${color}`}>
+    <button type={type} className={`button button--${color}`}>
       {children}
     </button>
   );

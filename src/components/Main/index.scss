@@ -1,0 +1,22 @@
+.main {
+  text-align: center;
+
+  &__title {
+    margin: 25rem 25rem 0 25rem;
+
+    font-size: 6.4rem;
+    font-weight: 700;
+    line-height: 7.4rem;
+
+    &__highlight {
+      color: var(--blue);
+    }
+  }
+
+  &__title + p {
+    color: var(--gray);
+    font-size: 2rem;
+    line-height: 2.4rem;
+    margin-top: 2rem;
+  }
+}
