@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: "Montserrat", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: #242426;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --green: #bceee0;
+  --pink: #ffd0fc;
+  --lightblue: #c5f0f8;
+  --lightgreen: #cbf0b0;
+  --yellow: #f3f9aa;
+  --purple: #d7d0ff;
+  --blue: #4869d7;
+  --black: #242426;
+  --white: #fff;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  width: 100%;
+  height: 100%;
+}
+a {
+  text-decoration: none;
+  color: currentColor;
+}
+
+ul {
+  list-style: none;
+}

@@ -1,0 +1,34 @@
+.header {
+  margin-top: 3.4rem;
+  &__nav {
+    display: flex;
+    // justify-content: space-between;
+
+    &__center {
+      display: flex;
+      gap: 5.5rem;
+      margin: 0 auto;
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+
+    li {
+      align-self: center;
+    }
+
+    &__logo {
+      display: flex;
+      gap: 1.5rem;
+      margin-left: 6.4rem;
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+      a {
+        font-size: 2.4rem;
+        font-weight: 600;
+        line-height: 24px;
+      }
+    }
+  }
+}
