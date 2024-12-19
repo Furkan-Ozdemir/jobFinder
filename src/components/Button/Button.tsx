@@ -1,4 +1,4 @@
-import "./button.scss";
+import "./index.scss";
 
 type Props = {
   color: "dark" | "transparent";
