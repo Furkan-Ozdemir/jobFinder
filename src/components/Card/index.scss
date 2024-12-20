@@ -1,0 +1,56 @@
+.card {
+  border-radius: 2rem;
+  border: 1px solid var(--black);
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  min-width: 30rem;
+  padding: 3.2rem 0 3.2rem 3.2rem;
+  gap: 1rem;
+
+  &--center {
+    align-items: center;
+    padding-left: 0;
+  }
+
+  &--transparent {
+    background-color: transparent;
+  }
+  &--blue {
+    background-color: var(--blue);
+  }
+  &--pink {
+    background-color: var(--pink);
+  }
+  &--green {
+    background-color: var(--green);
+  }
+  &--yellow {
+    background-color: var(--yellow);
+  }
+  &--purple {
+    background-color: var(--purple);
+  }
+
+  &__image-container {
+    .image {
+      border-radius: 50%;
+    }
+  }
+
+  &__title-container {
+    .title {
+      font-size: 2.4rem;
+      font-weight: 600;
+      line-height: 3.1rem;
+    }
+  }
+
+  &__description-container {
+    .description {
+      font-size: 1.6rem;
+      line-height: 2rem;
+      color: var(--gray);
+    }
+  }
+}

@@ -1,4 +1,6 @@
+import Categories from "./components/Categories/Categories";
 import Header from "./components/Header/Header";
+import HorizontalLine from "./components/HorizontalLine/HorizontalLine";
 import Main from "./components/Main/Main";
 
 function App() {
@@ -6,6 +8,8 @@ function App() {
     <>
       <Header />
       <Main />
+      <HorizontalLine />
+      <Categories />
     </>
   );
 }
