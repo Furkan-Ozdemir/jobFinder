@@ -1,7 +1,7 @@
 .header {
-  margin-top: 3.4rem;
-
   &__nav {
+    height: 6.4rem;
+    padding-right: 6.4rem;
     display: flex;
 
     &__center {
@@ -29,10 +29,6 @@
         font-weight: 600;
         line-height: 24px;
       }
-    }
-
-    &:last-child {
-      margin-right: 6.4rem;
     }
   }
 }

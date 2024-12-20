@@ -1,27 +1,36 @@
 .main {
+  height: calc(100vh - 3.4rem - 2rem);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  &__title {
-    margin: 25rem 25rem 0 25rem;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 6.4rem;
+    max-width: 100rem;
 
-    font-size: 6.4rem;
-    font-weight: 700;
-    line-height: 7.4rem;
+    &__title {
+      font-size: 6.4rem;
+      font-weight: 700;
+      line-height: 7.4rem;
 
-    &__highlight {
-      color: var(--blue);
+      &__highlight {
+        color: var(--blue);
+      }
     }
-  }
 
-  &__title + p {
-    color: var(--gray);
-    font-size: 2rem;
-    line-height: 2.4rem;
-    margin-top: 2rem;
+    &__title + p {
+      color: var(--gray);
+      font-size: 2rem;
+      line-height: 2.4rem;
+      margin-top: 2rem;
+    }
   }
   &__form {
     display: flex;
     justify-content: center;
-    margin-top: 6.4rem;
   }
 }
