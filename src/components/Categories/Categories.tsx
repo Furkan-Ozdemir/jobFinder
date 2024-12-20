@@ -1,5 +1,6 @@
 import Card from "../Card/Card";
 import "./index.scss";
+import DollarSign from "/assests/images/DollarSign.png";
 
 export default function Categories() {
   return (
@@ -9,7 +10,7 @@ export default function Categories() {
         <Card
           title="Finance"
           description="1,720 postings"
-          image="https://dummyimage.com/60"
+          image={DollarSign}
           backgroundColor="transparent"
         />
         <Card
