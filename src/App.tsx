@@ -10,6 +10,7 @@ function App() {
       <Main />
       <HorizontalLine />
       <Categories />
+      <HorizontalLine />
     </>
   );
 }

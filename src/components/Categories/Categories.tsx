@@ -10,7 +10,7 @@ import Science from "/assests/images/Science.png";
 
 export default function Categories() {
   return (
-    <div className="categories">
+    <section className="categories">
       <p className="categories__title">Most Popular Categories</p>
       <div className="categories__container">
         <Card
@@ -69,6 +69,6 @@ export default function Categories() {
           backgroundColor="transparent"
         />
       </div>
-    </div>
+    </section>
   );
 }
