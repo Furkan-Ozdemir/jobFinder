@@ -9,6 +9,18 @@
   gap: 1rem;
   cursor: pointer;
 
+  &__button {
+    padding: 0.5rem 4rem;
+    border: 0.1rem solid var(--black);
+    border-radius: 1.2rem;
+    background-color: transparent;
+    color: var(--black);
+    font-size: 1.6rem;
+    line-height: 2rem;
+    outline: none;
+    cursor: pointer;
+  }
+
   &--center {
     align-items: center;
     padding-left: 0;

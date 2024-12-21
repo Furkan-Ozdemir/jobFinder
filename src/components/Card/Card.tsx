@@ -15,6 +15,7 @@ type Props = {
     | "lightblue";
   positionCenter?: boolean;
   imageColor?: string;
+  button?: string;
 };
 
 export default function Card({
@@ -24,6 +25,7 @@ export default function Card({
   backgroundColor,
   positionCenter,
   imageColor,
+  button,
 }: Props) {
   return (
     <div
@@ -44,6 +46,7 @@ export default function Card({
           <p className="description">{description}</p>
         </div>
       </div>
+      {button && <button className="card__button">{button}</button>}
     </div>
   );
 }

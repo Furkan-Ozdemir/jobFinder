@@ -18,6 +18,7 @@ export default function PromotedCompanies() {
             image={IT}
             positionCenter
             backgroundColor="purple"
+            button={"View"}
           />
           <Card
             title="Tech Foals"
@@ -25,6 +26,7 @@ export default function PromotedCompanies() {
             image={Sales}
             backgroundColor="green"
             positionCenter
+            button={"View"}
           />
           <Card
             title="B Bank"
@@ -32,6 +34,7 @@ export default function PromotedCompanies() {
             image={Tech}
             backgroundColor="yellow"
             positionCenter
+            button={"View"}
           />
           <Card
             title="McBurger"
@@ -39,6 +42,7 @@ export default function PromotedCompanies() {
             image={Science}
             backgroundColor="pink"
             positionCenter
+            button={"View"}
           />
         </div>
       </div>

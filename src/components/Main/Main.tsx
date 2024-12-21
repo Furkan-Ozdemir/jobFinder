@@ -1,27 +1,30 @@
 import InlineForm from "../InlineForm/InlineForm";
+import Section from "../Section/Section";
 import "./index.scss";
 
 export default function Main() {
   return (
-    <main className="main">
-      <div className="main__container">
-        <div>
-          <p className="main__container__title">
-            <span>Over</span>
-            <span className="main__container__title__highlight">
-              {" "}
-              5,000 jobs{" "}
-            </span>
-            <span>are waiting for you</span>
-          </p>
-          <p>
-            Work with the best companies, hire the experienced professionals
-          </p>
+    <Section>
+      <main className="main">
+        <div className="main__container">
+          <div>
+            <p className="main__container__title">
+              <span>Over</span>
+              <span className="main__container__title__highlight">
+                {" "}
+                5,000 jobs{" "}
+              </span>
+              <span>are waiting for you</span>
+            </p>
+            <p>
+              Work with the best companies, hire the experienced professionals
+            </p>
+          </div>
+          <div className="main__form">
+            <InlineForm />
+          </div>
         </div>
-        <div className="main__form">
-          <InlineForm />
-        </div>
-      </div>
-    </main>
+      </main>
+    </Section>
   );
 }

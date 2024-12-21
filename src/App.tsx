@@ -16,6 +16,7 @@ function App() {
       </Section>
       <HorizontalLine />
       <PromotedCompanies />
+      <HorizontalLine />
     </>
   );
 }
