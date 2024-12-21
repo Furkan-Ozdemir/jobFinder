@@ -1,17 +1,17 @@
 import Card from "../Card/Card";
 import "./index.scss";
-import DollarSign from "/assests/images/DollarSign.png";
-import Gastronomy from "/assests/images/Gastronomy.png";
-import IT from "/assests/images/IT.png";
-import Marketing from "/assests/images/Marketing.png";
-import Sales from "/assests/images/Sales.png";
-import Tech from "/assests/images/Tech.png";
-import Science from "/assests/images/Science.png";
+import DollarSign from "/assets/images/DollarSign.png";
+import Gastronomy from "/assets/images/Gastronomy.png";
+import IT from "/assets/images/IT.png";
+import Marketing from "/assets/images/Marketing.png";
+import Sales from "/assets/images/Sales.png";
+import Tech from "/assets/images/Tech.png";
+import Science from "/assets/images/Science.png";
 
 export default function Categories() {
   return (
-    <section className="categories">
-      <p className="categories__title">Most Popular Categories</p>
+    <div className="categories">
+      <p className="categories__title pageTitle">Most Popular Categories</p>
       <div className="categories__container">
         <Card
           title="Finance"
@@ -69,6 +69,6 @@ export default function Categories() {
           backgroundColor="transparent"
         />
       </div>
-    </section>
+    </div>
   );
 }

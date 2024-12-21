@@ -12,6 +12,7 @@
   &--center {
     align-items: center;
     padding-left: 0;
+    text-align: center;
   }
 
   &--transparent {
@@ -67,6 +68,9 @@
   }
   &__image-container.lightblue {
     background-color: var(--lightblue);
+  }
+  &__image-container.black {
+    background-color: var(--black);
   }
 
   &__title-container {
