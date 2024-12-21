@@ -7,6 +7,7 @@
   min-width: 30rem;
   padding: 3.2rem 0 3.2rem 3.2rem;
   gap: 1rem;
+  cursor: pointer;
 
   &--center {
     align-items: center;
@@ -33,9 +34,39 @@
   }
 
   &__image-container {
+    height: 5.5rem;
+    width: 5.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     .image {
       border-radius: 50%;
+      height: 3.5rem;
+      width: 3.5rem;
     }
+  }
+  &__image-container.blue {
+    background-color: var(--blue);
+  }
+  &__image-container.pink {
+    background-color: var(--pink);
+  }
+  &__image-container.green {
+    background-color: var(--green);
+  }
+  &__image-container.yellow {
+    background-color: var(--yellow);
+  }
+  &__image-container.purple {
+    background-color: var(--purple);
+  }
+  &__image-container.lightgreen {
+    background-color: var(--lightgreen);
+  }
+  &__image-container.lightblue {
+    background-color: var(--lightblue);
   }
 
   &__title-container {

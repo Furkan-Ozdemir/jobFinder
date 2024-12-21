@@ -10,8 +10,11 @@ type Props = {
     | "pink"
     | "green"
     | "yellow"
-    | "purple";
+    | "purple"
+    | "lightgreen"
+    | "lightblue";
   positionCenter?: boolean;
+  imageColor?: string;
 };
 
 export default function Card({
@@ -20,14 +23,17 @@ export default function Card({
   image,
   backgroundColor,
   positionCenter,
+  imageColor,
 }: Props) {
   return (
     <div
-      className={`card ${backgroundColor ? ` card--${backgroundColor}` : ""}
-        ${positionCenter ? ` card--center` : ""}
-      `}
+      className={`card ${backgroundColor ? `card--${backgroundColor}` : ""} ${
+        positionCenter ? ` card--center` : ""
+      }`}
     >
-      <div className="card__image-container">
+      <div
+        className={`card__image-container ${imageColor ? `${imageColor}` : ""}`}
+      >
         <img src={image} alt={title} className="image" />
       </div>
       <div>
