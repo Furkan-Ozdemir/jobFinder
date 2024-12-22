@@ -1,5 +1,5 @@
-import BoostYourCareer from "./components/BoostCareer/BoostYourCareer";
 import Categories from "./components/Categories/Categories";
+import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import HorizontalLine from "./components/HorizontalLine/HorizontalLine";
 import Main from "./components/Main/Main";
@@ -17,7 +17,7 @@ function App() {
       </Section>
       <HorizontalLine />
       <PromotedCompanies />
-      <HorizontalLine />
+      {/* <HorizontalLine /> */}
       {/* <BoostYourCareer /> */}
       <Footer />
     </>

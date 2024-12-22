@@ -1,0 +1,21 @@
+.footer {
+  background-color: var(--light-gray);
+  padding: 4rem 0 3.2rem 0;
+  &__container {
+    display: flex;
+    justify-content: space-evenly;
+
+    &__list {
+      font-size: 1.6rem;
+
+      li {
+        color: var(--gray);
+      }
+      &__title {
+        font-size: 1.6rem;
+        font-weight: 600;
+        line-height: 2.1rem;
+      }
+    }
+  }
+}
