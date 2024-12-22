@@ -1,6 +1,10 @@
 .footer {
   background-color: var(--light-gray);
   padding: 4rem 0 3.2rem 0;
+  .hire-me {
+    text-align: center;
+  }
+
   &__container {
     display: flex;
     justify-content: space-evenly;

@@ -59,10 +59,16 @@ export default function Footer() {
             <Link to={"/"}>Instagram</Link>
           </li>
           <li>
-            <Link to={"/"}>Linkedin</Link>
+            <Link to={"https://www.linkedin.com/in/furkan-o-demir/"}>
+              Linkedin
+            </Link>
           </li>
         </ul>
       </nav>
+      <p className="hire-me">
+        © {new Date().getFullYear()} furco.{" "}
+        <Link to={"https://www.linkedin.com/in/furkan-o-demir/"}>Hire me</Link>
+      </p>
     </footer>
   );
 }
