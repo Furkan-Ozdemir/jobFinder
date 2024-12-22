@@ -1,3 +1,4 @@
+import BoostYourCareer from "./components/BoostCareer/BoostYourCareer";
 import Categories from "./components/Categories/Categories";
 import Header from "./components/Header/Header";
 import HorizontalLine from "./components/HorizontalLine/HorizontalLine";
@@ -17,6 +18,8 @@ function App() {
       <HorizontalLine />
       <PromotedCompanies />
       <HorizontalLine />
+      {/* <BoostYourCareer /> */}
+      <Footer />
     </>
   );
 }

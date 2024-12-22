@@ -2,7 +2,7 @@ import "./index.scss";
 
 type Props = {
   title: string;
-  description: string;
+  description?: string;
   image: string;
   backgroundColor:
     | "transparent"
@@ -10,9 +10,7 @@ type Props = {
     | "pink"
     | "green"
     | "yellow"
-    | "purple"
-    | "lightgreen"
-    | "lightblue";
+    | "purple";
   positionCenter?: boolean;
   imageColor?: string;
   button?: string;
