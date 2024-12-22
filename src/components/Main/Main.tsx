@@ -4,7 +4,7 @@ import "./index.scss";
 
 export default function Main() {
   return (
-    <Section>
+    <Section arcBackground>
       <main className="main">
         <div className="main__container">
           <div>

@@ -1,0 +1,68 @@
+.image-arc {
+  position: relative;
+  width: 100%;
+  top: 10rem;
+  z-index: -1;
+}
+
+.image__container-1,
+.image__container-2,
+.image__container-3,
+.image__container-4,
+.image__container-5 {
+  position: absolute;
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.1);
+}
+
+.image__container-1 {
+  top: 30rem;
+  left: 10%;
+
+  svg {
+    fill: var(--green);
+  }
+}
+
+.image__container-2 {
+  top: 7rem;
+  left: 25%;
+  svg {
+    fill: var(--purple);
+  }
+}
+
+.image__container-3 {
+  top: 0;
+  left: 50%;
+  svg {
+    fill: var(--pink);
+  }
+}
+
+.image__container-4 {
+  top: 7rem;
+  right: 25%;
+  svg {
+    fill: var(--lightblue);
+  }
+}
+
+.image__container-5 {
+  top: 30rem;
+  right: 10%;
+  svg {
+    fill: var(--yellow);
+  }
+}
+
+.arc-image {
+  width: 6rem;
+  height: 6rem;
+}
