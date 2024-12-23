@@ -19,7 +19,7 @@ export default function Header() {
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="/">Explore</a>
+            <a href="/explore">Explore</a>
           </li>
           <li>
             <a href="/">Post A Job</a>

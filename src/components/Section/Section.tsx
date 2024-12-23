@@ -8,7 +8,7 @@ export default function Section({
   arcBackground?: boolean;
 }) {
   return (
-    <section className={`section ${arcBackground && "arcBackground"}`}>
+    <section className={`section ${arcBackground ? "arcBackground" : ""}`}>
       {arcBackground && (
         <div className="image-arc">
           <div className="image__container-1">

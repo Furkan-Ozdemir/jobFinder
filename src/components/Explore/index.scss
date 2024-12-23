@@ -1,0 +1,33 @@
+.explore {
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+
+  &__wrapper {
+    &__container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 10rem;
+
+      &__filter {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+        flex-wrap: wrap;
+        &__text {
+          font-size: 1.8rem;
+          font-weight: 600;
+        }
+
+        &__categories {
+          display: flex;
+          flex-wrap: wrap;
+
+          gap: 2.4rem;
+        }
+      }
+    }
+  }
+}
