@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import JobTag from "../JobTag/JobTag";
 import "./index.scss";
 import Wallet from "/assets/images/Wallet.png";
@@ -36,7 +37,7 @@ export default function JobCard() {
           </div>
         </div>
         <div className="job-card__upper__right">
-          <button>
+          <Link to="/job/1">
             <span>apply</span>
             <svg
               height={20}
@@ -48,7 +49,7 @@ export default function JobCard() {
               <path fill="none" d="M0 0h24v24H0z"></path>
               <path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5H9z"></path>
             </svg>
-          </button>
+          </Link>
         </div>
       </div>
       <div className="job-card__lower">
