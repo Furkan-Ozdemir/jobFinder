@@ -1,0 +1,19 @@
+.job-tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  gap: 0.8rem;
+  color: var(--black);
+  border-radius: 10rem;
+  background-color: var(--light-gray);
+
+  padding: 0.5rem 0.8rem;
+  outline: none;
+
+  &__text {
+    line-height: 2rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+}

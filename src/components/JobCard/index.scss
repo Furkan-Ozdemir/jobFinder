@@ -1,4 +1,7 @@
 .job-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   border-radius: 2.4rem;
   border: 0.1rem solid var(--black);
   box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
@@ -46,10 +49,19 @@
   }
 
   &__lower {
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+
     &__description {
       font-size: 1.8rem;
       line-height: 2.3rem;
       color: var(--black);
+    }
+
+    &__tags {
+      display: flex;
+      gap: 1.6rem;
     }
   }
 }

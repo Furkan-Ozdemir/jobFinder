@@ -1,4 +1,6 @@
+import JobTag from "../JobTag/JobTag";
 import "./index.scss";
+import Wallet from "/assets/images/Wallet.png";
 
 export default function JobCard() {
   return (
@@ -37,7 +39,12 @@ export default function JobCard() {
           Full-time hours with amazing overtime opportunities! Working in
           supportive environment with great opportunities to grow.
         </div>
-        <div className="job-card__lower__tags"></div>
+        <div className="job-card__lower__tags">
+          {/* // TODO taglar backendden gelecek */}
+          <JobTag text="Full-time" icon={Wallet} />
+          <JobTag text="Full-time" icon={Wallet} />
+          <JobTag text="Full-time" icon={Wallet} />
+        </div>
       </div>
     </div>
   );
