@@ -2,6 +2,7 @@ import Card from "../Card/Card";
 import Header from "../Header/Header";
 import HorizontalLine from "../HorizontalLine/HorizontalLine";
 import InlineForm from "../InlineForm/InlineForm";
+import JobCard from "../JobCard/JobCard";
 import Select from "../Select/Select";
 import "./index.scss";
 import Wallet from "/assets/images/Wallet.png";
@@ -80,7 +81,9 @@ export default function Explore() {
           <p className="explore__jobs__count">
             We've found {new Intl.NumberFormat().format(3730)} job postings
           </p>
-          <div className="explore__jobs__job"></div>
+          <div className="explore__jobs__job">
+            <JobCard />
+          </div>
         </div>
       </div>
     </>

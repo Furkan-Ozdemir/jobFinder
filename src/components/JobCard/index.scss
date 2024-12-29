@@ -1,0 +1,55 @@
+.job-card {
+  border-radius: 2.4rem;
+  border: 0.1rem solid var(--black);
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+  padding: 3.2rem;
+  &__upper {
+    display: flex;
+    justify-content: space-between;
+
+    &__left {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+
+      &__job {
+        color: var(--black);
+        font-weight: 700;
+        font-size: 2.4rem;
+        line-height: 3.1rem;
+      }
+
+      &__company {
+        color: var(--gray);
+        font-size: 1.6rem;
+        line-height: 2.1rem;
+      }
+    }
+
+    &__right {
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.9rem;
+        border: 0;
+        outline: none;
+        background-color: transparent;
+        text-transform: capitalize;
+        color: #4869d7;
+        font-family: "Montserrat", sans-serif;
+        line-height: 2.3rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__lower {
+    &__description {
+      font-size: 1.8rem;
+      line-height: 2.3rem;
+      color: var(--black);
+    }
+  }
+}
