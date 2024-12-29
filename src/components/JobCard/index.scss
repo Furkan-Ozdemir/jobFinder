@@ -27,6 +27,11 @@
         font-size: 1.6rem;
         line-height: 2.1rem;
       }
+      &__logo {
+        background-color: var(--green);
+        padding: 0.8rem;
+        border-radius: 1.2rem;
+      }
     }
 
     &__right {
