@@ -2,14 +2,11 @@ import "./index.scss";
 
 type Props = {
   color: "dark" | "transparent";
-  type: "button" | "submit" | "reset";
-  children: React.ReactNode;
-};
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export default function Button(props: Props) {
-  const { color, children, type } = props;
+export default function Button({ color, children, className, ...rest }: Props) {
   return (
-    <button type={type} className={`button button--${color}`}>
+    <button {...rest} className={`button button--${color} ${className || ""}`}>
       {children}
     </button>
   );
