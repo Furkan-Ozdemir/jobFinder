@@ -1,11 +1,11 @@
-import Card from "../Card/Card";
+import Button from "../Button/Button";
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import HorizontalLine from "../HorizontalLine/HorizontalLine";
 import InlineForm from "../InlineForm/InlineForm";
 import JobCard from "../JobCard/JobCard";
 import Select from "../Select/Select";
 import "./index.scss";
-import Wallet from "/assets/images/Wallet.png";
 
 export default function Explore() {
   return (
@@ -86,8 +86,14 @@ export default function Explore() {
               <JobCard />
             </div>
           ))}
+          <div className="explore__jobs__load-more">
+            <Button color="dark" type="button">
+              Load More
+            </Button>
+          </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
