@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import "./index.scss";
 import JobTag from "../JobTag/JobTag";
 import Wallet from "/assets/images/Wallet.png";
+import HorizontalLine from "../HorizontalLine/HorizontalLine";
 
 export default function JobDetail() {
   return (
@@ -94,8 +95,97 @@ export default function JobDetail() {
             </div>
           </div>
         </div>
+        <HorizontalLine />
+
+        <div className="jobDetail__blabla">
+          <div className="jobDetail__blabla__container">
+            <div className="jobDetail__blabla__container__about">
+              <p className="jobDetail__blabla__container__about__title">
+                About company
+              </p>
+              <p>
+                Unicorn is a leading tele-comm company, dedicated to delivering
+                innovative solutions and driving exceptional growth in the
+                market. As we expand our team, we are seeking a highly motivated
+                and results-oriented Marketing Sales Representative to join us
+                in achieving our ambitious sales targets and further
+                strengthening our market presence.
+              </p>
+            </div>
+            <div className="jobDetail__blabla__container__role">
+              <p className="jobDetail__blabla__container__role__title">
+                Role description
+              </p>
+              <p>
+                As a Marketing Sales Representative, you will play a crucial
+                role in driving revenue generation and building long-term client
+                relationships. You will be responsible for effectively promoting
+                our products/services, identifying new business opportunities,
+                and converting leads into sales. Your keen understanding of
+                market trends and customer needs will enable you to develop and
+                implement strategic sales plans to maximize our market share and
+                exceed targets.
+              </p>
+            </div>
+            <div className="jobDetail__blabla__container__responsibilities">
+              <p className="jobDetail__blabla__container__responsibilities__title">
+                Responsibilities
+              </p>
+              <ul>
+                <li>Develop and implement strategic sales plans</li>
+                <li>Identify new business opportunities</li>
+                <li>Build and maintain strong client relationships</li>
+                <li>Conduct market research and analysis</li>
+                <li>Meet and exceed sales targets</li>
+              </ul>
+            </div>
+
+            <div className="jobDetail__blabla__container__requirements">
+              <p className="jobDetail__blabla__container__requirements__title">
+                Requirements
+              </p>
+              <ul>
+                <li>Minimum 2 years of experience in sales</li>
+                <li>
+                  Proven track record of meeting and exceeding sales targets
+                </li>
+                <li>Strong communication and interpersonal skills</li>
+                <li>Excellent negotiation and persuasion abilities</li>
+                <li>Ability to work independently and as part of a team</li>
+              </ul>
+            </div>
+
+            <div className="jobDetail__blabla__container__additional">
+              <p className="jobDetail__blabla__container__additional__title">
+                Additional information
+              </p>
+              <p>
+                This is a full-time position with competitive salary and
+                benefits package. If you are a results-driven individual with a
+                passion for sales and a desire to grow your career in a dynamic
+                environment, we want to hear from you!
+              </p>
+            </div>
+
+            <div className="jobDetail__blabla__container__apply">
+              <Link to={`/job/1/apply`}>
+                <span>Apply now</span>
+                <svg
+                  height={20}
+                  width={20}
+                  color="#fff"
+                  fill="#fff"
+                  viewBox="0 0 24 24"
+                >
+                  <path fill="none" d="M0 0h24v24H0z"></path>
+                  <path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5H9z"></path>
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

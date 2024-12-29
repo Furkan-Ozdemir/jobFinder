@@ -144,4 +144,61 @@
       }
     }
   }
+
+  &__blabla {
+    margin-top: 4.8rem;
+    margin-bottom: 6.4rem;
+    &__container {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      margin-left: auto;
+      margin-right: auto;
+      width: 60%;
+
+      &__about,
+      &__role,
+      &__responsibilities,
+      &__requirements,
+      &__additional {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        &__title {
+          font-size: 2rem;
+          font-weight: 600;
+          line-height: 2.6rem;
+        }
+
+        & > :nth-child(2) {
+          font-size: 1.8rem;
+          line-height: 2.6rem;
+        }
+      }
+
+      &__apply {
+        a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.9rem;
+          border: 0;
+          outline: none;
+          background-color: transparent;
+          text-transform: capitalize;
+          text-decoration: none;
+          color: var(--white);
+          background-color: var(--blue);
+          font-family: "Montserrat", sans-serif;
+          line-height: 2.3rem;
+          font-weight: 600;
+          cursor: pointer;
+          font-size: 1.6rem;
+          padding: 1rem;
+          padding-left: 1.2rem;
+          border-radius: 1.2rem;
+        }
+      }
+    }
+  }
 }
