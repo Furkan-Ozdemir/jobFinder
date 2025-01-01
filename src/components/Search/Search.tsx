@@ -25,7 +25,6 @@ export default function Search() {
                 />
               </div>
               <InputField label="Job title" placeholder="i.e. Ruby Developer" />
-              <InputField label="Location" placeholder="i.e. London" />
               <div className="search__filters__item">
                 <label htmlFor="Category">Category</label>
                 <Select
@@ -39,7 +38,7 @@ export default function Search() {
               </div>
             </div>
             <div>
-              <div className="">
+              <div className="search__filters__item">
                 <label htmlFor="Salary Range">Salary Range</label>
                 <Select
                   label="Salary range"
@@ -54,6 +53,7 @@ export default function Search() {
                   defaultValue="0-30k"
                 />
               </div>
+              <InputField label="Location" placeholder="i.e. London" />
             </div>
           </div>
         </div>

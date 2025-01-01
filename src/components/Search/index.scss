@@ -13,5 +13,23 @@
   &__filters {
     display: flex;
     gap: 13rem;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
+    }
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      label {
+        font-size: 1.6rem;
+        font-weight: 600;
+        line-height: 2.1rem;
+        color: var(--black);
+      }
+    }
   }
 }
