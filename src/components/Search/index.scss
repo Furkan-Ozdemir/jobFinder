@@ -1,0 +1,17 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+  align-items: center;
+
+  &__title {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 5.2rem;
+  }
+
+  &__filters {
+    display: flex;
+    gap: 13rem;
+  }
+}

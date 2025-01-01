@@ -25,7 +25,7 @@ export default function Header() {
             <a href="/">Post A Job</a>
           </li>
           <li>
-            <a href="/">Search</a>
+            <a href="/search">Search</a>
           </li>
         </div>
         <li>
