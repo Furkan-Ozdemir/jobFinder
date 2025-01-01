@@ -37,8 +37,8 @@ export default function Explore() {
                 label="Salary"
                 options={[
                   //dbden gelecek
-                  { value: "asc", label: "Ascending" },
-                  { value: "desc", label: "Descending" },
+                  { value: "asc", label: "$$$" },
+                  { value: "desc", label: "$" },
                 ]}
                 defaultValue={"Salary"}
               />
