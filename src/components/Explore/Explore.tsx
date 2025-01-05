@@ -57,7 +57,7 @@ export default function Explore() {
                 label="Experience Level"
                 options={[
                   //dbden gelecek
-                  { value: "entry", label: "Entry" },
+                  { value: "jr", label: "Junior" },
                   { value: "mid", label: "Mid" },
                   { value: "senior", label: "Senior" },
                 ]}
