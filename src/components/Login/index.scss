@@ -1,0 +1,22 @@
+.login {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    &__checkbox {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    &__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.6rem;
+    }
+  }
+}
+.login-modal {
+  width: 40rem;
+}
