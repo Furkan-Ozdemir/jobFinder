@@ -13,3 +13,10 @@ export interface RegisterResponse {
   };
   token: string;
 }
+
+export interface ApiErrorResponse {
+  message: string;
+  code?: string;
+  status: number;
+  details?: Record<string, unknown>;
+}

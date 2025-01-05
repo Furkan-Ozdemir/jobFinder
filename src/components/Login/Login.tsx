@@ -38,7 +38,7 @@ export default function Login({ isOpen, onClose }: Props) {
       localStorage.setItem("authToken", response.data.token);
       onClose();
     } else {
-      //error modellerini de yap
+      //TODO error modellerini de yap
     }
   };
 
