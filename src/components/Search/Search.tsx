@@ -1,3 +1,4 @@
+import Button from "../Button/Button";
 import ClickableTag from "../ClickableTag/ClickableTag";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -109,6 +110,11 @@ export default function Search() {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="search__submit">
+            <Button color="dark" type="submit">
+              Search
+            </Button>
           </div>
         </div>
       </main>
