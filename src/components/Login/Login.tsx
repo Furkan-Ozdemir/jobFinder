@@ -7,6 +7,7 @@ import { ErrorMessage, Form, Formik } from "formik";
 import { object, string } from "yup";
 import { useApiMutation } from "../../hooks/useApi";
 import { RegisterResponse } from "../../models/models";
+import { toast } from "react-toastify";
 
 interface Props {
   isOpen: boolean;
@@ -36,6 +37,8 @@ export default function Login({ isOpen, onClose }: Props) {
     if (response.status === 201) {
       localStorage.setItem("authToken", response.data.token);
       onClose();
+    } else {
+      //error modellerini de yap
     }
   };
 

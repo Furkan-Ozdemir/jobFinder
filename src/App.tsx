@@ -1,3 +1,4 @@
+import { ToastContainer, Zoom } from "react-toastify";
 import Categories from "./components/Categories/Categories";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
@@ -23,6 +24,19 @@ function App() {
       {/* <HorizontalLine /> */}
       {/* <BoostYourCareer /> */}
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Zoom}
+      />
     </QueryClientProvider>
   );
 }
