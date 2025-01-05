@@ -3,13 +3,42 @@ import Button from "../Button/Button";
 import InputField from "../InputField/InputField";
 import "./index.scss";
 import Modal from "../Modal/Modal";
+import { ErrorMessage, Form, Formik } from "formik";
+import { object, string } from "yup";
+import { useApiMutation } from "../../hooks/useApi";
+import { RegisterResponse } from "../../models/models";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
+interface FormValues {
+  email: string;
+  password: string;
+}
+
+const validationSchema = object({
+  email: string().email("Invalid email").required("Email is required"),
+  password: string().required("Password is required"),
+});
+
+const initialValues = {
+  email: "",
+  password: "",
+};
+
 export default function Login({ isOpen, onClose }: Props) {
+  const register = useApiMutation<RegisterResponse>("/auth/login");
+  const handleSubmit = async (values: FormValues) => {
+    const response = await register.mutateAsync(values);
+
+    if (response.status === 201) {
+      localStorage.setItem("authToken", response.data.token);
+      onClose();
+    }
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -18,35 +47,62 @@ export default function Login({ isOpen, onClose }: Props) {
       className="login-modal"
     >
       <div className="login">
-        <form className="login__form">
-          <div>
-            <InputField
-              label="Email"
-              placeholder="Enter your email"
-              id="email"
-            />
-          </div>
-          <div>
-            <InputField
-              label="Password"
-              placeholder="Enter your password"
-              type="password"
-              id="password"
-            />
-          </div>
-          <div className="login__form__bottom">
-            <div className="login__form__checkbox">
-              <input type="checkbox" id="remember-me" />
-              <label htmlFor="remember-me">Remember me</label>
-            </div>
-            <div className="login__form__forgot">
-              <Link to="/reset-password">Forgot password?</Link>
-            </div>
-          </div>
-          <Button color="dark" type="submit">
-            Login
-          </Button>
-        </form>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({
+            values,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <Form className="login__form">
+              <div>
+                <InputField
+                  label="Email"
+                  placeholder="Enter your email"
+                  id="email"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                />
+                <ErrorMessage name="email" component="div" />
+              </div>
+              <div>
+                <InputField
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
+                  id="password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                />
+                <ErrorMessage name="password" component="div" />
+              </div>
+              <div className="login__form__bottom">
+                <div className="login__form__checkbox">
+                  <input type="checkbox" id="remember-me" />
+                  <label htmlFor="remember-me">Remember me</label>
+                </div>
+                <div className="login__form__forgot">
+                  <Link to="/reset-password">Forgot password?</Link>
+                </div>
+              </div>
+              <Button
+                onClick={() => handleSubmit()}
+                color="dark"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Login
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </Modal>
   );
