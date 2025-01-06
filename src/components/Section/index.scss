@@ -1,7 +1,15 @@
-.image-arc {
+.section {
   position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.image-arc {
+  position: absolute;
   width: 100%;
-  top: 10rem;
+  height: 100%;
+  top: 0;
+  left: 0;
   z-index: -1;
 }
 
@@ -19,11 +27,25 @@
   background: white;
   border-radius: 50%;
   box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 1024px) {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 6rem;
+    height: 6rem;
+  }
 }
 
 .image__container-1 {
-  top: 30rem;
+  top: 65%;
   left: 10%;
+
+  @media (max-width: 768px) {
+    left: 5%;
+  }
 
   svg {
     fill: var(--green);
@@ -31,32 +53,49 @@
 }
 
 .image__container-2 {
-  top: 7rem;
+  top: 25%;
   left: 25%;
+
+  @media (max-width: 768px) {
+    left: 15%;
+  }
+
   svg {
     fill: var(--purple);
   }
 }
 
 .image__container-3 {
-  top: 0;
+  top: 15%;
   left: 50%;
+  transform: translateX(-50%);
+
   svg {
     fill: var(--pink);
   }
 }
 
 .image__container-4 {
-  top: 7rem;
+  top: 25%;
   right: 25%;
+
+  @media (max-width: 768px) {
+    right: 15%;
+  }
+
   svg {
     fill: var(--lightblue);
   }
 }
 
 .image__container-5 {
-  top: 30rem;
+  top: 65%;
   right: 10%;
+
+  @media (max-width: 768px) {
+    right: 5%;
+  }
+
   svg {
     fill: var(--yellow);
   }
@@ -65,4 +104,14 @@
 .arc-image {
   width: 6rem;
   height: 6rem;
+
+  @media (max-width: 1024px) {
+    width: 4.8rem;
+    height: 4.8rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 3.6rem;
+    height: 3.6rem;
+  }
 }
