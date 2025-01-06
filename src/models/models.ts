@@ -20,3 +20,8 @@ export interface ApiErrorResponse {
   status: number;
   details?: Record<string, unknown>;
 }
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}

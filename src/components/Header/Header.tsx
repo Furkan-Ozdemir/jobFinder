@@ -2,10 +2,13 @@ import { useState } from "react";
 import Button from "../Button/Button";
 import "./index.scss";
 import Login from "../Login/Login";
+import Register from "../Register/Register";
 
 export default function Header() {
-  const [loginModal, setLoginModal] = useState<boolean>(false);
-
+  const [modals, setModals] = useState<{ login: boolean; register: boolean }>({
+    login: false,
+    register: false,
+  });
   return (
     <>
       <nav className="header">
@@ -37,15 +40,33 @@ export default function Header() {
             <Button
               color="dark"
               type="button"
-              onClick={() => setLoginModal(true)}
+              onClick={() => setModals((prev) => ({ ...prev, login: true }))}
             >
               Log in
             </Button>
           </li>
+          <li>
+            <Button
+              color="dark"
+              type="button"
+              onClick={() => setModals((prev) => ({ ...prev, register: true }))}
+            >
+              Register
+            </Button>
+          </li>
         </ul>
       </nav>
-      {loginModal && (
-        <Login isOpen={loginModal} onClose={() => setLoginModal(false)} />
+      {modals.login && (
+        <Login
+          isOpen={modals.login}
+          onClose={() => setModals({ ...modals, login: false })}
+        />
+      )}
+      {modals.register && (
+        <Register
+          isOpen={modals.register}
+          onClose={() => setModals({ ...modals, register: false })}
+        />
       )}
     </>
   );

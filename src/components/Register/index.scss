@@ -1,0 +1,42 @@
+.register {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    &__checkbox {
+      display: flex;
+      gap: 0.5rem;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    &__role {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &__title {
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+      }
+
+      &__option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        user-select: none;
+        font-size: 1.6rem;
+        input,
+        label {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+.register-modal {
+  width: 40rem;
+}

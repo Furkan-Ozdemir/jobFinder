@@ -36,6 +36,7 @@ function App() {
         pauseOnHover
         theme="dark"
         transition={Zoom}
+        style={{ fontSize: "1.4rem", fontFamily: "Montserrat" }}
       />
     </QueryClientProvider>
   );

@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import InputField from "../InputField/InputField";
 import "./index.scss";
 import Modal from "../Modal/Modal";
-import { ErrorMessage, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, string } from "yup";
 import { useApiMutation } from "../../hooks/useApi";
 import { RegisterResponse } from "../../models/models";
@@ -15,22 +14,30 @@ interface Props {
 }
 
 interface FormValues {
+  fullName: string;
   email: string;
   password: string;
+  personType: string;
 }
 
 const validationSchema = object({
-  email: string().email("Invalid email").required("Email is required"),
-  password: string().required("Password is required"),
+  fullName: string().required("Required"),
+  email: string().email("Invalid email").required("Required"),
+  password: string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Required"),
+  personType: string().required("Required"),
 });
 
 const initialValues = {
+  fullName: "",
   email: "",
   password: "",
+  personType: "",
 };
 
-export default function Login({ isOpen, onClose }: Props) {
-  const register = useApiMutation<RegisterResponse>("/auth/login");
+export default function Register({ isOpen, onClose }: Props) {
+  const register = useApiMutation<RegisterResponse>("/auth/register");
   const handleSubmit = async (values: FormValues) => {
     const response = await register.mutateAsync(values);
 
@@ -38,7 +45,7 @@ export default function Login({ isOpen, onClose }: Props) {
       localStorage.setItem("authToken", response.data.token);
       onClose();
     } else {
-      toast.error("Login failed");
+      toast.error("Registration failed");
     }
   };
 
@@ -46,10 +53,10 @@ export default function Login({ isOpen, onClose }: Props) {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="Login"
-      className="login-modal"
+      title="Register"
+      className="register-modal"
     >
-      <div className="login">
+      <div className="register">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -62,7 +69,22 @@ export default function Login({ isOpen, onClose }: Props) {
             handleSubmit,
             isSubmitting,
           }) => (
-            <Form className="login__form">
+            <Form className="register__form">
+              <div>
+                <InputField
+                  label="Full name"
+                  placeholder="Enter your full name"
+                  id="fullName"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.fullName}
+                />
+                <ErrorMessage
+                  name="fullName"
+                  component="div"
+                  className="error"
+                />
+              </div>
               <div>
                 <InputField
                   label="Email"
@@ -90,22 +112,42 @@ export default function Login({ isOpen, onClose }: Props) {
                   className="error"
                 />
               </div>
-              <div className="login__form__bottom">
-                <div className="login__form__checkbox">
-                  <input type="checkbox" id="remember-me" />
-                  <label htmlFor="remember-me">Remember me</label>
-                </div>
-                <div className="login__form__forgot">
-                  <Link to="/reset-password">Forgot password?</Link>
+              <div>
+                <p className="register__form__role__title">You are a:</p>
+                <div className="register__form__role">
+                  <div className="register__form__role__option">
+                    <Field
+                      type="radio"
+                      name="personType"
+                      value="employer"
+                      id="employer"
+                    />
+                    <label htmlFor="employer">Employer</label>
+                  </div>
+                  <div className="register__form__role__option">
+                    <Field
+                      type="radio"
+                      name="personType"
+                      value="job_seeker"
+                      id="job_seeker"
+                    />
+                    <label htmlFor="job_seeker">Jobseeker</label>
+                  </div>
+                  <ErrorMessage
+                    name="personType"
+                    component="div"
+                    className="error"
+                  />
                 </div>
               </div>
+
               <Button
                 onClick={() => handleSubmit()}
                 color="dark"
                 type="submit"
                 disabled={isSubmitting}
               >
-                Login
+                Register
               </Button>
             </Form>
           )}
