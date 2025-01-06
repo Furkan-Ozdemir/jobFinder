@@ -9,6 +9,12 @@ export default function Header() {
     login: false,
     register: false,
   });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <>
       <nav className="header">
@@ -22,7 +28,19 @@ export default function Header() {
               <h1>JobSnap</h1>
             </span>
           </li>
-          <div className="header__nav__center">
+          <button
+            className="header__nav__mobile-toggle"
+            onClick={toggleMobileMenu}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div
+            className={`header__nav__center ${
+              isMobileMenuOpen ? "mobile-open" : ""
+            }`}
+          >
             <li>
               <a href="/">Home</a>
             </li>
@@ -35,25 +53,31 @@ export default function Header() {
             <li>
               <a href="/search">Search</a>
             </li>
+            <div className="header__nav__buttons">
+              <li>
+                <Button
+                  color="dark"
+                  type="button"
+                  onClick={() =>
+                    setModals((prev) => ({ ...prev, login: true }))
+                  }
+                >
+                  Log in
+                </Button>
+              </li>
+              <li>
+                <Button
+                  color="dark"
+                  type="button"
+                  onClick={() =>
+                    setModals((prev) => ({ ...prev, register: true }))
+                  }
+                >
+                  Register
+                </Button>
+              </li>
+            </div>
           </div>
-          <li>
-            <Button
-              color="dark"
-              type="button"
-              onClick={() => setModals((prev) => ({ ...prev, login: true }))}
-            >
-              Log in
-            </Button>
-          </li>
-          <li>
-            <Button
-              color="dark"
-              type="button"
-              onClick={() => setModals((prev) => ({ ...prev, register: true }))}
-            >
-              Register
-            </Button>
-          </li>
         </ul>
       </nav>
       {modals.login && (

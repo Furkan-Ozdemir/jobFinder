@@ -3,6 +3,37 @@
     height: 6.4rem;
     padding-right: 6.4rem;
     display: flex;
+    position: relative;
+
+    @media (max-width: 768px) {
+      padding-right: 2rem;
+    }
+
+    &__mobile-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 3rem;
+      height: 2.1rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin-left: auto;
+
+      @media (max-width: 768px) {
+        display: flex;
+        align-self: center;
+      }
+
+      span {
+        width: 100%;
+        height: 0.3rem;
+        background-color: #000;
+        border-radius: 0.3rem;
+        transition: all 0.3s ease;
+      }
+    }
 
     &__center {
       display: flex;
@@ -10,24 +41,76 @@
       margin: 0 auto;
       font-size: 1.6rem;
       font-weight: 500;
+      align-items: center;
+
+      @media (max-width: 768px) {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 2rem;
+        background-color: white;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+
+        &.mobile-open {
+          display: flex;
+        }
+      }
+    }
+
+    &__buttons {
+      display: flex;
+      gap: 1.6rem;
+      margin-left: auto;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        width: 100%;
+        margin: 1rem 0;
+        gap: 1rem;
+
+        button {
+          width: 100%;
+          justify-content: center;
+        }
+      }
     }
 
     li {
       align-self: center;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        text-align: center;
+      }
     }
 
     &__logo {
       display: flex;
       gap: 1.5rem;
       margin-left: 6.4rem;
-      svg {
-        width: 24px;
-        height: 24px;
+
+      @media (max-width: 768px) {
+        margin-left: 2rem;
       }
+
+      svg {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+
       h1 {
         font-size: 2.4rem;
         font-weight: 600;
         line-height: 24px;
+
+        @media (max-width: 480px) {
+          font-size: 2rem;
+        }
       }
     }
   }
