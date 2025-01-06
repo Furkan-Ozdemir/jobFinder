@@ -6,31 +6,88 @@
   border: 0.1rem solid var(--black);
   box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
   padding: 3.2rem;
+
+  @media (max-width: 768px) {
+    padding: 2.4rem;
+    gap: 1.6rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.6rem;
+  }
+
   &__upper {
     display: flex;
     justify-content: space-between;
+    gap: 1.6rem;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
 
     &__left {
       display: flex;
       align-items: center;
       gap: 1.6rem;
 
+      @media (max-width: 768px) {
+        gap: 1.2rem;
+      }
+
       &__job {
         color: var(--black);
         font-weight: 700;
         font-size: 2.4rem;
         line-height: 3.1rem;
+
+        @media (max-width: 768px) {
+          font-size: 2rem;
+          line-height: 2.6rem;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 1.8rem;
+          line-height: 2.3rem;
+        }
       }
 
       &__company {
         color: var(--gray);
         font-size: 1.6rem;
         line-height: 2.1rem;
+
+        @media (max-width: 768px) {
+          font-size: 1.4rem;
+          line-height: 1.8rem;
+        }
       }
+
       &__logo {
         background-color: var(--green);
         padding: 0.8rem;
         border-radius: 1.2rem;
+        flex-shrink: 0;
+
+        @media (max-width: 768px) {
+          padding: 0.6rem;
+          border-radius: 1rem;
+
+          svg {
+            width: 28px;
+            height: 28px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          padding: 0.5rem;
+          
+          svg {
+            width: 24px;
+            height: 24px;
+          }
+        }
       }
     }
 
@@ -50,6 +107,17 @@
         font-weight: 600;
         cursor: pointer;
         font-size: 1.6rem;
+
+        @media (max-width: 768px) {
+          font-size: 1.4rem;
+          line-height: 2rem;
+        }
+
+        @media (max-width: 480px) {
+          width: 100%;
+          justify-content: flex-start;
+          padding: 0.8rem 0;
+        }
       }
     }
   }
@@ -59,15 +127,42 @@
     flex-direction: column;
     gap: 3.2rem;
 
+    @media (max-width: 768px) {
+      gap: 2.4rem;
+    }
+
+    @media (max-width: 480px) {
+      gap: 1.6rem;
+    }
+
     &__description {
       font-size: 1.8rem;
       line-height: 2.3rem;
       color: var(--black);
+
+      @media (max-width: 768px) {
+        font-size: 1.6rem;
+        line-height: 2.1rem;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+      }
     }
 
     &__tags {
       display: flex;
       gap: 1.6rem;
+      flex-wrap: wrap;
+
+      @media (max-width: 768px) {
+        gap: 1.2rem;
+      }
+
+      @media (max-width: 480px) {
+        gap: 0.8rem;
+      }
     }
   }
 }

@@ -20,8 +20,8 @@ interface FormValues {
 }
 
 const validationSchema = object({
-  email: string().email("Invalid email").required("Email is required"),
-  password: string().required("Password is required"),
+  email: string().email("Invalid email").required("Required"),
+  password: string().required("Required"),
 });
 
 const initialValues = {
