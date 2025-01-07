@@ -67,7 +67,13 @@ export default function Footer() {
       </nav>
       <p className="hire-me">
         © {new Date().getFullYear()} furco.{" "}
-        <Link to={"https://www.linkedin.com/in/furkan-o-demir/"}>Hire me</Link>
+        <Link
+          to={"https://www.linkedin.com/in/furkan-o-demir/"}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Hire me
+        </Link>
       </p>
     </footer>
   );
