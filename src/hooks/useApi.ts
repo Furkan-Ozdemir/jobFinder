@@ -4,7 +4,7 @@ import {
   UseQueryOptions,
   UseMutationOptions,
 } from "@tanstack/react-query";
-import { axiosInstance, handleApiError, ApiError } from "../lib/api";
+import { axiosInstance, handleApiError } from "../lib/api";
 import { ApiErrorResponse } from "../models/models";
 
 type ApiResponse<T> = {

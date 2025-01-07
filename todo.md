@@ -1,3 +1,4 @@
+-how to employ redux in this project
 -Job posting creation page
 -Add a field during registration to identify whether the user is a job seeker or employer
 -Restrict pages based on user roles, with roles stored in the database
@@ -8,7 +9,7 @@
 -Display a cookie consent warning
 -Adjust the site language based on the browser's language
 -Add a CV pool next to the job posting and show the most compatible candidates
--Implement Google login
 -SEO improvements
 -Add an OG (Open Graph) image for social media previews
 -Disable source map generation
+-dark theme
