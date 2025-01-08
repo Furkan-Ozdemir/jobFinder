@@ -1,9 +1,7 @@
--how to employ redux in this project
 -Job posting creation page
--Add a field during registration to identify whether the user is a job seeker or employer
--Restrict pages based on user roles, with roles stored in the database
--Change the login process to use a code sent to the user's email
 -User profile page
+-Page transitions
+-Restrict pages based on user roles, with roles stored in the database
 -Send emails to registered users
 -Implement advertisements on the website
 -Display a cookie consent warning

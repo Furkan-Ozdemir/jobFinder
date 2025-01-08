@@ -28,9 +28,7 @@ function App() {
         newestOnTop={false}
         closeOnClick={false}
         rtl={false}
-        pauseOnFocusLoss
         draggable
-        pauseOnHover
         theme="dark"
         transition={Zoom}
         style={{ fontSize: "1.4rem", fontFamily: "Montserrat" }}
