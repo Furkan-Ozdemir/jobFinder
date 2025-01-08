@@ -53,7 +53,7 @@ export default function Register({ isOpen, onClose }: Props) {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="Register"
+      title="Sign Up"
       className="register-modal"
     >
       <div className="register">
@@ -147,7 +147,7 @@ export default function Register({ isOpen, onClose }: Props) {
                 type="submit"
                 disabled={isSubmitting}
               >
-                Register
+                Sign Up
               </Button>
             </Form>
           )}

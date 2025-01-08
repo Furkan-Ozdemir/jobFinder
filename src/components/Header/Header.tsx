@@ -3,6 +3,7 @@ import Button from "../Button/Button";
 import "./index.scss";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [modals, setModals] = useState<{ login: boolean; register: boolean }>({
@@ -42,16 +43,16 @@ export default function Header() {
             }`}
           >
             <li>
-              <a href="/">Home</a>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <a href="/explore">Explore</a>
+              <Link to="/explore">Explore</Link>
             </li>
             <li>
-              <a href="/">Post A Job</a>
+              <Link to="/">Post A Job</Link>
             </li>
             <li>
-              <a href="/search">Search</a>
+              <Link to="/search">Search</Link>
             </li>
             <div className="header__nav__buttons">
               <li>
