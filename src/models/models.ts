@@ -25,3 +25,15 @@ export interface LoginRequest {
   email: string;
   password: string;
 }
+
+export interface PostJobRequest {
+  jobTitle: string;
+  aboutCompany: string;
+  roleDescription: string;
+  requirements: string[];
+  responsibilities: string[];
+  jobType: string;
+  experience: string;
+  salesPitch: string;
+  additionalInfo: string;
+}

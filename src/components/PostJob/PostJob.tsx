@@ -8,6 +8,10 @@ import Button from "../Button/Button";
 import * as Yup from "yup";
 import TextArea from "../TextArea/TextArea";
 import Select from "../Select/Select";
+import { PostJobRequest } from "../../models/models";
+import { useApiMutation } from "../../hooks/useApi";
+import { toast } from "react-toastify";
+import React, { useState } from "react";
 
 const initialValues = {
   jobTitle: "",
@@ -18,6 +22,7 @@ const initialValues = {
   jobType: "",
   experience: "",
   salesPitch: "",
+  additionalInfo: "",
 };
 
 const validationSchema = Yup.object().shape({
@@ -33,11 +38,24 @@ const validationSchema = Yup.object().shape({
   jobType: Yup.string().required("Job type is required"),
   experience: Yup.string().required("Experience is required"),
   salesPitch: Yup.string().required("Sales pitch is required"),
+  additionalInfo: Yup.string(),
 });
 
 export default function PostJob() {
-  const handleSubmit = (values: any) => {
-    console.log(values);
+  const [values, setValues] = useState<PostJobRequest>(initialValues);
+
+  const mutation = useApiMutation("/api/job");
+  const handleSubmit = async (values: PostJobRequest) => {
+    try {
+      await toast.promise(mutation.mutateAsync(values), {
+        pending: "Creating job...",
+        success: "Job created successfully",
+        error: "Something went wrong",
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong2");
+    }
   };
 
   return (
@@ -55,7 +73,14 @@ export default function PostJob() {
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
               >
-                {({ handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting,
+                  values: formValues,
+                  setFieldValue,
+                }) => (
                   <Form className="post-job__container__form__container__form">
                     <div>
                       <InputField
@@ -63,8 +88,15 @@ export default function PostJob() {
                         placeholder="Marketing sales representative"
                         required
                         name="jobTitle"
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          handleChange(e);
+                          setValues((prev) => ({
+                            ...prev,
+                            jobTitle: e.target.value,
+                          }));
+                        }}
                         onBlur={handleBlur}
+                        value={formValues.jobTitle}
                       />
                       <ErrorMessage
                         name="jobTitle"
@@ -78,9 +110,18 @@ export default function PostJob() {
                         label="Sales Pitch"
                         placeholder="Join our dynamic team as a Marketing Sales Representative..."
                         required
-                        onChange={handleChange}
+                        onChange={(
+                          e: React.ChangeEvent<HTMLTextAreaElement>
+                        ) => {
+                          handleChange(e);
+                          setValues((prev) => ({
+                            ...prev,
+                            salesPitch: e.target.value,
+                          }));
+                        }}
                         onBlur={handleBlur}
                         id="salesPitch"
+                        value={formValues.salesPitch}
                       />
                       <ErrorMessage
                         name="salesPitch"
@@ -94,9 +135,18 @@ export default function PostJob() {
                         label="About Company"
                         placeholder="Unicorn is a leading tele-comm company..."
                         required
-                        onChange={handleChange}
+                        onChange={(
+                          e: React.ChangeEvent<HTMLTextAreaElement>
+                        ) => {
+                          handleChange(e);
+                          setValues((prev) => ({
+                            ...prev,
+                            aboutCompany: e.target.value,
+                          }));
+                        }}
                         onBlur={handleBlur}
                         id="aboutCompany"
+                        value={formValues.aboutCompany}
                       />
                       <ErrorMessage
                         name="aboutCompany"
@@ -110,9 +160,18 @@ export default function PostJob() {
                         label="Role description"
                         placeholder="As a Marketing Sales Representative..."
                         required
-                        onChange={handleChange}
+                        onChange={(
+                          e: React.ChangeEvent<HTMLTextAreaElement>
+                        ) => {
+                          handleChange(e);
+                          setValues((prev) => ({
+                            ...prev,
+                            roleDescription: e.target.value,
+                          }));
+                        }}
                         onBlur={handleBlur}
                         id="roleDescription"
+                        value={formValues.roleDescription}
                       />
                       <ErrorMessage
                         name="roleDescription"
@@ -128,14 +187,23 @@ export default function PostJob() {
                           label="Job Type"
                           defaultValue=""
                           options={[
-                            { value: "internship", label: "Internship" },
-                            { value: "fullTime", label: "Full Time" },
-                            { value: "partTime", label: "Part Time" },
+                            { value: "Internship", label: "Internship" },
+                            { value: "Full Time", label: "Full Time" },
+                            { value: "Part Time", label: "Part Time" },
                           ]}
-                          onChange={handleChange}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLSelectElement>
+                          ) => {
+                            handleChange(e);
+                            setValues((prev) => ({
+                              ...prev,
+                              [e.target.name]: e.target.value,
+                            }));
+                          }}
                           onBlur={handleBlur}
                           id="jobType"
                           name="jobType"
+                          value={formValues.jobType}
                         />
                         <ErrorMessage
                           name="jobType"
@@ -150,14 +218,23 @@ export default function PostJob() {
                           label="Experience"
                           defaultValue=""
                           options={[
-                            { value: "junior", label: "Junior" },
-                            { value: "mid", label: "Mid" }, //TODO dbden gelecek",,
-                            { value: "senior", label: "Senior" },
+                            { value: "Junior", label: "Junior" },
+                            { value: "Mid", label: "Mid" }, //TODO dbden gelecek",,
+                            { value: "Senior", label: "Senior" },
                           ]}
-                          onChange={handleChange}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLSelectElement>
+                          ) => {
+                            handleChange(e);
+                            setValues((prev) => ({
+                              ...prev,
+                              [e.target.name]: e.target.value,
+                            }));
+                          }}
                           onBlur={handleBlur}
                           id="experience"
                           name="experience"
+                          value={formValues.experience}
                         />
                         <ErrorMessage
                           name="experience"
@@ -184,8 +261,26 @@ export default function PostJob() {
                                         name={`requirements.${index}`}
                                         placeholder="Enter requirement"
                                         required={index === 0}
-                                        onChange={handleChange}
+                                        onChange={(
+                                          e: React.ChangeEvent<HTMLInputElement>
+                                        ) => {
+                                          handleChange(e);
+                                          const newRequirements = [
+                                            ...formValues.requirements,
+                                          ];
+                                          newRequirements[index] =
+                                            e.target.value;
+                                          setFieldValue(
+                                            "requirements",
+                                            newRequirements
+                                          );
+                                          setValues((prev) => ({
+                                            ...prev,
+                                            requirements: newRequirements,
+                                          }));
+                                        }}
                                         onBlur={handleBlur}
+                                        value={formValues.requirements[index]}
                                       />
                                       <ErrorMessage
                                         name={`requirements.${index}`}
@@ -195,7 +290,21 @@ export default function PostJob() {
                                     </div>
                                     {index > 0 && (
                                       <Button
-                                        onClick={() => remove(index)}
+                                        onClick={() => {
+                                          setValues((prev) => ({
+                                            ...prev,
+                                            requirements: [
+                                              ...prev.requirements.slice(
+                                                0,
+                                                index
+                                              ),
+                                              ...prev.requirements.slice(
+                                                index + 1
+                                              ),
+                                            ],
+                                          }));
+                                          return remove(index);
+                                        }}
                                         color="pink"
                                         type="button"
                                       >
@@ -233,7 +342,28 @@ export default function PostJob() {
                                         name={`responsibilities.${index}`}
                                         placeholder="Enter responsibility"
                                         required={index === 0}
-                                        onChange={handleChange}
+                                        onChange={(
+                                          e: React.ChangeEvent<HTMLInputElement>
+                                        ) => {
+                                          handleChange(e);
+                                          const newResponsibilities = [
+                                            ...formValues.responsibilities,
+                                          ];
+                                          newResponsibilities[index] =
+                                            e.target.value;
+                                          setFieldValue(
+                                            "responsibilities",
+                                            newResponsibilities
+                                          );
+                                          setValues((prev) => ({
+                                            ...prev,
+                                            responsibilities:
+                                              newResponsibilities,
+                                          }));
+                                        }}
+                                        value={
+                                          formValues.responsibilities[index]
+                                        }
                                         onBlur={handleBlur}
                                       />
                                       <ErrorMessage
@@ -244,7 +374,21 @@ export default function PostJob() {
                                     </div>
                                     {index > 0 && (
                                       <Button
-                                        onClick={() => remove(index)}
+                                        onClick={() => {
+                                          setValues((prev) => ({
+                                            ...prev,
+                                            responsibilities: [
+                                              ...prev.responsibilities.slice(
+                                                0,
+                                                index
+                                              ),
+                                              ...prev.responsibilities.slice(
+                                                index + 1
+                                              ),
+                                            ],
+                                          }));
+                                          return remove(index);
+                                        }}
                                         color="pink"
                                         type="button"
                                       >
@@ -266,6 +410,30 @@ export default function PostJob() {
                         </FieldArray>
                       </div>
                     </div>
+                    <div>
+                      <TextArea
+                        label="Additional Information"
+                        placeholder="This is a full-time position with competitive..."
+                        name="additionalInfo"
+                        onChange={(
+                          e: React.ChangeEvent<HTMLTextAreaElement>
+                        ) => {
+                          handleChange(e);
+                          setValues((prev) => ({
+                            ...prev,
+                            additionalInfo: e.target.value,
+                          }));
+                        }}
+                        onBlur={handleBlur}
+                        id="additionalInfo"
+                        value={formValues.additionalInfo}
+                      />
+                      <ErrorMessage
+                        name="additionalInfo"
+                        component="div"
+                        className="error"
+                      />
+                    </div>
                     <Button
                       type="submit"
                       color="dark"
@@ -279,7 +447,7 @@ export default function PostJob() {
               </Formik>
             </div>
             <div className="post-job__container__preview">
-              <JobDetail preview />
+              <JobDetail preview previewValues={values} />
             </div>
           </div>
         </div>

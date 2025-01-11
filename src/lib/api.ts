@@ -47,6 +47,7 @@ export interface ApiError {
 }
 
 export const handleApiError = (error: unknown): ApiError => {
+  console.error(error);
   if (axios.isAxiosError(error) && error.response) {
     return {
       message: error.response.data.message || "An error occurred",

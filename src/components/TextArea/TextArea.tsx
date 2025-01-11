@@ -18,7 +18,7 @@ export default function TextArea(props: Props) {
         className="textarea__field"
         placeholder="Enter your description..."
         {...restProps}
-      ></textarea>
+      />
     </div>
   );
 }

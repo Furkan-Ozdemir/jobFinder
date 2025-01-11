@@ -11,7 +11,7 @@ import Button from "../Button/Button";
 type JobDetailProps = {
   apply?: boolean;
   preview?: boolean;
-  previewValues?:{
+  previewValues?: {
     jobTitle: string;
     aboutCompany: string;
     roleDescription: string;
@@ -19,11 +19,13 @@ type JobDetailProps = {
     responsibilities: string[];
     jobType: string;
     experience: string;
-  }
+    salesPitch: string;
+    additionalInfo: string;
+  };
 };
 
 export default function JobDetail(props: JobDetailProps) {
-  const { apply, preview , previewValues} = props;
+  const { apply, preview, previewValues } = props;
   return (
     <div className="container">
       {!preview && <Header />}
@@ -35,7 +37,9 @@ export default function JobDetail(props: JobDetailProps) {
                 <li className="jobDetail__details__breadCrumb__list__item">
                   <Link to="/explore">Explore</Link>
                 </li>
-                <li>{previewValues?.jobTitle || "Marketing sales representative"}</li>
+                <li>
+                  {previewValues?.jobTitle || "Marketing sales representative"}
+                </li>
                 {apply && <li>Apply</li>}
               </ul>
             </div>
@@ -50,7 +54,8 @@ export default function JobDetail(props: JobDetailProps) {
                   </div>
                   <div className="jobDetail__details__company-main__info">
                     <p className="jobDetail__details__company-main__info__job">
-                      {previewValues?.jobTitle || "Marketing sales representative"}
+                      {previewValues?.jobTitle ||
+                        "Marketing sales representative"}
                     </p>
                     <p className="jobDetail__details__company-main__info__company">
                       Company Name
@@ -104,16 +109,31 @@ export default function JobDetail(props: JobDetailProps) {
                   </div>
                   <div className="jobDetail__details__company-main__details__description">
                     <p>
-                      Join our dynamic team as a Marketing Sales Representative,
-                      where you'll leverage your exceptional interpersonal
-                      skills and strategic mindset to drive sales and build
-                      lasting client.
+                      {previewValues?.salesPitch ||
+                        "Join our dynamic team as a Marketing Sales Representative," +
+                          "where you'll leverage your exceptional interpersonal" +
+                          "skills and strategic mindset to drive sales and build" +
+                          "lasting client."}
                     </p>
                   </div>
                   <div className="jobDetail__details__company-main__details__tags">
+                    {/* <JobTag text="Full-time" icon={Wallet} jobDetail />
                     <JobTag text="Full-time" icon={Wallet} jobDetail />
-                    <JobTag text="Full-time" icon={Wallet} jobDetail />
-                    <JobTag text="Full-time" icon={Wallet} jobDetail />
+                    <JobTag text="Full-time" icon={Wallet} jobDetail /> */}
+                    {
+                      <JobTag
+                        text={previewValues?.jobType || "Full-time"}
+                        icon={Wallet}
+                        jobDetail={true}
+                      />
+                    }
+                    {
+                      <JobTag
+                        text={previewValues?.experience || "Junior"}
+                        icon={Wallet}
+                        jobDetail={true}
+                      />
+                    }
                   </div>
                 </div>
               )}
@@ -129,12 +149,13 @@ export default function JobDetail(props: JobDetailProps) {
                     About company
                   </p>
                   <p>
-                    Unicorn is a leading tele-comm company, dedicated to
-                    delivering innovative solutions and driving exceptional
-                    growth in the market. As we expand our team, we are seeking
-                    a highly motivated and results-oriented Marketing Sales
-                    Representative to join us in achieving our ambitious sales
-                    targets and further strengthening our market presence.
+                    {previewValues?.aboutCompany ||
+                      "Unicorn is a leading tele-comm company, dedicated to" +
+                        "delivering innovative solutions and driving exceptional" +
+                        "growth in the market. As we expand our team, we are seeking" +
+                        "a highly motivated and results-oriented Marketing Sales" +
+                        "Representative to join us in achieving our ambitious sales" +
+                        "targets and further strengthening our market presence."}
                   </p>
                 </div>
                 <div className="jobDetail__blabla__container__role">
@@ -142,14 +163,15 @@ export default function JobDetail(props: JobDetailProps) {
                     Role description
                   </p>
                   <p>
-                    As a Marketing Sales Representative, you will play a crucial
-                    role in driving revenue generation and building long-term
-                    client relationships. You will be responsible for
-                    effectively promoting our products/services, identifying new
-                    business opportunities, and converting leads into sales.
-                    Your keen understanding of market trends and customer needs
-                    will enable you to develop and implement strategic sales
-                    plans to maximize our market share and exceed targets.
+                    {previewValues?.roleDescription ||
+                      "As a Marketing Sales Representative, you will play a crucial" +
+                        "role in driving revenue generation and building long-term" +
+                        "client relationships. You will be responsible for" +
+                        "effectively promoting our products/services, identifying new" +
+                        "business opportunities, and converting leads into sales." +
+                        "Your keen understanding of market trends and customer needs" +
+                        "will enable you to develop and implement strategic sales" +
+                        "plans to maximize our market share and exceed targets."}
                   </p>
                 </div>
                 <div className="jobDetail__blabla__container__responsibilities">
@@ -157,11 +179,19 @@ export default function JobDetail(props: JobDetailProps) {
                     Responsibilities
                   </p>
                   <ul>
-                    <li>Develop and implement strategic sales plans</li>
-                    <li>Identify new business opportunities</li>
-                    <li>Build and maintain strong client relationships</li>
-                    <li>Conduct market research and analysis</li>
-                    <li>Meet and exceed sales targets</li>
+                    {(previewValues?.responsibilities &&
+                    previewValues.responsibilities[0] !== ""
+                      ? previewValues.responsibilities
+                      : [
+                          "Develop and implement strategic sales plans",
+                          "Identify new business opportunities",
+                          "Build and maintain strong client relationships",
+                          "Conduct market research and analysis",
+                          "Meet and exceed sales targets",
+                        ]
+                    ).map((item: string) => (
+                      <li key={item}>{item}</li>
+                    ))}
                   </ul>
                 </div>
 
@@ -170,13 +200,19 @@ export default function JobDetail(props: JobDetailProps) {
                     Requirements
                   </p>
                   <ul>
-                    <li>Minimum 2 years of experience in sales</li>
-                    <li>
-                      Proven track record of meeting and exceeding sales targets
-                    </li>
-                    <li>Strong communication and interpersonal skills</li>
-                    <li>Excellent negotiation and persuasion abilities</li>
-                    <li>Ability to work independently and as part of a team</li>
+                    {(previewValues?.requirements &&
+                    previewValues.requirements[0] !== ""
+                      ? previewValues.requirements
+                      : [
+                          "Minimum 2 years of experience in sales",
+                          "Proven track record of meeting and exceeding sales targets",
+                          "Strong communication and interpersonal skills",
+                          "Excellent negotiation and persuasion abilities",
+                          "Ability to work independently and as part of a team",
+                        ]
+                    ).map((item: string) => (
+                      <li key={item}>{item}</li>
+                    ))}
                   </ul>
                 </div>
 
@@ -185,10 +221,8 @@ export default function JobDetail(props: JobDetailProps) {
                     Additional information
                   </p>
                   <p>
-                    This is a full-time position with competitive salary and
-                    benefits package. If you are a results-driven individual
-                    with a passion for sales and a desire to grow your career in
-                    a dynamic environment, we want to hear from you!
+                    {previewValues?.additionalInfo ||
+                      "This is a full-time position with competitive salary and benefits package. If you are a results-driven individual with a passion for sales and a desire to grow your career in a dynamic environment, we want to hear from you!"}
                   </p>
                 </div>
 
