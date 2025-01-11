@@ -46,16 +46,12 @@ export default function PostJob() {
 
   const mutation = useApiMutation("/api/job");
   const handleSubmit = async (values: PostJobRequest) => {
-    try {
-      await toast.promise(mutation.mutateAsync(values), {
-        pending: "Creating job...",
-        success: "Job created successfully",
-        error: "Something went wrong",
-      });
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong2");
-    }
+    //useApiMutation icindeki catch'e giriyor
+    const response = await toast.promise(mutation.mutateAsync(values), {
+      pending: "Creating job...",
+      error: "Something went wrong",
+    });
+    console.log(response);
   };
 
   return (
