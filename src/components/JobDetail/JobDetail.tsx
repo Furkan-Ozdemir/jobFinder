@@ -11,22 +11,31 @@ import Button from "../Button/Button";
 type JobDetailProps = {
   apply?: boolean;
   preview?: boolean;
+  previewValues?:{
+    jobTitle: string;
+    aboutCompany: string;
+    roleDescription: string;
+    requirements: string[];
+    responsibilities: string[];
+    jobType: string;
+    experience: string;
+  }
 };
 
 export default function JobDetail(props: JobDetailProps) {
-  const { apply, preview } = props;
+  const { apply, preview , previewValues} = props;
   return (
     <div className="container">
       {!preview && <Header />}
       <main>
         <div className="jobDetail">
-          <div className="jobDetail__details">
+          <div className={`jobDetail__details ${preview && "preview"}`}>
             <div className="jobDetail__details__breadCrumb">
               <ul className="jobDetail__details__breadCrumb__list">
                 <li className="jobDetail__details__breadCrumb__list__item">
                   <Link to="/explore">Explore</Link>
                 </li>
-                <li>Marketing sales representative</li>
+                <li>{previewValues?.jobTitle || "Marketing sales representative"}</li>
                 {apply && <li>Apply</li>}
               </ul>
             </div>
@@ -41,7 +50,7 @@ export default function JobDetail(props: JobDetailProps) {
                   </div>
                   <div className="jobDetail__details__company-main__info">
                     <p className="jobDetail__details__company-main__info__job">
-                      Marketing sales representative
+                      {previewValues?.jobTitle || "Marketing sales representative"}
                     </p>
                     <p className="jobDetail__details__company-main__info__company">
                       Company Name

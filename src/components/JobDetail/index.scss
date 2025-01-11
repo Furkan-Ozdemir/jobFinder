@@ -1,6 +1,9 @@
 .jobDetail {
   &__details {
     padding: 6.4rem;
+    &.preview {
+      padding-top: 0;
+    }
 
     @media (max-width: 1024px) {
       padding: 4rem;

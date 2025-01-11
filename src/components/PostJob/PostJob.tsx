@@ -17,6 +17,7 @@ const initialValues = {
   responsibilities: [""],
   jobType: "",
   experience: "",
+  salesPitch: "",
 };
 
 const validationSchema = Yup.object().shape({
@@ -31,6 +32,7 @@ const validationSchema = Yup.object().shape({
     .min(1, "At least one responsibility is needed"),
   jobType: Yup.string().required("Job type is required"),
   experience: Yup.string().required("Experience is required"),
+  salesPitch: Yup.string().required("Sales pitch is required"),
 });
 
 export default function PostJob() {
@@ -43,6 +45,9 @@ export default function PostJob() {
       <Header />
       <main>
         <div className="post-job">
+          <h1 className="post-job__title">
+            Create a job posting and live preview it
+          </h1>
           <div className="post-job__container">
             <div className="post-job__container__form__container">
               <Formik
@@ -63,6 +68,22 @@ export default function PostJob() {
                       />
                       <ErrorMessage
                         name="jobTitle"
+                        component="div"
+                        className="error"
+                      />
+                    </div>
+                    <div>
+                      <TextArea
+                        name="salesPitch"
+                        label="Sales Pitch"
+                        placeholder="Join our dynamic team as a Marketing Sales Representative..."
+                        required
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        id="salesPitch"
+                      />
+                      <ErrorMessage
+                        name="salesPitch"
                         component="div"
                         className="error"
                       />
