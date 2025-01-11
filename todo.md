@@ -1,5 +1,12 @@
+mvp icin
+-sirket ayagi
 -Job posting creation page
+-formik fieldarray ile responsibilities ve requirements eklenecek
 -User profile page
+
+basvuran ayagi
+-basvurulan sirketlerin listelenmesi
+
 -Page transitions
 -Restrict pages based on user roles, with roles stored in the database
 -Send emails to registered users

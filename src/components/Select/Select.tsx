@@ -1,17 +1,29 @@
 import "./index.scss";
 
-type SelectProps = {
+type Props = React.HTMLAttributes<HTMLSelectElement> & {
   label: string;
   options: { value: string; label: string }[];
   defaultValue: string;
+  showLabel?: boolean;
+  required?: boolean;
+  name?: string;
 };
 
-export default function Select(props: SelectProps) {
-  const { label, options, defaultValue } = props;
+export default function Select(props: Props) {
+  const { label, options, defaultValue, showLabel, required, name, ...rest } =
+    props;
   return (
     <div className="select">
-      <select className="select__select" name={label}>
-        <option value="" selected>
+      {showLabel && (
+        <label
+          htmlFor={label}
+          className={`select__label ${required && "required"}`}
+        >
+          {label}
+        </label>
+      )}
+      <select className={`select__select `} name={name || label} {...rest}>
+        <option value="" defaultChecked>
           {defaultValue}
         </option>
         {options.map((option) => (

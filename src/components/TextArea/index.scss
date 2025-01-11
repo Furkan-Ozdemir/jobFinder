@@ -1,0 +1,73 @@
+.textarea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  @media (max-width: 768px) {
+    gap: 0.6rem;
+  }
+
+  &__label {
+    color: var(--black);
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 2.1rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.3rem;
+      line-height: 1.6rem;
+    }
+
+    &.required::after {
+      content: "*";
+      color: var(--black);
+    }
+  }
+
+  &__field {
+    outline: none;
+    padding: 1.5rem 1rem;
+    font-size: 1.6rem;
+    color: var(--gray);
+    font-family: inherit;
+    border-radius: 1.6rem;
+    border: 0.1rem solid #dbdbdb;
+    line-height: 2rem;
+    resize: vertical; // Allows resizing vertically
+
+    @media (max-width: 768px) {
+      padding: 1.2rem 0.8rem;
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+      border-radius: 1.2rem;
+    }
+
+    @media (max-width: 480px) {
+      padding: 1rem 0.8rem;
+      font-size: 1.3rem;
+      line-height: 1.6rem;
+      border-radius: 1rem;
+    }
+
+    &::placeholder {
+      color: var(--gray);
+      font-size: 1.6rem;
+      line-height: 2rem;
+
+      @media (max-width: 768px) {
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1.3rem;
+        line-height: 1.6rem;
+      }
+    }
+  }
+}

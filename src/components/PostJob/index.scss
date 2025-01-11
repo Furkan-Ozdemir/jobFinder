@@ -1,0 +1,38 @@
+.post-job {
+  &__container {
+    display: flex;
+
+    &__form {
+      &__container {
+        flex: 1;
+
+        &__form {
+          display: flex;
+          flex-direction: column;
+          gap: 2.4rem;
+        }
+      }
+      &__rows {
+        display: flex;
+        gap: 4rem;
+      }
+    }
+
+    &__preview {
+      width: 50%;
+    }
+  }
+
+  .field-array {
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    &__container {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

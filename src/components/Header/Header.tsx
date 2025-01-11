@@ -49,7 +49,7 @@ export default function Header() {
               <Link to="/explore">Explore</Link>
             </li>
             <li>
-              <Link to="/">Post A Job</Link>
+              <Link to="/post-job">Post A Job</Link>
             </li>
             <li>
               <Link to="/search">Search</Link>

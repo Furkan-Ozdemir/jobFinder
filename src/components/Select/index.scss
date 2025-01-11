@@ -1,4 +1,29 @@
 .select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  &__label {
+    color: var(--black);
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 2.1rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.3rem;
+      line-height: 1.6rem;
+    }
+
+    &.required::after {
+      content: "*";
+      color: var(--black);
+    }
+  }
+
   &__select {
     padding: 1.5rem 1rem;
 

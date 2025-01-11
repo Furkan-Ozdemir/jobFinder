@@ -1,7 +1,7 @@
 import "./index.scss";
 
 type InputFieldProps = {
-  label: string;
+  label?: string;
   required?: boolean;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 

@@ -10,13 +10,14 @@ import Button from "../Button/Button";
 
 type JobDetailProps = {
   apply?: boolean;
+  preview?: boolean;
 };
 
 export default function JobDetail(props: JobDetailProps) {
-  const { apply } = props;
+  const { apply, preview } = props;
   return (
     <div className="container">
-      <Header />
+      {!preview && <Header />}
       <main>
         <div className="jobDetail">
           <div className="jobDetail__details">
@@ -277,7 +278,7 @@ export default function JobDetail(props: JobDetailProps) {
           )}
         </div>
       </main>
-      <Footer />
+      {!preview && <Footer />}
     </div>
   );
 }

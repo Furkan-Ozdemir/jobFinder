@@ -14,4 +14,13 @@
     background-color: transparent;
     color: var(--black);
   }
+
+  &--blue {
+    background-color: var(--blue);
+    color: var(--white);
+  }
+  &--pink {
+    background-color: var(--pink);
+    color: var(--white);
+  }
 }

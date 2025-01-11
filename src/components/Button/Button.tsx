@@ -1,7 +1,7 @@
 import "./index.scss";
 
 type Props = {
-  color: "dark" | "transparent";
+  color: "dark" | "transparent" | "blue" | "pink";
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button({ color, children, className, ...rest }: Props) {
