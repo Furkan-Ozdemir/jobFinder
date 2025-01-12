@@ -4,8 +4,14 @@ import "./index.scss";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { logout, selectIsAuthenticated } from "../../store/slices/authSlice";
+import { toast } from "react-toastify";
 
 export default function Header() {
+  const isLoggedIn = useAppSelector(selectIsAuthenticated);
+  const dispatch = useAppDispatch();
+
   const [modals, setModals] = useState<{ login: boolean; register: boolean }>({
     login: false,
     register: false,
@@ -55,28 +61,64 @@ export default function Header() {
               <Link to="/search">Search</Link>
             </li>
             <div className="header__nav__buttons">
-              <li>
-                <Button
-                  color="dark"
-                  type="button"
-                  onClick={() =>
-                    setModals((prev) => ({ ...prev, login: true }))
-                  }
-                >
-                  Log in
-                </Button>
-              </li>
-              <li>
-                <Button
-                  color="dark"
-                  type="button"
-                  onClick={() =>
-                    setModals((prev) => ({ ...prev, register: true }))
-                  }
-                >
-                  Register
-                </Button>
-              </li>
+              {isLoggedIn ? (
+                <>
+                  <li>
+                    <Button
+                      color="dark"
+                      type="button"
+                      onClick={() => alert("not implemented yet :(")}
+                    >
+                      Profile
+                    </Button>
+                  </li>
+                  <li>
+                    <Button
+                      color="dark"
+                      type="button"
+                      onClick={async () => {
+                        await toast.promise(
+                          new Promise((resolve) => setTimeout(resolve, 500)),
+                          {
+                            pending: "Logging out...",
+                            error: "Something went wrong",
+                            success: "Logged out successfully",
+                          }
+                        );
+
+                        dispatch(logout());
+                      }}
+                    >
+                      Logout
+                    </Button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Button
+                      color="dark"
+                      type="button"
+                      onClick={() =>
+                        setModals((prev) => ({ ...prev, login: true }))
+                      }
+                    >
+                      Log in
+                    </Button>
+                  </li>
+                  <li>
+                    <Button
+                      color="dark"
+                      type="button"
+                      onClick={() =>
+                        setModals((prev) => ({ ...prev, register: true }))
+                      }
+                    >
+                      Register
+                    </Button>
+                  </li>
+                </>
+              )}
             </div>
           </div>
         </ul>

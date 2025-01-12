@@ -1,5 +1,6 @@
 import axios from "axios";
 import { QueryClient } from "@tanstack/react-query";
+import { ApiResponse } from "../models/models";
 
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -7,7 +8,6 @@ export const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
-console.log(import.meta.env);
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("authToken");
@@ -41,21 +41,21 @@ export const queryClient = new QueryClient({
   },
 });
 
-export interface ApiError {
-  message: string;
-  status: number;
-}
-
-export const handleApiError = (error: unknown): ApiError => {
+export const handleApiError = <T>(error: unknown): ApiResponse<T> => {
   console.error(error);
   if (axios.isAxiosError(error) && error.response) {
     return {
-      message: error.response.data.message || "An error occurred",
+      data: null,
       status: error.response.status,
+      error:
+        error.response.data.error ||
+        error.response.data.message ||
+        "An error occurred",
     };
   }
   return {
-    message: "An unexpected error occurred",
+    data: null,
     status: 500,
+    error: "An unexpected error occurred",
   };
 };

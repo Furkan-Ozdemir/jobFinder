@@ -2,11 +2,6 @@ mvp icin
 -sirket ayagi
 -User profile page
 
-    yapildi
-    -formik fieldarray ile responsibilities ve requirements eklenecek
-    -Job posting creation page
-    -Additional info field eklendi
-
 basvuran ayagi
 -basvurulan sirketlerin listelenmesi
 

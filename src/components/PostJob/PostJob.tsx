@@ -8,49 +8,74 @@ import Button from "../Button/Button";
 import * as Yup from "yup";
 import TextArea from "../TextArea/TextArea";
 import Select from "../Select/Select";
-import { PostJobRequest } from "../../models/models";
+import {
+  ApiResponse,
+  PostJobRequest,
+  PostJobResponse,
+} from "../../models/models";
 import { useApiMutation } from "../../hooks/useApi";
 import { toast } from "react-toastify";
 import React, { useState } from "react";
+import { selectCurrentUser } from "../../store/slices/authSlice";
+import { useAppSelector } from "../../store/hooks";
 
 const initialValues = {
-  jobTitle: "",
-  aboutCompany: "",
-  roleDescription: "",
-  requirements: [""],
+  role: "",
+  about_the_company: "",
+  role_description: "",
+  required_skills: [""],
   responsibilities: [""],
-  jobType: "",
-  experience: "",
+  employement_type: "",
+  experience_level: "",
+  work_model: "",
   salesPitch: "",
   additionalInfo: "",
+  company_name: "",
 };
 
 const validationSchema = Yup.object().shape({
-  jobTitle: Yup.string().required("Job title is required"),
-  aboutCompany: Yup.string().required("Company description is required"),
-  roleDescription: Yup.string().required("Role description is required"),
-  requirements: Yup.array()
+  role: Yup.string().required("Job title is required"),
+  about_the_company: Yup.string().required("Company description is required"),
+  role_description: Yup.string().required("Role description is required"),
+  required_skills: Yup.array()
     .of(Yup.string().required("Requirement cannot be empty"))
     .min(1, "At least one requirement is needed"),
   responsibilities: Yup.array()
     .of(Yup.string().required("Responsibility cannot be empty"))
     .min(1, "At least one responsibility is needed"),
-  jobType: Yup.string().required("Job type is required"),
-  experience: Yup.string().required("Experience is required"),
+  employement_type: Yup.string().required("Job type is required"),
+  experience_level: Yup.string().required("Experience is required"),
   salesPitch: Yup.string().required("Sales pitch is required"),
   additionalInfo: Yup.string(),
+  work_model: Yup.string().required("Work model is required"),
 });
 
 export default function PostJob() {
   const [values, setValues] = useState<PostJobRequest>(initialValues);
+  const user = useAppSelector(selectCurrentUser);
 
-  const mutation = useApiMutation("/api/job");
+  const mutation = useApiMutation<PostJobResponse, PostJobRequest>("/api/jobs");
   const handleSubmit = async (values: PostJobRequest) => {
-    const response = await toast.promise(mutation.mutateAsync(values), {
-      pending: "Creating job...",
-      error: "Something went wrong",
-    });
-    console.log(response);
+    try {
+      await toast.promise<ApiResponse<PostJobResponse>>(
+        mutation.mutateAsync({ ...values, company_name: user?.company_name }),
+        {
+          pending: "Creating job...",
+          error: {
+            render({ data }) {
+              return data.error || "Something went wrong";
+            },
+          },
+          success: {
+            render() {
+              return "Job created successfully";
+            },
+          },
+        }
+      );
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
@@ -82,19 +107,19 @@ export default function PostJob() {
                         label="Job title"
                         placeholder="Marketing sales representative"
                         required
-                        name="jobTitle"
+                        name="role"
                         onChange={(e) => {
                           handleChange(e);
                           setValues((prev) => ({
                             ...prev,
-                            jobTitle: e.target.value,
+                            role: e.target.value,
                           }));
                         }}
                         onBlur={handleBlur}
-                        value={formValues.jobTitle}
+                        value={formValues.role}
                       />
                       <ErrorMessage
-                        name="jobTitle"
+                        name="role"
                         component="div"
                         className="error"
                       />
@@ -126,7 +151,7 @@ export default function PostJob() {
                     </div>
                     <div>
                       <TextArea
-                        name="aboutCompany"
+                        name="about_the_company"
                         label="About Company"
                         placeholder="Unicorn is a leading tele-comm company..."
                         required
@@ -136,22 +161,22 @@ export default function PostJob() {
                           handleChange(e);
                           setValues((prev) => ({
                             ...prev,
-                            aboutCompany: e.target.value,
+                            about_the_company: e.target.value,
                           }));
                         }}
                         onBlur={handleBlur}
-                        id="aboutCompany"
-                        value={formValues.aboutCompany}
+                        id="about_the_company"
+                        value={formValues.about_the_company}
                       />
                       <ErrorMessage
-                        name="aboutCompany"
+                        name="about_the_company"
                         component="div"
                         className="error"
                       />
                     </div>
                     <div>
                       <TextArea
-                        name="roleDescription"
+                        name="role_description"
                         label="Role description"
                         placeholder="As a Marketing Sales Representative..."
                         required
@@ -161,15 +186,15 @@ export default function PostJob() {
                           handleChange(e);
                           setValues((prev) => ({
                             ...prev,
-                            roleDescription: e.target.value,
+                            role_description: e.target.value,
                           }));
                         }}
                         onBlur={handleBlur}
-                        id="roleDescription"
-                        value={formValues.roleDescription}
+                        id="role_description"
+                        value={formValues.role_description}
                       />
                       <ErrorMessage
-                        name="roleDescription"
+                        name="role_description"
                         component="div"
                         className="error"
                       />
@@ -196,12 +221,12 @@ export default function PostJob() {
                             }));
                           }}
                           onBlur={handleBlur}
-                          id="jobType"
-                          name="jobType"
-                          value={formValues.jobType}
+                          id="employement_type"
+                          name="employement_type"
+                          value={formValues.employement_type}
                         />
                         <ErrorMessage
-                          name="jobType"
+                          name="employement_type"
                           component="div"
                           className="error"
                         />
@@ -227,12 +252,43 @@ export default function PostJob() {
                             }));
                           }}
                           onBlur={handleBlur}
-                          id="experience"
-                          name="experience"
-                          value={formValues.experience}
+                          id="experience_level"
+                          name="experience_level"
+                          value={formValues.experience_level}
                         />
                         <ErrorMessage
-                          name="experience"
+                          name="experience_level"
+                          component="div"
+                          className="error"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <Select
+                          required
+                          showLabel
+                          label="Work Model"
+                          defaultValue=""
+                          options={[
+                            { value: "Hybrid", label: "Hybrid" },
+                            { value: "Remote", label: "Remote" },
+                            { value: "Onsite", label: "Onsite" },
+                          ]}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLSelectElement>
+                          ) => {
+                            handleChange(e);
+                            setValues((prev) => ({
+                              ...prev,
+                              [e.target.name]: e.target.value,
+                            }));
+                          }}
+                          onBlur={handleBlur}
+                          id="work_model"
+                          name="work_model"
+                          value={formValues.work_model}
+                        />
+                        <ErrorMessage
+                          name="work_model"
                           component="div"
                           className="error"
                         />
@@ -240,11 +296,11 @@ export default function PostJob() {
                     </div>
                     <div className="post-job__container__form__rows">
                       <div className="flex-1">
-                        <FieldArray name="requirements">
+                        <FieldArray name="required_skills">
                           {({ push, remove, form }) => (
                             <div className="field-array__container">
-                              {form.values.requirements.map(
-                                (req: string, index: number) => (
+                              {form.values.required_skills.map(
+                                (_: string, index: number) => (
                                   <div key={index} className="field-array-item">
                                     <div className="flex-1">
                                       <InputField
@@ -253,7 +309,7 @@ export default function PostJob() {
                                             ? "Requirement"
                                             : undefined
                                         }
-                                        name={`requirements.${index}`}
+                                        name={`required_skills.${index}`}
                                         placeholder="Enter requirement"
                                         required={index === 0}
                                         onChange={(
@@ -261,24 +317,26 @@ export default function PostJob() {
                                         ) => {
                                           handleChange(e);
                                           const newRequirements = [
-                                            ...formValues.requirements,
+                                            ...formValues.required_skills,
                                           ];
                                           newRequirements[index] =
                                             e.target.value;
                                           setFieldValue(
-                                            "requirements",
+                                            "required_skills",
                                             newRequirements
                                           );
                                           setValues((prev) => ({
                                             ...prev,
-                                            requirements: newRequirements,
+                                            required_skills: newRequirements,
                                           }));
                                         }}
                                         onBlur={handleBlur}
-                                        value={formValues.requirements[index]}
+                                        value={
+                                          formValues.required_skills[index]
+                                        }
                                       />
                                       <ErrorMessage
-                                        name={`requirements.${index}`}
+                                        name={`required_skills.${index}`}
                                         component="div"
                                         className="error"
                                       />
@@ -288,12 +346,12 @@ export default function PostJob() {
                                         onClick={() => {
                                           setValues((prev) => ({
                                             ...prev,
-                                            requirements: [
-                                              ...prev.requirements.slice(
+                                            required_skills: [
+                                              ...prev.required_skills.slice(
                                                 0,
                                                 index
                                               ),
-                                              ...prev.requirements.slice(
+                                              ...prev.required_skills.slice(
                                                 index + 1
                                               ),
                                             ],
@@ -325,7 +383,7 @@ export default function PostJob() {
                           {({ push, remove, form }) => (
                             <div className="field-array__container">
                               {form.values.responsibilities.map(
-                                (resp: string, index: number) => (
+                                (_: string, index: number) => (
                                   <div key={index} className="field-array-item">
                                     <div className="flex-1">
                                       <InputField

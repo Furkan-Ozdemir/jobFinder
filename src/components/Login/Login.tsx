@@ -41,9 +41,12 @@ export default function Login({ isOpen, onClose }: Props) {
       error: "Something went wrong",
     });
 
-    if (response.status === 201) {
+    if (response.status === 200 && response.data?.data) {
       dispatch(
-        setCredentials({ token: response.data.token, user: response.data.user })
+        setCredentials({
+          token: response.data.data.token,
+          user: response.data.data.user,
+        })
       );
       onClose();
     } else {

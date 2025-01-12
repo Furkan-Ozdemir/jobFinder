@@ -7,21 +7,12 @@ import Wallet from "/assets/images/Wallet.png";
 import HorizontalLine from "../HorizontalLine/HorizontalLine";
 import InputField from "../InputField/InputField";
 import Button from "../Button/Button";
+import { PostJobRequest } from "../../models/models";
 
 type JobDetailProps = {
   apply?: boolean;
   preview?: boolean;
-  previewValues?: {
-    jobTitle: string;
-    aboutCompany: string;
-    roleDescription: string;
-    requirements: string[];
-    responsibilities: string[];
-    jobType: string;
-    experience: string;
-    salesPitch: string;
-    additionalInfo: string;
-  };
+  previewValues?: PostJobRequest;
 };
 
 export default function JobDetail(props: JobDetailProps) {
@@ -38,7 +29,7 @@ export default function JobDetail(props: JobDetailProps) {
                   <Link to="/explore">Explore</Link>
                 </li>
                 <li>
-                  {previewValues?.jobTitle || "Marketing sales representative"}
+                  {previewValues?.role || "Marketing sales representative"}
                 </li>
                 {apply && <li>Apply</li>}
               </ul>
@@ -54,8 +45,7 @@ export default function JobDetail(props: JobDetailProps) {
                   </div>
                   <div className="jobDetail__details__company-main__info">
                     <p className="jobDetail__details__company-main__info__job">
-                      {previewValues?.jobTitle ||
-                        "Marketing sales representative"}
+                      {previewValues?.role || "Marketing sales representative"}
                     </p>
                     <p className="jobDetail__details__company-main__info__company">
                       Company Name
@@ -121,18 +111,24 @@ export default function JobDetail(props: JobDetailProps) {
                     <JobTag text="Full-time" icon={Wallet} jobDetail />
                     <JobTag text="Full-time" icon={Wallet} jobDetail /> */}
                     {
-                      <JobTag
-                        text={previewValues?.jobType || "Full-time"}
-                        icon={Wallet}
-                        jobDetail={true}
-                      />
-                    }
-                    {
-                      <JobTag
-                        text={previewValues?.experience || "Junior"}
-                        icon={Wallet}
-                        jobDetail={true}
-                      />
+                      <>
+                        <JobTag
+                          text={previewValues?.employement_type || "Full-time"}
+                          icon={Wallet}
+                          jobDetail={true}
+                        />
+                        <JobTag
+                          text={previewValues?.experience_level || "Junior"}
+                          icon={Wallet}
+                          jobDetail={true}
+                        />
+
+                        <JobTag
+                          text={previewValues?.work_model || "Hybrid"}
+                          icon={Wallet}
+                          jobDetail={true}
+                        />
+                      </>
                     }
                   </div>
                 </div>
@@ -149,7 +145,7 @@ export default function JobDetail(props: JobDetailProps) {
                     About company
                   </p>
                   <p>
-                    {previewValues?.aboutCompany ||
+                    {previewValues?.about_the_company ||
                       "Unicorn is a leading tele-comm company, dedicated to" +
                         "delivering innovative solutions and driving exceptional" +
                         "growth in the market. As we expand our team, we are seeking" +
@@ -163,7 +159,7 @@ export default function JobDetail(props: JobDetailProps) {
                     Role description
                   </p>
                   <p>
-                    {previewValues?.roleDescription ||
+                    {previewValues?.role_description ||
                       "As a Marketing Sales Representative, you will play a crucial" +
                         "role in driving revenue generation and building long-term" +
                         "client relationships. You will be responsible for" +
@@ -200,9 +196,9 @@ export default function JobDetail(props: JobDetailProps) {
                     Requirements
                   </p>
                   <ul>
-                    {(previewValues?.requirements &&
-                    previewValues.requirements[0] !== ""
-                      ? previewValues.requirements
+                    {(previewValues?.required_skills &&
+                    previewValues.required_skills[0] !== ""
+                      ? previewValues.required_skills
                       : [
                           "Minimum 2 years of experience in sales",
                           "Proven track record of meeting and exceeding sales targets",
