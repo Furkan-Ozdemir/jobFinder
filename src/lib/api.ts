@@ -2,12 +2,12 @@ import axios from "axios";
 import { QueryClient } from "@tanstack/react-query";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
-
+console.log(import.meta.env);
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("authToken");

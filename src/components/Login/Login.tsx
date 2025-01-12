@@ -30,9 +30,12 @@ const initialValues = {
 };
 
 export default function Login({ isOpen, onClose }: Props) {
-  const register = useApiMutation<RegisterResponse>("/auth/login");
+  const register = useApiMutation<RegisterResponse>("/api/auth/login");
   const handleSubmit = async (values: FormValues) => {
-    const response = await register.mutateAsync(values);
+    const response = await toast.promise(register.mutateAsync(values), {
+      pending: "Logging in...",
+      error: "Something went wrong",
+    });
 
     if (response.status === 201) {
       localStorage.setItem("authToken", response.data.token);
