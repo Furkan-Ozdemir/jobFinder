@@ -6,6 +6,7 @@ import JobApply from "./components/JobApply/JobApply";
 import Search from "./components/Search/Search";
 import NotFound from "./components/NotFound/NotFound";
 import PostJob from "./components/PostJob/PostJob";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function AppRoutes() {
   return (
@@ -16,7 +17,14 @@ export default function AppRoutes() {
         <Route path="/job/:id" element={<JobDetail />} />
         <Route path="/job/:id/apply" element={<JobApply />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/post-job" element={<PostJob />} />
+        <Route
+          path="/post-job"
+          element={
+            <ProtectedRoute>
+              <PostJob />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

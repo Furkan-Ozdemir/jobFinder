@@ -5,12 +5,7 @@ export interface RegisterRequest {
   personType: string;
 }
 export interface RegisterResponse {
-  user: {
-    _id: string;
-    fullName: string;
-    email: string;
-    personType: string;
-  };
+  user: User;
   token: string;
 }
 
@@ -36,4 +31,10 @@ export interface PostJobRequest {
   experience: string;
   salesPitch: string;
   additionalInfo: string;
+}
+
+export interface User {
+  fullName: string;
+  email: string;
+  personType: string;
 }

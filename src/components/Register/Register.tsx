@@ -7,6 +7,8 @@ import { object, string } from "yup";
 import { useApiMutation } from "../../hooks/useApi";
 import { RegisterResponse } from "../../models/models";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "../../store/hooks";
+import { setCredentials } from "../../store/slices/authSlice";
 
 interface Props {
   isOpen: boolean;
@@ -37,6 +39,7 @@ const initialValues = {
 };
 
 export default function Register({ isOpen, onClose }: Props) {
+  const dispatch = useAppDispatch();
   const register = useApiMutation<RegisterResponse>("/api/auth/register");
   const handleSubmit = async (values: FormValues) => {
     const response = await toast.promise(register.mutateAsync(values), {
@@ -44,9 +47,13 @@ export default function Register({ isOpen, onClose }: Props) {
       error: "Something went wrong",
     });
 
-    if (response.status !== 201) {
-      toast.error("Registration failed");
+    if (response.status === 201) {
+      dispatch(
+        setCredentials({ token: response.data.token, user: response.data.user })
+      );
       onClose();
+    } else {
+      toast.error("Registration failed");
     }
   };
 

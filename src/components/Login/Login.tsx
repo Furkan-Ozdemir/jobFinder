@@ -8,6 +8,8 @@ import { object, string } from "yup";
 import { useApiMutation } from "../../hooks/useApi";
 import { RegisterResponse } from "../../models/models";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "../../store/hooks";
+import { setCredentials } from "../../store/slices/authSlice";
 
 interface Props {
   isOpen: boolean;
@@ -30,7 +32,9 @@ const initialValues = {
 };
 
 export default function Login({ isOpen, onClose }: Props) {
+  const dispatch = useAppDispatch();
   const register = useApiMutation<RegisterResponse>("/api/auth/login");
+
   const handleSubmit = async (values: FormValues) => {
     const response = await toast.promise(register.mutateAsync(values), {
       pending: "Logging in...",
@@ -38,7 +42,9 @@ export default function Login({ isOpen, onClose }: Props) {
     });
 
     if (response.status === 201) {
-      localStorage.setItem("authToken", response.data.token);
+      dispatch(
+        setCredentials({ token: response.data.token, user: response.data.user })
+      );
       onClose();
     } else {
       toast.error("Login failed");
