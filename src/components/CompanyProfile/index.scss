@@ -1,0 +1,106 @@
+.create-company {
+  &__main {
+    flex: 1;
+    background-color: var(--background-color);
+    padding: 2rem 0;
+  }
+
+  &__container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+}
+
+.company-profile-form {
+  background: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--text-primary);
+  }
+
+  &__content {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  &__location-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    .company-profile-form__remove-btn {
+      margin-top: 1.75rem;
+      padding: 0.5rem 1rem;
+      min-width: auto;
+
+      &__icon {
+        display: none;
+      }
+
+      @media (max-width: 375px) {
+        &__text {
+          display: none;
+        }
+        &__icon {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &__locations {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    padding-top: 2rem;
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+  }
+
+  &__add-btn {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  &__actions {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+
+    button {
+      min-width: 200px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .create-company {
+    &__main {
+      padding: 1rem 0;
+    }
+  }
+
+  .company-profile-form {
+    padding: 1.5rem;
+
+    &__title {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+    }
+  }
+}

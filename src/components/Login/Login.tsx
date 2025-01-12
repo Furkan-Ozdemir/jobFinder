@@ -6,7 +6,7 @@ import Modal from "../Modal/Modal";
 import { ErrorMessage, Form, Formik } from "formik";
 import { object, string } from "yup";
 import { useApiMutation } from "../../hooks/useApi";
-import { RegisterResponse } from "../../models/models";
+import { ApiResponse, RegisterResponse } from "../../models/models";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../store/hooks";
 import { setCredentials } from "../../store/slices/authSlice";
@@ -36,21 +36,35 @@ export default function Login({ isOpen, onClose }: Props) {
   const register = useApiMutation<RegisterResponse>("/api/auth/login");
 
   const handleSubmit = async (values: FormValues) => {
-    const response = await toast.promise(register.mutateAsync(values), {
-      pending: "Logging in...",
-      error: "Something went wrong",
-    });
-
-    if (response.status === 200 && response.data?.data) {
-      dispatch(
-        setCredentials({
-          token: response.data.data.token,
-          user: response.data.data.user,
-        })
+    try {
+      await toast.promise<ApiResponse<RegisterResponse>>(
+        register.mutateAsync(values),
+        {
+          pending: "Logging in...",
+          error: {
+            render({ data }) {
+              return data.error || "Something went wrong";
+            },
+          },
+          success: {
+            render(response) {
+              console.log("response", response);
+              if (response.data.data?.data) {
+                dispatch(
+                  setCredentials({
+                    token: response.data.data.data?.token,
+                    user: response.data.data.data?.user,
+                  })
+                );
+              }
+              onClose();
+              return "Logged in successfully";
+            },
+          },
+        }
       );
-      onClose();
-    } else {
-      toast.error("Login failed");
+    } catch (error) {
+      console.log(error);
     }
   };
 

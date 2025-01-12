@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import "./index.scss";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { logout, selectIsAuthenticated } from "../../store/slices/authSlice";
 import { toast } from "react-toastify";
@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 export default function Header() {
   const isLoggedIn = useAppSelector(selectIsAuthenticated);
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
   const [modals, setModals] = useState<{ login: boolean; register: boolean }>({
     login: false,
     register: false,
@@ -32,7 +32,7 @@ export default function Header() {
                 <path d="M0 0h24v24H0V0z" fill="none"></path>
                 <path d="M14 6V4h-4v2h4zM4 8v11h16V8H4zm16-2c1.11 0 2 .89 2 2v11c0 1.11-.89 2-2 2H4c-1.11 0-2-.89-2-2l.01-11c0-1.11.88-2 1.99-2h4V4c0-1.11.89-2 2-2h4c1.11 0 2 .89 2 2v2h4z"></path>
               </svg>
-              <h1>MVST Jobs</h1>
+              <h1 onClick={() => navigate("/")}>MVST. Jobs</h1>
             </span>
           </li>
           <button

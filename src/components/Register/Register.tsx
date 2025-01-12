@@ -49,7 +49,6 @@ export default function Register({ isOpen, onClose }: Props) {
           pending: "Registering...",
           error: {
             render({ data }) {
-              console.log("data", data);
               return data.error || "Something went wrong";
             },
           },
