@@ -199,7 +199,7 @@ export default function PostJob() {
                         className="error"
                       />
                     </div>
-                    <div className="d-flex gap-4">
+                    <div className="d-flex gap-4 post-job__container__form__container__form__job-type">
                       <div className="flex-1">
                         <Select
                           required
