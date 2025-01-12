@@ -7,6 +7,8 @@ import Search from "./components/Search/Search";
 import NotFound from "./components/NotFound/NotFound";
 import PostJob from "./components/PostJob/PostJob";
 import ProtectedRoute from "./components/ProtectedRoute";
+import EmployerRoute from "./components/EmployerRoute";
+import CreateCompanyProfile from "./components/CompanyProfile/CreateCompanyProfile";
 
 export default function AppRoutes() {
   return (
@@ -23,6 +25,14 @@ export default function AppRoutes() {
             <ProtectedRoute>
               <PostJob />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/create-company"
+          element={
+            <EmployerRoute>
+              <CreateCompanyProfile />
+            </EmployerRoute>
           }
         />
         <Route path="*" element={<NotFound />} />
