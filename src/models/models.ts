@@ -31,7 +31,7 @@ export interface PostJobRequest {
   role_description: string;
   required_skills: string[];
   responsibilities: string[];
-  employement_type: string;
+  employment_type: string;
   experience_level: string;
   work_model: string;
   salesPitch: string;
@@ -46,7 +46,7 @@ export interface Job {
   role_description: string;
   required_skills: string[];
   responsibilities: string[];
-  employement_type: string;
+  employment_type: string;
   experience_level: string;
   work_model: string;
   salesPitch: string;

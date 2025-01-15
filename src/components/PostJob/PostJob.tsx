@@ -25,7 +25,7 @@ const initialValues = {
   role_description: "",
   required_skills: [""],
   responsibilities: [""],
-  employement_type: "",
+  employment_type: "",
   experience_level: "",
   work_model: "",
   salesPitch: "",
@@ -43,7 +43,7 @@ const validationSchema = Yup.object().shape({
   responsibilities: Yup.array()
     .of(Yup.string().required("Responsibility cannot be empty"))
     .min(1, "At least one responsibility is needed"),
-  employement_type: Yup.string().required("Job type is required"),
+  employment_type: Yup.string().required("Job type is required"),
   experience_level: Yup.string().required("Experience is required"),
   salesPitch: Yup.string().required("Sales pitch is required"),
   additionalInfo: Yup.string(),
@@ -221,12 +221,12 @@ export default function PostJob() {
                             }));
                           }}
                           onBlur={handleBlur}
-                          id="employement_type"
-                          name="employement_type"
-                          value={formValues.employement_type}
+                          id="employment_type"
+                          name="employment_type"
+                          value={formValues.employment_type}
                         />
                         <ErrorMessage
-                          name="employement_type"
+                          name="employment_type"
                           component="div"
                           className="error"
                         />

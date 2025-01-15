@@ -113,7 +113,7 @@ export default function JobDetail(props: JobDetailProps) {
                     {
                       <>
                         <JobTag
-                          text={previewValues?.employement_type || "Full-time"}
+                          text={previewValues?.employment_type || "Full-time"}
                           icon={Wallet}
                           jobDetail={true}
                         />

@@ -4,8 +4,6 @@ mvp icin
 
 basvuran ayagi
 
-- ana sayfadaki verilerin dinamik gelmesi
-- imageleri nerede tutulacak
 - basvurulan sirketlerin listelenmesi
 - job search olayi
 - devtoolstan yuklenme olaylarina bakilacak

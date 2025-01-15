@@ -1,3 +1,6 @@
+import { useSearchParams } from "react-router-dom";
+import { useApiQuery } from "../../hooks/useApi";
+import { Job } from "../../models/models";
 import Button from "../Button/Button";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -8,6 +11,16 @@ import Select from "../Select/Select";
 import "./index.scss";
 
 export default function Explore() {
+  const [searchParams] = useSearchParams();
+
+  const title = searchParams.get("title") || "";
+  const location = searchParams.get("location") || "";
+
+  const searchJob = useApiQuery<Job[]>(
+    ["jobs", title, location],
+    `/api/jobs?title=${title}&location=${location}`
+  );
+
   return (
     <>
       <Header />
@@ -82,9 +95,9 @@ export default function Explore() {
             We've found {new Intl.NumberFormat().format(3730)} job postings
           </p>
           {/* //TODO dbden gelecek */}
-          {Array.from({ length: 10 }, (_, i) => i).map((_, i) => (
-            <div className="explore__jobs__job" key={i}>
-              <JobCard />
+          {searchJob.data?.data?.map((job) => (
+            <div className="explore__jobs__job" key={job.id}>
+              <JobCard job={job} />
             </div>
           ))}
           <div className="explore__jobs__load-more">

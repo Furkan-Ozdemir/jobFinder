@@ -2,8 +2,13 @@ import { Link } from "react-router-dom";
 import JobTag from "../JobTag/JobTag";
 import "./index.scss";
 import Wallet from "/assets/images/Wallet.png";
+import { Job } from "../../models/models";
 
-export default function JobCard() {
+interface JobCardProps {
+  job: Job;
+}
+
+export default function JobCard({ job }: JobCardProps) {
   const getCompanycolor = () => {
     const colors = [
       "#bceee0",
@@ -30,14 +35,14 @@ export default function JobCard() {
             </svg>
           </div>
           <div>
-            <div className="job-card__upper__left__job">
-              Sales representative
+            <div className="job-card__upper__left__job">{job.role}</div>
+            <div className="job-card__upper__left__company">
+              {job.company_name}
             </div>
-            <div className="job-card__upper__left__company">Science Inc.</div>
           </div>
         </div>
         <div className="job-card__upper__right">
-          <Link to="/job/1">
+          <Link to={`/job/${job.id}`}>
             <span>apply</span>
             <svg
               height={20}
@@ -54,15 +59,13 @@ export default function JobCard() {
       </div>
       <div className="job-card__lower">
         <div className="job-card__lower__description">
-          Full-time hours with amazing overtime opportunities! Working in
-          supportive environment with great opportunities to grow.
+          {job.role_description}
         </div>
-        <div className="job-card__lower__tags">
-          {/* // TODO taglar backendden gelecek */}
-          <JobTag text="Full-time" icon={Wallet} />
-          <JobTag text="Full-time" icon={Wallet} />
-          <JobTag text="Full-time" icon={Wallet} />
-        </div>
+      </div>
+      <div className="job-card__lower__tags">
+        <JobTag icon={Wallet} text={job.employment_type} />
+        <JobTag icon={Wallet} text={job.experience_level} />
+        <JobTag icon={Wallet} text={job.work_model} />
       </div>
     </div>
   );
