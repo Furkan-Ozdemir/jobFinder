@@ -7,7 +7,13 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>

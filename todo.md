@@ -3,7 +3,13 @@ mvp icin
 -User profile page
 
 basvuran ayagi
--basvurulan sirketlerin listelenmesi
+
+- ana sayfadaki verilerin dinamik gelmesi
+- imageleri nerede tutulacak
+- basvurulan sirketlerin listelenmesi
+- job search olayi
+- devtoolstan yuklenme olaylarina bakilacak
+- aws kubernetes
 
 -Page transitions
 -Restrict pages based on user roles, with roles stored in the database

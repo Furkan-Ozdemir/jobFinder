@@ -62,3 +62,23 @@ export interface User {
   personType: string;
   company_name?: string;
 }
+
+export type JobCategoryResponse = ApiResponse<JobCategory[]>;
+
+export interface JobCategory {
+  _id: string;
+  category_name: string;
+  description: string;
+  total_listings_count: string;
+  img_path: string;
+}
+
+export interface Company {
+  _id: string;
+  company_name: string;
+  address: string;
+  category: string;
+  people_count: number;
+  company_locations: string[];
+  img_path: string;
+}

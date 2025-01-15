@@ -1,14 +1,23 @@
 import Card from "../Card/Card";
 import "./index.scss";
-import DollarSign from "/assets/images/DollarSign.png";
-import Gastronomy from "/assets/images/Gastronomy.png";
-import IT from "/assets/images/IT.png";
-import Marketing from "/assets/images/Marketing.png";
-import Sales from "/assets/images/Sales.png";
-import Tech from "/assets/images/Tech.png";
-import Science from "/assets/images/Science.png";
+import { useApiQuery } from "../../hooks/useApi";
+import { JobCategory } from "../../models/models";
+
+const imageColors = [
+  "blue",
+  "pink",
+  "green",
+  "purple",
+  "lightgreen",
+  "lightblue",
+];
 
 export default function Categories() {
+  const categories = useApiQuery<JobCategory[]>(
+    ["categories"],
+    "/api/categories"
+  );
+
   return (
     <div className="categories">
       <div className="categories__wrapper">
@@ -16,61 +25,18 @@ export default function Categories() {
           Most Popular Categories
         </p>
         <div className="categories__wrapper__container">
-          <Card
-            title="Finance"
-            description="1,720 postings"
-            image={DollarSign}
-            backgroundColor="transparent"
-            imageColor="lightblue"
-          />
-          <Card
-            title="Gastronomy"
-            description="1,720 postings"
-            image={Gastronomy}
-            backgroundColor="transparent"
-            imageColor="pink"
-          />
-          <Card
-            title="IT"
-            description="1,720 postings"
-            image={IT}
-            backgroundColor="transparent"
-            imageColor="green"
-          />
-          <Card
-            title="Marketing"
-            description="1,720 postings"
-            image={Marketing}
-            backgroundColor="transparent"
-            imageColor="yellow"
-          />
-          <Card
-            title="Sales"
-            description="1,720 postings"
-            image={Sales}
-            backgroundColor="transparent"
-            imageColor="purple"
-          />
-          <Card
-            title="Tech"
-            description="1,720 postings"
-            image={Tech}
-            backgroundColor="transparent"
-            imageColor="lightgreen"
-          />
-          <Card
-            title="Science"
-            description="1,720 postings"
-            image={Science}
-            backgroundColor="transparent"
-            imageColor="lightblue"
-          />
-          <Card
-            title="Finance"
-            description="1,720 postings"
-            image="https://dummyimage.com/60"
-            backgroundColor="transparent"
-          />
+          {categories.data?.data?.slice(0, 6).map((category) => (
+            <Card
+              key={category._id}
+              title={category.category_name}
+              description={`${category.total_listings_count} postings`}
+              image={category.img_path}
+              backgroundColor="transparent"
+              imageColor={
+                imageColors[Math.floor(Math.random() * imageColors.length)]
+              }
+            />
+          ))}
         </div>
       </div>
     </div>
