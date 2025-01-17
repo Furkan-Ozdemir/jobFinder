@@ -94,7 +94,6 @@ export default function Explore() {
           <p className="explore__jobs__count">
             We've found {new Intl.NumberFormat().format(3730)} job postings
           </p>
-          {/* //TODO dbden gelecek */}
           {searchJob.data?.data?.map((job) => (
             <div className="explore__jobs__job" key={job.id}>
               <JobCard job={job} />

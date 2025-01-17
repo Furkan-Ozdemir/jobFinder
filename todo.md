@@ -6,6 +6,7 @@ basvuran ayagi
 
 - basvurulan sirketlerin listelenmesi
 - job search olayi
+- job taglere tiklayinca filtrelenmesi
 - devtoolstan yuklenme olaylarina bakilacak
 - aws kubernetes
 
