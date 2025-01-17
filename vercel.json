@@ -2,8 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/index.html",
-      "buildCommand": "npm run build:prod"
+      "destination": "/index.html"
     }
   ]
 }
