@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { useApiQuery } from "../../hooks/useApi";
+import { useApiQuery, usePaginatedApiQuery } from "../../hooks/useApi";
 import {
   DatePosted,
   ExperienceLevel,
@@ -17,17 +17,28 @@ import JobCard from "../JobCard/JobCard";
 import Select from "../Select/Select";
 import "./index.scss";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
+import { useEffect, useState } from "react";
 
 export default function Explore() {
   const [searchParams] = useSearchParams();
 
   const title = searchParams.get("title") || "";
   const location = searchParams.get("location") || "";
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalJobs, setTotalJobs] = useState<Job[]>([]);
 
-  const searchJob = useApiQuery<Job[]>(
+  const searchJob = usePaginatedApiQuery<Job[]>(
     ["jobs", title, location],
-    `/api/jobs?title=${title}&location=${location}`
+    `/api/jobs?title=${title}&location=${location}`,
+    { page: currentPage, limit: 10 }
   );
+
+  useEffect(() => {
+    if (searchJob.data) {
+      setTotalJobs((prev) => [...prev, ...searchJob.data.data]);
+    }
+  }, [searchJob.data]);
+
   const jobTypes = useApiQuery<JobType[]>(
     ["jobType"],
     `/api/filters/job-types`
@@ -125,19 +136,29 @@ export default function Explore() {
         <div className="explore__jobs">
           <p className="explore__jobs__count">
             <span>We've found </span>
-            {new Intl.NumberFormat().format(searchJob.data?.data?.length ?? 0)}
+            {new Intl.NumberFormat().format(totalJobs.length)}
             <span> job postings</span>
           </p>
           {searchJob.isFetching && <LoadingIndicator />}
-          {searchJob.data?.data?.map((job) => (
+          {totalJobs.map((job) => (
             <div className="explore__jobs__job" key={job._id}>
               <JobCard job={job} />
             </div>
           ))}
           <div className="explore__jobs__load-more">
-            <Button color="dark" type="button">
-              Load More
-            </Button>
+            {searchJob.data?.metadata.totalPages === currentPage ? (
+              <Button color="blue" type="button" disabled>
+                No more job postings to show :(
+              </Button>
+            ) : (
+              <Button
+                color="dark"
+                type="button"
+                onClick={() => setCurrentPage((prev) => prev + 1)}
+              >
+                {searchJob.isFetching ? <LoadingIndicator /> : "Load more jobs"}
+              </Button>
+            )}
           </div>
         </div>
       </div>

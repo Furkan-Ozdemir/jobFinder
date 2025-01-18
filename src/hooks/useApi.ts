@@ -5,7 +5,16 @@ import {
   UseMutationOptions,
 } from "@tanstack/react-query";
 import { axiosInstance, handleApiError } from "../lib/api";
-import { ApiResponse } from "../models/models";
+import {
+  ApiResponse,
+  PaginatedApiResponse,
+  PaginationMetadata,
+} from "../models/models";
+
+export interface PaginationParams {
+  page?: number;
+  limit?: number;
+}
 
 export const useApiQuery = <TData = unknown>(
   queryKey: string[],
@@ -27,6 +36,43 @@ export const useApiQuery = <TData = unknown>(
         };
       } catch (error) {
         throw handleApiError<TData>(error);
+      }
+    },
+    ...options,
+  });
+};
+
+export const usePaginatedApiQuery = <TData = unknown>(
+  queryKey: string[],
+  url: string,
+  pagination?: PaginationParams,
+  options?: Omit<
+    UseQueryOptions<PaginatedApiResponse<TData>, PaginatedApiResponse<TData>>,
+    "queryKey" | "queryFn"
+  >
+) => {
+  const finalUrl = new URL(url, window.location.origin);
+  if (pagination?.page !== undefined) {
+    finalUrl.searchParams.set("page", pagination.page.toString());
+  }
+  if (pagination?.limit !== undefined) {
+    finalUrl.searchParams.set("limit", pagination.limit.toString());
+  }
+
+  return useQuery<PaginatedApiResponse<TData>, PaginatedApiResponse<TData>>({
+    queryKey: [...queryKey, pagination?.page, pagination?.limit],
+    queryFn: async () => {
+      try {
+        const response = await axiosInstance.get<{
+          data: TData;
+          metadata: PaginationMetadata;
+        }>(finalUrl.pathname + finalUrl.search);
+        return {
+          data: response.data.data,
+          metadata: response.data.metadata,
+        };
+      } catch (error) {
+        throw handleApiError<TData[]>(error);
       }
     },
     ...options,

@@ -94,3 +94,15 @@ export type ExperienceLevel = Filters;
 export type LocationType = Filters;
 export type DatePosted = Filters;
 export type Salary = Filters;
+
+export interface PaginationMetadata {
+  total: number;
+  page: number;
+  totalPages: number;
+  limit: number;
+}
+
+export interface PaginatedApiResponse<T> {
+  data: T;
+  metadata: PaginationMetadata;
+}
