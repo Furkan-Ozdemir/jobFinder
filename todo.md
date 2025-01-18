@@ -4,6 +4,7 @@ mvp icin
 
 basvuran ayagi
 
+- Create different models for requests that has pagination.
 - basvurulan sirketlerin listelenmesi
 - job search olayi
 - job taglere tiklayinca filtrelenmesi
