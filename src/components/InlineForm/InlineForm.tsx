@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function InlineForm() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const [title, setTitle] = useState<string>(searchParams.get("title") || "");
   const [location, setLocation] = useState<string>(
@@ -19,7 +19,6 @@ export default function InlineForm() {
     if (currentPath === "/") {
       navigate(`/explore?title=${title}&location=${location}`);
     }
-    setSearchParams({ title, location });
   };
   return (
     <form className="form">
