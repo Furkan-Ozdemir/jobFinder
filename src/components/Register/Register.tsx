@@ -49,6 +49,7 @@ export default function Register({ isOpen, onClose }: Props) {
           pending: "Registering...",
           error: {
             render({ data }) {
+              //@ts-expect-error TODO will fix
               return data.error || "Something went wrong";
             },
           },

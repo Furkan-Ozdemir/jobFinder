@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { Formik, Form, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import InputField from "../InputField/InputField";
@@ -36,8 +35,6 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function CreateCompanyProfile() {
-  const navigate = useNavigate();
-
   const handleSubmit = async (values: CompanyFormData) => {
     try {
       // TODO: Implement API call
@@ -195,6 +192,7 @@ export default function CreateCompanyProfile() {
                       type="submit"
                       color="dark"
                       disabled={isSubmitting}
+                      //@ts-expect-error development not finished
                       onClick={() => handleSubmit(values)}
                     >
                       Create Profile

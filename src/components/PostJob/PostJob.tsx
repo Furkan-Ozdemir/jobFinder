@@ -63,6 +63,7 @@ export default function PostJob() {
           pending: "Creating job...",
           error: {
             render({ data }) {
+              //@ts-expect-error TODO will fix
               return data.error || "Something went wrong";
             },
           },

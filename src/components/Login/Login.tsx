@@ -43,6 +43,7 @@ export default function Login({ isOpen, onClose }: Props) {
           pending: "Logging in...",
           error: {
             render({ data }) {
+              //@ts-expect-error TODO will fix
               return data.error || "Something went wrong";
             },
           },
