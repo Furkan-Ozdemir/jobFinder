@@ -42,7 +42,7 @@ export default function JobCard({ job }: JobCardProps) {
           </div>
         </div>
         <div className="job-card__upper__right">
-          <Link to={`/job/${job.id}`}>
+          <Link to={`/job/${job._id}`}>
             <span>apply</span>
             <svg
               height={20}

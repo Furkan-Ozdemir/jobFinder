@@ -18,6 +18,5 @@ basvuran ayagi
 -Adjust the site language based on the browser's language
 -Add a CV pool next to the job posting and show the most compatible candidates
 -SEO improvements
--Add an OG (Open Graph) image for social media previews
 -Disable source map generation
 -dark theme

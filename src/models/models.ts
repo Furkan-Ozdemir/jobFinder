@@ -40,7 +40,7 @@ export interface PostJobRequest {
 }
 
 export interface Job {
-  id: string;
+  _id: string;
   role: string;
   about_the_company: string;
   role_description: string;

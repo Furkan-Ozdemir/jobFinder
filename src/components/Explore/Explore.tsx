@@ -130,7 +130,7 @@ export default function Explore() {
           </p>
           {searchJob.isFetching && <LoadingIndicator />}
           {searchJob.data?.data?.map((job) => (
-            <div className="explore__jobs__job" key={job.id}>
+            <div className="explore__jobs__job" key={job._id}>
               <JobCard job={job} />
             </div>
           ))}
