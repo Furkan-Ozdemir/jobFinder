@@ -9,6 +9,7 @@ import InlineForm from "../InlineForm/InlineForm";
 import JobCard from "../JobCard/JobCard";
 import Select from "../Select/Select";
 import "./index.scss";
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 export default function Explore() {
   const [searchParams] = useSearchParams();
@@ -92,8 +93,11 @@ export default function Explore() {
         <HorizontalLine />
         <div className="explore__jobs">
           <p className="explore__jobs__count">
-            We've found {new Intl.NumberFormat().format(3730)} job postings
+            We've found{" "}
+            {new Intl.NumberFormat().format(searchJob.data?.data?.length ?? 0)}{" "}
+            job postings
           </p>
+          {searchJob.isFetching && <LoadingIndicator />}
           {searchJob.data?.data?.map((job) => (
             <div className="explore__jobs__job" key={job.id}>
               <JobCard job={job} />
