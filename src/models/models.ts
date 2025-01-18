@@ -82,3 +82,15 @@ export interface Company {
   company_locations: string[];
   img_path: string;
 }
+
+export interface Filters {
+  _id: string;
+  value: string;
+  label: string;
+}
+
+export type JobType = Filters;
+export type ExperienceLevel = Filters;
+export type LocationType = Filters;
+export type DatePosted = Filters;
+export type Salary = Filters;

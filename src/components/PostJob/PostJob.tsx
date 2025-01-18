@@ -10,10 +10,11 @@ import TextArea from "../TextArea/TextArea";
 import Select from "../Select/Select";
 import {
   ApiResponse,
+  ExperienceLevel,
   PostJobRequest,
   PostJobResponse,
 } from "../../models/models";
-import { useApiMutation } from "../../hooks/useApi";
+import { useApiMutation, useApiQuery } from "../../hooks/useApi";
 import { toast } from "react-toastify";
 import React, { useState } from "react";
 import { selectCurrentUser } from "../../store/slices/authSlice";
@@ -53,6 +54,10 @@ const validationSchema = Yup.object().shape({
 export default function PostJob() {
   const [values, setValues] = useState<PostJobRequest>(initialValues);
   const user = useAppSelector(selectCurrentUser);
+  const experienceLevels = useApiQuery<ExperienceLevel[]>(
+    ["experienceLevel"],
+    `/api/filters/experience-levels`
+  );
 
   const mutation = useApiMutation<PostJobResponse, PostJobRequest>("/api/jobs");
   const handleSubmit = async (values: PostJobRequest) => {
@@ -238,11 +243,14 @@ export default function PostJob() {
                           showLabel
                           label="Experience"
                           defaultValue=""
-                          options={[
-                            { value: "Junior", label: "Junior" },
-                            { value: "Mid", label: "Mid" }, //TODO dbden gelecek",,
-                            { value: "Senior", label: "Senior" },
-                          ]}
+                          options={
+                            experienceLevels.data?.data?.map(
+                              (experienceLevel) => ({
+                                value: experienceLevel.value,
+                                label: experienceLevel.label,
+                              })
+                            ) || []
+                          }
                           onChange={(
                             e: React.ChangeEvent<HTMLSelectElement>
                           ) => {

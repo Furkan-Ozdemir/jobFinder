@@ -1,6 +1,13 @@
 import { useSearchParams } from "react-router-dom";
 import { useApiQuery } from "../../hooks/useApi";
-import { Job } from "../../models/models";
+import {
+  DatePosted,
+  ExperienceLevel,
+  Job,
+  JobType,
+  LocationType,
+  Salary,
+} from "../../models/models";
 import Button from "../Button/Button";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -21,6 +28,28 @@ export default function Explore() {
     ["jobs", title, location],
     `/api/jobs?title=${title}&location=${location}`
   );
+  const jobTypes = useApiQuery<JobType[]>(
+    ["jobType"],
+    `/api/filters/job-types`
+  );
+  const experienceLevels = useApiQuery<ExperienceLevel[]>(
+    ["experienceLevel"],
+    `/api/filters/experience-levels`
+  );
+
+  const locationTypes = useApiQuery<LocationType[]>(
+    ["locationType"],
+    `/api/filters/location-types`
+  );
+
+  const datePosted = useApiQuery<DatePosted[]>(
+    ["datePosted"],
+    `/api/filters/date-posted`
+  );
+  const salary = useApiQuery<Salary[]>(
+    ["salary"],
+    `/api/filters/salary-ranges`
+  );
 
   return (
     <>
@@ -40,52 +69,54 @@ export default function Explore() {
             <div className="explore__wrapper__container__filter__categories">
               <Select
                 label="Date Posted"
-                options={[
-                  //dbden gelecek
-                  { value: "oldest", label: "Oldest" },
-                  { value: "newest", label: "Newest" },
-                ]}
+                options={
+                  datePosted.data?.data?.map((date) => ({
+                    value: date.value,
+                    label: date.label,
+                  })) || []
+                }
                 defaultValue={"Date Posted"}
               />
               <Select
                 label="Salary"
-                options={[
-                  //dbden gelecek
-                  { value: "asc", label: "$$$" },
-                  { value: "desc", label: "$" },
-                ]}
+                options={
+                  salary.data?.data?.map((salary) => ({
+                    value: salary.value,
+                    label: salary.label,
+                  })) || []
+                }
                 defaultValue={"Salary"}
               />
               <Select
                 label="Job Type"
-                options={[
-                  //dbden gelecek
-                  { value: "full-time", label: "Full-time" },
-                  { value: "part-time", label: "Part-time" },
-                  { value: "internship", label: "Internship" },
-                ]}
+                options={
+                  jobTypes.data?.data?.map((jobType) => ({
+                    value: jobType.value,
+                    label: jobType.label,
+                  })) || []
+                }
                 defaultValue={"Job Type"}
               />
 
               <Select
                 label="Experience Level"
-                options={[
-                  //dbden gelecek
-                  { value: "jr", label: "Junior" },
-                  { value: "mid", label: "Mid" },
-                  { value: "senior", label: "Senior" },
-                ]}
+                options={
+                  experienceLevels.data?.data?.map((experienceLevel) => ({
+                    value: experienceLevel.value,
+                    label: experienceLevel.label,
+                  })) || []
+                }
                 defaultValue={"Experience Level"}
               />
               <Select
                 label="Location"
-                options={[
-                  //dbden gelecek
-                  { value: "remote", label: "Remote" },
-                  { value: "office", label: "Office" },
-                  { value: "hybrid", label: "Hybrid" },
-                ]}
-                defaultValue={"On-site/Remote"}
+                options={
+                  locationTypes.data?.data?.map((locationType) => ({
+                    value: locationType.value,
+                    label: locationType.label,
+                  })) || []
+                }
+                defaultValue={"Location"}
               />
             </div>
           </div>
@@ -93,9 +124,9 @@ export default function Explore() {
         <HorizontalLine />
         <div className="explore__jobs">
           <p className="explore__jobs__count">
-            We've found{" "}
-            {new Intl.NumberFormat().format(searchJob.data?.data?.length ?? 0)}{" "}
-            job postings
+            <span>We've found </span>
+            {new Intl.NumberFormat().format(searchJob.data?.data?.length ?? 0)}
+            <span> job postings</span>
           </p>
           {searchJob.isFetching && <LoadingIndicator />}
           {searchJob.data?.data?.map((job) => (

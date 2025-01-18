@@ -78,6 +78,7 @@ export default function Search() {
                 <Select
                   label="Salary range"
                   options={[
+                    //TODO make dynamic
                     { value: "1", label: "0-30k" },
                     { value: "2", label: "30k-60k" },
                     { value: "3", label: "60k-90k" },
