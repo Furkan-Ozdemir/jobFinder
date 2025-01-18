@@ -6,7 +6,6 @@ basvuran ayagi
 
 - basvurulan sirketlerin listelenmesi
 - job search olayi
-- job taglere tiklayinca filtrelenmesi
 - is veren basvurulari goruntuleyebilsin, cvler aws s3 dan yuklenir
 - devtoolstan yuklenme olaylarina bakilacak
 - ispanyolxa ve almanca ceviri

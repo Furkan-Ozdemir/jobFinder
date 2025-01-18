@@ -26,6 +26,14 @@ export default function Explore() {
   const location = searchParams.get("location") || "";
   const [currentPage, setCurrentPage] = useState(1);
   const [totalJobs, setTotalJobs] = useState<Job[]>([]);
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>(totalJobs);
+  const [currentFilters, setCurrentFilters] = useState({
+    jobType: "",
+    experienceLevel: "",
+    locationType: "",
+    datePosted: "",
+    salary: "",
+  });
 
   const searchJob = usePaginatedApiQuery<Job[]>(
     ["jobs", title, location],
@@ -39,7 +47,7 @@ export default function Explore() {
     }
   }, [searchJob.data]);
 
-  const jobTypes = useApiQuery<JobType[]>(
+  const employmentTypes = useApiQuery<JobType[]>(
     ["jobType"],
     `/api/filters/job-types`
   );
@@ -48,8 +56,8 @@ export default function Explore() {
     `/api/filters/experience-levels`
   );
 
-  const locationTypes = useApiQuery<LocationType[]>(
-    ["locationType"],
+  const workModels = useApiQuery<LocationType[]>(
+    ["workModel"],
     `/api/filters/location-types`
   );
 
@@ -61,6 +69,35 @@ export default function Explore() {
     ["salary"],
     `/api/filters/salary-ranges`
   );
+
+  const filterJobs = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newFilters = {
+      ...currentFilters,
+      [e.target.name]: e.target.value,
+    };
+    setCurrentFilters(newFilters);
+
+    let filtered = totalJobs;
+    Object.entries(newFilters).forEach(([key, value]) => {
+      if (value) {
+        filtered = filtered.filter((job) => {
+          const jobValue = job[key as keyof Job];
+          if (typeof jobValue === "string") {
+            return jobValue.toLowerCase() === value.toLowerCase();
+          }
+          return false;
+        });
+      }
+    });
+
+    setFilteredJobs(filtered);
+  };
+
+  useEffect(() => {
+    filterJobs({
+      target: { name: "", value: "" },
+    } as React.ChangeEvent<HTMLSelectElement>);
+  }, [totalJobs]);
 
   return (
     <>
@@ -78,8 +115,10 @@ export default function Explore() {
               Filter By:
             </span>
             <div className="explore__wrapper__container__filter__categories">
+              {/* TODO Joblarin date i yok */}
               <Select
                 label="Date Posted"
+                name="datePosted"
                 options={
                   datePosted.data?.data?.map((date) => ({
                     value: date.value,
@@ -87,9 +126,12 @@ export default function Explore() {
                   })) || []
                 }
                 defaultValue={"Date Posted"}
+                onChange={filterJobs}
               />
+              {/* TODO Salary i yok */}
               <Select
                 label="Salary"
+                name="salary"
                 options={
                   salary.data?.data?.map((salary) => ({
                     value: salary.value,
@@ -97,20 +139,24 @@ export default function Explore() {
                   })) || []
                 }
                 defaultValue={"Salary"}
+                onChange={filterJobs}
               />
               <Select
-                label="Job Type"
+                label="Employment Type"
+                name="employment_type"
                 options={
-                  jobTypes.data?.data?.map((jobType) => ({
-                    value: jobType.value,
-                    label: jobType.label,
+                  employmentTypes.data?.data?.map((employmentType) => ({
+                    value: employmentType.value,
+                    label: employmentType.label,
                   })) || []
                 }
-                defaultValue={"Job Type"}
+                defaultValue={"Employment Type"}
+                onChange={filterJobs}
               />
 
               <Select
                 label="Experience Level"
+                name="experience_level"
                 options={
                   experienceLevels.data?.data?.map((experienceLevel) => ({
                     value: experienceLevel.value,
@@ -118,16 +164,19 @@ export default function Explore() {
                   })) || []
                 }
                 defaultValue={"Experience Level"}
+                onChange={filterJobs}
               />
               <Select
-                label="Location"
+                label="Work Model"
+                name="work_model"
                 options={
-                  locationTypes.data?.data?.map((locationType) => ({
-                    value: locationType.value,
-                    label: locationType.label,
+                  workModels.data?.data?.map((workModel) => ({
+                    value: workModel.value,
+                    label: workModel.label,
                   })) || []
                 }
-                defaultValue={"Location"}
+                defaultValue={"Work Model"}
+                onChange={filterJobs}
               />
             </div>
           </div>
@@ -136,11 +185,11 @@ export default function Explore() {
         <div className="explore__jobs">
           <p className="explore__jobs__count">
             <span>We've found </span>
-            {new Intl.NumberFormat().format(totalJobs.length)}
+            {new Intl.NumberFormat().format(filteredJobs.length)}
             <span> job postings</span>
           </p>
           {searchJob.isFetching && <LoadingIndicator />}
-          {totalJobs.map((job) => (
+          {filteredJobs.map((job) => (
             <div className="explore__jobs__job" key={job._id}>
               <JobCard job={job} />
             </div>
