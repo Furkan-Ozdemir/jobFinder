@@ -242,41 +242,43 @@ export default function Search() {
             </Button>
           </div>
 
-          <div className="explore__jobs">
-            <p className="explore__jobs__count">
-              <span>We've found </span>
-              {new Intl.NumberFormat().format(paginationData.totalItems)}
-              <span> job postings</span>
-            </p>
-            {advancedSearchResults.isLoading && <LoadingIndicator />}
-            {paginationData.currentItems?.map((job) => (
-              <div className="explore__jobs__job" key={job._id}>
-                <JobCard job={job} />
-              </div>
-            ))}
+          {paginationData.totalItems > 0 && (
+            <div className="explore__jobs">
+              <p className="explore__jobs__count">
+                <span>We've found </span>
+                {new Intl.NumberFormat().format(paginationData.totalItems)}
+                <span> job postings</span>
+              </p>
+              {advancedSearchResults.isLoading && <LoadingIndicator />}
+              {paginationData.currentItems?.map((job) => (
+                <div className="explore__jobs__job" key={job._id}>
+                  <JobCard job={job} />
+                </div>
+              ))}
 
-            {paginationData.totalPages > 1 && (
-              <div className="search__pagination">
-                <Button
-                  color="dark"
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                >
-                  Previous
-                </Button>
-                <span className="pagination__info">
-                  Page {currentPage} of {paginationData.totalPages}
-                </span>
-                <Button
-                  color="dark"
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === paginationData.totalPages}
-                >
-                  Next
-                </Button>
-              </div>
-            )}
-          </div>
+              {paginationData.totalPages > 1 && (
+                <div className="search__pagination">
+                  <Button
+                    color="dark"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    Previous
+                  </Button>
+                  <span className="pagination__info">
+                    Page {currentPage} of {paginationData.totalPages}
+                  </span>
+                  <Button
+                    color="dark"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === paginationData.totalPages}
+                  >
+                    Next
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </main>
       <Footer />

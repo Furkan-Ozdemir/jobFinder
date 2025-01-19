@@ -1,5 +1,4 @@
 import axios from "axios";
-import { QueryClient } from "@tanstack/react-query";
 import { ApiResponse } from "../models/models";
 
 export const axiosInstance = axios.create({
@@ -31,15 +30,6 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    },
-  },
-});
 
 export const handleApiError = <T>(error: unknown): ApiResponse<T> => {
   console.error(error);
