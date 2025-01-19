@@ -11,6 +11,7 @@ import Select from "../Select/Select";
 import {
   ApiResponse,
   ExperienceLevel,
+  WorkModelType,
   PostJobRequest,
   PostJobResponse,
 } from "../../models/models";
@@ -57,6 +58,11 @@ export default function PostJob() {
   const experienceLevels = useApiQuery<ExperienceLevel[]>(
     ["experienceLevel"],
     `/api/filters/experience-levels`
+  );
+
+  const workModels = useApiQuery<WorkModelType[]>(
+    ["workModel"],
+    `/api/filters/work-models`
   );
 
   const mutation = useApiMutation<PostJobResponse, PostJobRequest>("/api/jobs");
@@ -277,11 +283,12 @@ export default function PostJob() {
                           showLabel
                           label="Work Model"
                           defaultValue=""
-                          options={[
-                            { value: "Hybrid", label: "Hybrid" },
-                            { value: "Remote", label: "Remote" },
-                            { value: "Onsite", label: "Onsite" },
-                          ]}
+                          options={
+                            workModels.data?.data?.map((workModel) => ({
+                              value: workModel.value,
+                              label: workModel.label,
+                            })) || []
+                          }
                           onChange={(
                             e: React.ChangeEvent<HTMLSelectElement>
                           ) => {

@@ -91,7 +91,7 @@ export interface Filters {
 
 export type JobType = Filters;
 export type ExperienceLevel = Filters;
-export type LocationType = Filters;
+export type WorkModelType = Filters;
 export type DatePosted = Filters;
 export type Salary = Filters;
 

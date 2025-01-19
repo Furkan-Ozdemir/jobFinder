@@ -5,7 +5,7 @@ import {
   ExperienceLevel,
   Job,
   JobType,
-  LocationType,
+  WorkModelType,
   Salary,
 } from "../../models/models";
 import Button from "../Button/Button";
@@ -30,7 +30,7 @@ export default function Explore() {
   const [currentFilters, setCurrentFilters] = useState({
     jobType: "",
     experienceLevel: "",
-    locationType: "",
+    workModel: "",
     datePosted: "",
     salary: "",
   });
@@ -40,7 +40,6 @@ export default function Explore() {
     `/api/jobs?title=${title}&location=${location}`,
     { page: currentPage, limit: 10 }
   );
-
   useEffect(() => {
     if (searchJob.data) {
       setTotalJobs((prev) => [...prev, ...searchJob.data.data]);
@@ -56,9 +55,9 @@ export default function Explore() {
     `/api/filters/experience-levels`
   );
 
-  const workModels = useApiQuery<LocationType[]>(
+  const workModels = useApiQuery<WorkModelType[]>(
     ["workModel"],
-    `/api/filters/location-types`
+    `/api/filters/work-models`
   );
 
   const datePosted = useApiQuery<DatePosted[]>(
@@ -188,7 +187,7 @@ export default function Explore() {
             {new Intl.NumberFormat().format(filteredJobs.length)}
             <span> job postings</span>
           </p>
-          {searchJob.isFetching && <LoadingIndicator />}
+          {searchJob.isLoading && <LoadingIndicator />}
           {filteredJobs.map((job) => (
             <div className="explore__jobs__job" key={job._id}>
               <JobCard job={job} />
@@ -205,7 +204,7 @@ export default function Explore() {
                 type="button"
                 onClick={() => setCurrentPage((prev) => prev + 1)}
               >
-                {searchJob.isFetching ? <LoadingIndicator /> : "Load more jobs"}
+                {searchJob.isLoading ? <LoadingIndicator /> : "Load more jobs"}
               </Button>
             )}
           </div>

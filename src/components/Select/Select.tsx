@@ -37,7 +37,7 @@ export default function Select(props: Props) {
         value={value}
         {...rest}
       >
-        <option value="" defaultChecked>
+        <option value="" defaultValue={defaultValue}>
           {defaultValue}
         </option>
         {options.map((option) => (
