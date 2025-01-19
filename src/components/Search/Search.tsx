@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Button from "../Button/Button";
 import ClickableTag from "../ClickableTag/ClickableTag";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import InputField from "../InputField/InputField";
 import Select from "../Select/Select";
-import JobCard from "../JobCard/JobCard";
 import "./index.scss";
-import { useApiQuery, usePaginatedApiQuery } from "../../hooks/useApi";
+import { useApiQuery } from "../../hooks/useApi";
 import { JobCategory, Job } from "../../models/models";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
+import JobCard from "../JobCard/JobCard";
 
 export default function Search() {
   const [timeRange, setTimeRange] = useState("");
@@ -25,6 +25,7 @@ export default function Search() {
   >([]);
   const [selectedWorkModels, setSelectedWorkModels] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 
   const categories = useApiQuery<JobCategory[]>(
     ["categories"],
@@ -58,7 +59,7 @@ export default function Search() {
     });
   };
 
-  const advancedSearchResults = usePaginatedApiQuery<Job[]>(
+  const advancedSearchResults = useApiQuery<Job[]>(
     ["jobs"],
     `/api/jobs/advancedSearch?title=${jobTitle}&location=${location}&salaryRange=${salaryRange}&employmentTypes=${selectedEmploymentTypes.join(
       ","
@@ -67,15 +68,37 @@ export default function Search() {
     )}&timeRange=${timeRange}&category=${category}&workModel=${selectedWorkModels.join(
       ","
     )}`,
-    { page: currentPage, limit: 10 },
     {
       enabled: false,
     }
   );
 
-  const handleSearch = () => {
+  const handleFetch = () => {
+    setCurrentPage(1);
     advancedSearchResults.refetch();
   };
+
+  const paginationData = useMemo(() => {
+    const totalItems = advancedSearchResults.data?.data?.length || 0;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = advancedSearchResults.data?.data?.slice(
+      indexOfFirstItem,
+      indexOfLastItem
+    );
+
+    return {
+      totalItems,
+      totalPages,
+      currentItems,
+    };
+  }, [advancedSearchResults.data?.data, currentPage, itemsPerPage]);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="container">
       <Header />
@@ -210,51 +233,50 @@ export default function Search() {
             <Button
               color="dark"
               type="submit"
-              onClick={handleSearch}
               disabled={advancedSearchResults.isFetching}
+              onClick={handleFetch}
             >
               {advancedSearchResults.isFetching
                 ? "Searching..."
                 : "Search Jobs"}
             </Button>
           </div>
-          {advancedSearchResults.data?.data && (
-            <div className="explore__jobs">
-              <p className="explore__jobs__count">
-                <span>We've found </span>
-                {new Intl.NumberFormat().format(
-                  advancedSearchResults.data.metadata.total
-                )}
-                <span> job postings</span>
-              </p>
-              {advancedSearchResults.isLoading && <LoadingIndicator />}
-              {advancedSearchResults.data.data.map((job) => (
-                <div className="explore__jobs__job" key={job._id}>
-                  <JobCard job={job} />
-                </div>
-              ))}
-              <div className="explore__jobs__load-more">
-                {advancedSearchResults.data.metadata.totalPages ===
-                currentPage ? (
-                  <Button color="blue" type="button" disabled>
-                    No more job postings to show :(
-                  </Button>
-                ) : (
-                  <Button
-                    color="dark"
-                    type="button"
-                    onClick={() => setCurrentPage((prev) => prev + 1)}
-                  >
-                    {advancedSearchResults.isLoading ? (
-                      <LoadingIndicator />
-                    ) : (
-                      "Load more jobs"
-                    )}
-                  </Button>
-                )}
+
+          <div className="explore__jobs">
+            <p className="explore__jobs__count">
+              <span>We've found </span>
+              {new Intl.NumberFormat().format(paginationData.totalItems)}
+              <span> job postings</span>
+            </p>
+            {advancedSearchResults.isLoading && <LoadingIndicator />}
+            {paginationData.currentItems?.map((job) => (
+              <div className="explore__jobs__job" key={job._id}>
+                <JobCard job={job} />
               </div>
-            </div>
-          )}
+            ))}
+
+            {paginationData.totalPages > 1 && (
+              <div className="search__pagination">
+                <Button
+                  color="dark"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </Button>
+                <span className="pagination__info">
+                  Page {currentPage} of {paginationData.totalPages}
+                </span>
+                <Button
+                  color="dark"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === paginationData.totalPages}
+                >
+                  Next
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </main>
       <Footer />

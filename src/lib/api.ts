@@ -47,10 +47,7 @@ export const handleApiError = <T>(error: unknown): ApiResponse<T> => {
     return {
       data: null,
       status: error.response.status,
-      error:
-        error.response.data.error ||
-        error.response.data.message ||
-        "An error occurred",
+      error: error.response.data || "An error occurred",
     };
   }
   return {
