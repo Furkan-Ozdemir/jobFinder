@@ -23,6 +23,7 @@ export default function Search() {
   const [selectedExperienceTypes, setSelectedExperienceTypes] = useState<
     string[]
   >([]);
+  const [selectedWorkModels, setSelectedWorkModels] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   const categories = useApiQuery<JobCategory[]>(
@@ -48,22 +49,24 @@ export default function Search() {
     });
   };
 
+  const handleWorkModelTagClick = (value: string) => {
+    setSelectedWorkModels((prev) => {
+      if (prev.includes(value)) {
+        return prev.filter((type) => type !== value);
+      }
+      return [...prev, value];
+    });
+  };
+
   const advancedSearchResults = usePaginatedApiQuery<Job[]>(
-    [
-      "jobs",
-      timeRange,
-      jobTitle,
-      category,
-      location,
-      salaryRange,
-      ...selectedEmploymentTypes,
-      ...selectedExperienceTypes,
-    ],
+    ["jobs"],
     `/api/jobs/advancedSearch?title=${jobTitle}&location=${location}&salaryRange=${salaryRange}&employmentTypes=${selectedEmploymentTypes.join(
       ","
     )}&experienceTypes=${selectedExperienceTypes.join(
       ","
-    )}&timeRange=${timeRange}&category=${category}`,
+    )}&timeRange=${timeRange}&category=${category}&workModel=${selectedWorkModels.join(
+      ","
+    )}`,
     { page: currentPage, limit: 10 },
     {
       enabled: false,
@@ -117,32 +120,22 @@ export default function Search() {
                 />
               </div>
               <div className="search__filters__tags">
-                <p className="search__filters__tags__title">Job Type</p>
+                <p className="search__filters__tags__title">Work Model</p>
                 <div className="search__filters__tags__container">
                   <ClickableTag
-                    label="Full Time"
-                    value="full"
-                    onClick={handleEmployementTagClick}
-                  />
-                  <ClickableTag
-                    label="Part Time"
-                    value="part"
-                    onClick={handleEmployementTagClick}
-                  />
-                  <ClickableTag
                     label="On-site"
-                    value="onsite"
-                    onClick={handleEmployementTagClick}
+                    value="on-site"
+                    onClick={handleWorkModelTagClick}
                   />
                   <ClickableTag
                     label="Remote"
                     value="remote"
-                    onClick={handleEmployementTagClick}
+                    onClick={handleWorkModelTagClick}
                   />
                   <ClickableTag
-                    label="Internship"
-                    value="internship"
-                    onClick={handleEmployementTagClick}
+                    label="Hybrid"
+                    value="hybrid"
+                    onClick={handleWorkModelTagClick}
                   />
                 </div>
               </div>
@@ -188,6 +181,26 @@ export default function Search() {
                     label="Senior"
                     value="senior"
                     onClick={handleExperienceTagClick}
+                  />
+                </div>
+              </div>
+              <div className="search__filters__tags">
+                <p className="search__filters__tags__title">Employment Type</p>
+                <div className="search__filters__tags__container">
+                  <ClickableTag
+                    label="Full Time"
+                    value="full"
+                    onClick={handleEmployementTagClick}
+                  />
+                  <ClickableTag
+                    label="Part Time"
+                    value="part"
+                    onClick={handleEmployementTagClick}
+                  />
+                  <ClickableTag
+                    label="Internship"
+                    value="internship"
+                    onClick={handleEmployementTagClick}
                   />
                 </div>
               </div>
