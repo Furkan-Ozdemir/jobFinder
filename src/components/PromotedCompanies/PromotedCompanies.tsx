@@ -1,5 +1,6 @@
 import Card from "../Card/Card";
 import Section from "../Section/Section";
+import SkeletonCard from "../SkeletonCard/SkeletonCard";
 import "./index.scss";
 
 import { useApiQuery } from "../../hooks/useApi";
@@ -22,21 +23,29 @@ export default function PromotedCompanies() {
       <div className="promoted">
         <p className="pageTitle">Promoted Companies</p>
         <div className="promoted__container">
-          {promotedCompanies.data?.data?.map((company) => (
-            <Card
-              key={company._id}
-              title={company.company_name}
-              description={`${company.people_count} employees`}
-              image={company.img_path}
-              positionCenter
-              backgroundColor={
-                backgroundColors[
-                  Math.floor(Math.random() * backgroundColors.length)
-                ]
-              }
-              button={"View"}
-            />
-          ))}
+          {promotedCompanies.isLoading ? (
+            <>
+              {[...Array(4)].map((_, index) => (
+                <SkeletonCard key={index} variant="company" />
+              ))}
+            </>
+          ) : (
+            promotedCompanies.data?.data?.map((company) => (
+              <Card
+                key={company._id}
+                title={company.company_name}
+                description={`${company.people_count} employees`}
+                image={company.img_path}
+                positionCenter
+                backgroundColor={
+                  backgroundColors[
+                    Math.floor(Math.random() * backgroundColors.length)
+                  ]
+                }
+                button={"View"}
+              />
+            ))
+          )}
         </div>
       </div>
     </Section>

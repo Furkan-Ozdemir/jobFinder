@@ -1,4 +1,5 @@
 import Card from "../Card/Card";
+import SkeletonCard from "../SkeletonCard/SkeletonCard";
 import "./index.scss";
 import { useApiQuery } from "../../hooks/useApi";
 import { JobCategory } from "../../models/models";
@@ -25,18 +26,26 @@ export default function Categories() {
           Most Popular Categories
         </p>
         <div className="categories__wrapper__container">
-          {categories.data?.data?.slice(0, 6).map((category) => (
-            <Card
-              key={category._id}
-              title={category.category_name}
-              description={`${category.total_listings_count} postings`}
-              image={category.img_path}
-              backgroundColor="transparent"
-              imageColor={
-                imageColors[Math.floor(Math.random() * imageColors.length)]
-              }
-            />
-          ))}
+          {categories.isLoading ? (
+            <>
+              {[...Array(6)].map((_, index) => (
+                <SkeletonCard key={index} variant="category" />
+              ))}
+            </>
+          ) : (
+            categories.data?.data?.slice(0, 6).map((category) => (
+              <Card
+                key={category._id}
+                title={category.category_name}
+                description={`${category.total_listings_count} postings`}
+                image={category.img_path}
+                backgroundColor="transparent"
+                imageColor={
+                  imageColors[Math.floor(Math.random() * imageColors.length)]
+                }
+              />
+            ))
+          )}
         </div>
       </div>
     </div>

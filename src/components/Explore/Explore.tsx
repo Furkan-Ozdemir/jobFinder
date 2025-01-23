@@ -184,7 +184,9 @@ export default function Explore() {
         <div className="explore__jobs">
           <p className="explore__jobs__count">
             <span>We've found </span>
-            {new Intl.NumberFormat().format(filteredJobs.length)}
+            {new Intl.NumberFormat().format(
+              searchJob.data?.metadata.total || 0
+            )}
             <span> job postings</span>
           </p>
           {searchJob.isLoading && <LoadingIndicator />}

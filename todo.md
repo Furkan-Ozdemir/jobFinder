@@ -5,9 +5,13 @@ mvp icin
 basvuran ayagi
 
 - basvurulan sirketlerin listelenmesi
-- job search olayi
+- each job should have a company_id
 - is veren basvurulari goruntuleyebilsin, cvler aws s3 dan yuklenir
 - devtoolstan yuklenme olaylarina bakilacak
+- mvst ye basvuru yollamadan once backend serverini upgrade et
+- kategoriler ve sirketler kismi calisir hale gelsin
+- Landing page de arama yerinde animasyon yazi oynasin
+- butonlar focus olunca disinda border olsun
 - ispanyolxa ve almanca ceviri
 - aws kubernetes
 
