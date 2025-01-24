@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import "./index.scss";
@@ -7,7 +7,8 @@ import Wallet from "/assets/images/Wallet.png";
 import HorizontalLine from "../HorizontalLine/HorizontalLine";
 import InputField from "../InputField/InputField";
 import Button from "../Button/Button";
-import { PostJobRequest } from "../../models/models";
+import { Job, PostJobRequest } from "../../models/models";
+import { useApiQuery } from "../../hooks/useApi";
 
 type JobDetailProps = {
   apply?: boolean;
@@ -17,6 +18,14 @@ type JobDetailProps = {
 
 export default function JobDetail(props: JobDetailProps) {
   const { apply, preview, previewValues } = props;
+
+  const params = useParams();
+  const jobId = params.id ?? "0";
+
+  const job = useApiQuery<Job>(["job", jobId], `/api/jobs/${jobId}`, {
+    enabled: !preview,
+  });
+
   return (
     <div className="container">
       {!preview && <Header />}
@@ -29,7 +38,9 @@ export default function JobDetail(props: JobDetailProps) {
                   <Link to="/explore">Explore</Link>
                 </li>
                 <li>
-                  {previewValues?.role || "Marketing sales representative"}
+                  {job.data?.data?.role ||
+                    previewValues?.role ||
+                    "Marketing sales representative"}
                 </li>
                 {apply && <li>Apply</li>}
               </ul>
@@ -45,16 +56,20 @@ export default function JobDetail(props: JobDetailProps) {
                   </div>
                   <div className="jobDetail__details__company-main__info">
                     <p className="jobDetail__details__company-main__info__job">
-                      {previewValues?.role || "Marketing sales representative"}
+                      {job.data?.data?.role ||
+                        previewValues?.role ||
+                        "Marketing sales representative"}
                     </p>
                     <p className="jobDetail__details__company-main__info__company">
-                      Company Name
+                      {job.data?.data?.company_name ||
+                        previewValues?.company_name ||
+                        "Company Name"}
                     </p>
                   </div>
                 </div>
                 {!apply && (
                   <div className="jobDetail__details__company-main__apply__container__apply">
-                    <Link to={`/job/1/apply`}>
+                    <Link to={`/job/${jobId}/apply`}>
                       <span>Apply now</span>
                       <svg
                         height={20}
@@ -81,7 +96,8 @@ export default function JobDetail(props: JobDetailProps) {
                         </svg>
                       </div>
                       <div className="jobDetail__details__company-main__details__address__text">
-                        Magic Street 676/51, London
+                        {job.data?.data?.location ||
+                          "Magic Street 676/51, London"}
                       </div>
                     </div>
                     <div className="jobDetail__details__company-main__details__count">
@@ -89,17 +105,18 @@ export default function JobDetail(props: JobDetailProps) {
                         <svg height={24} width={24} viewBox="0 0 24 24">
                           <path fill="none" d="M0 0h24v24H0z"></path>
                           <path d="M17 19.22H5V7h7V5H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-7h-2v7.22z"></path>
-                          <path d="M19 2h-2v3h-3c.01.01 0 2 0 2h3v2.99c.01.01 2 0 2 0V7h3V5h-3V2zM7 9h8v2H7zm0 3v2h8v-2h-3zm0 3h8v2H7z"></path>
+                          <path d="M19 2h-2v3h-3c.01.01 0 2 0 2h3v2.99c.01.01 2 0 2 0V7h3V5h-3V2zM7 9h8v2H7zm0 3v2h8v-2H7zm0 3h8v2H7z"></path>
                         </svg>
                       </div>
                       <div className="jobDetail__details__company-main__details__count__text">
-                        139 Applicants
+                        {job.data?.data?.applicant_count || "139"} Applicants
                       </div>
                     </div>
                   </div>
                   <div className="jobDetail__details__company-main__details__description">
                     <p>
-                      {previewValues?.salesPitch ||
+                      {job.data?.data?.salesPitch ||
+                        previewValues?.salesPitch ||
                         "Join our dynamic team as a Marketing Sales Representative," +
                           "where you'll leverage your exceptional interpersonal" +
                           "skills and strategic mindset to drive sales and build" +
@@ -107,24 +124,33 @@ export default function JobDetail(props: JobDetailProps) {
                     </p>
                   </div>
                   <div className="jobDetail__details__company-main__details__tags">
-                    {/* <JobTag text="Full-time" icon={Wallet} jobDetail />
-                    <JobTag text="Full-time" icon={Wallet} jobDetail />
-                    <JobTag text="Full-time" icon={Wallet} jobDetail /> */}
                     {
                       <>
                         <JobTag
-                          text={previewValues?.employment_type || "Full-time"}
+                          text={
+                            job.data?.data?.employment_type ||
+                            previewValues?.employment_type ||
+                            "Full-time"
+                          }
                           icon={Wallet}
                           jobDetail={true}
                         />
                         <JobTag
-                          text={previewValues?.experience_level || "Junior"}
+                          text={
+                            job.data?.data?.experience_level ||
+                            previewValues?.experience_level ||
+                            "Junior"
+                          }
                           icon={Wallet}
                           jobDetail={true}
                         />
 
                         <JobTag
-                          text={previewValues?.work_model || "Hybrid"}
+                          text={
+                            job.data?.data?.work_model ||
+                            previewValues?.work_model ||
+                            "Hybrid"
+                          }
                           icon={Wallet}
                           jobDetail={true}
                         />
@@ -145,7 +171,8 @@ export default function JobDetail(props: JobDetailProps) {
                     About company
                   </p>
                   <p>
-                    {previewValues?.about_the_company ||
+                    {job.data?.data?.about_the_company ||
+                      previewValues?.about_the_company ||
                       "Unicorn is a leading tele-comm company, dedicated to" +
                         "delivering innovative solutions and driving exceptional" +
                         "growth in the market. As we expand our team, we are seeking" +
@@ -159,7 +186,8 @@ export default function JobDetail(props: JobDetailProps) {
                     Role description
                   </p>
                   <p>
-                    {previewValues?.role_description ||
+                    {job.data?.data?.role_description ||
+                      previewValues?.role_description ||
                       "As a Marketing Sales Representative, you will play a crucial" +
                         "role in driving revenue generation and building long-term" +
                         "client relationships. You will be responsible for" +
@@ -175,8 +203,11 @@ export default function JobDetail(props: JobDetailProps) {
                     Responsibilities
                   </p>
                   <ul>
-                    {(previewValues?.responsibilities &&
-                    previewValues.responsibilities[0] !== ""
+                    {(job.data?.data?.responsibilities &&
+                    job.data.data.responsibilities[0] !== ""
+                      ? job.data.data.responsibilities
+                      : previewValues?.responsibilities &&
+                        previewValues.responsibilities[0] !== ""
                       ? previewValues.responsibilities
                       : [
                           "Develop and implement strategic sales plans",
@@ -196,8 +227,11 @@ export default function JobDetail(props: JobDetailProps) {
                     Requirements
                   </p>
                   <ul>
-                    {(previewValues?.required_skills &&
-                    previewValues.required_skills[0] !== ""
+                    {(job.data?.data?.required_skills &&
+                    job.data.data.required_skills[0] !== ""
+                      ? job.data.data.required_skills
+                      : previewValues?.required_skills &&
+                        previewValues.required_skills[0] !== ""
                       ? previewValues.required_skills
                       : [
                           "Minimum 2 years of experience in sales",
@@ -217,13 +251,14 @@ export default function JobDetail(props: JobDetailProps) {
                     Additional information
                   </p>
                   <p>
-                    {previewValues?.additionalInfo ||
+                    {job.data?.data?.additionalInfo ||
+                      previewValues?.additionalInfo ||
                       "This is a full-time position with competitive salary and benefits package. If you are a results-driven individual with a passion for sales and a desire to grow your career in a dynamic environment, we want to hear from you!"}
                   </p>
                 </div>
 
                 <div className="jobDetail__blabla__container__apply">
-                  <Link to={`/job/1/apply`}>
+                  <Link to={`/job/${jobId}/apply`}>
                     <span>Apply now</span>
                     <svg
                       height={20}

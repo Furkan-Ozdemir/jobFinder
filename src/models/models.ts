@@ -52,6 +52,8 @@ export interface Job {
   salesPitch: string;
   additionalInfo: string;
   company_name: string;
+  location: string;
+  applicant_count: number;
 }
 
 export type PostJobResponse = ApiResponse<Job>;
