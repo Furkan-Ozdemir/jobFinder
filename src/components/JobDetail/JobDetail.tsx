@@ -9,6 +9,10 @@ import InputField from "../InputField/InputField";
 import Button from "../Button/Button";
 import { Job, PostJobRequest } from "../../models/models";
 import { useApiQuery } from "../../hooks/useApi";
+import { Formik, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { useAppSelector } from "../../store/hooks";
+import { selectCurrentUser } from "../../store/slices/authSlice";
 
 type JobDetailProps = {
   apply?: boolean;
@@ -16,8 +20,26 @@ type JobDetailProps = {
   previewValues?: PostJobRequest;
 };
 
+interface ApplicationFormValues {
+  fullName: string;
+  phone: string;
+  linkedin: string;
+  resume: File | null;
+  project: string;
+}
+
+const validationSchema = Yup.object({
+  fullName: Yup.string().required("Full name is required"),
+  phone: Yup.string().required("Phone number is required"),
+  linkedin: Yup.string().url("Invalid URL"),
+  resume: Yup.mixed().required("Resume is required"),
+  project: Yup.string().required("Project description is required"),
+});
+
 export default function JobDetail(props: JobDetailProps) {
   const { apply, preview, previewValues } = props;
+
+  const user = useAppSelector(selectCurrentUser);
 
   const params = useParams();
   const jobId = params.id ?? "0";
@@ -25,6 +47,19 @@ export default function JobDetail(props: JobDetailProps) {
   const job = useApiQuery<Job>(["job", jobId], `/api/jobs/${jobId}`, {
     enabled: !preview,
   });
+
+  const handleSubmit = (values: ApplicationFormValues) => {
+    if (!user) {
+      console.error("No user found");
+      return;
+    }
+
+    console.log("Form submitted with values:", {
+      ...values,
+      userEmail: user.email,
+      jobId,
+    });
+  };
 
   return (
     <div className="container">
@@ -51,7 +86,7 @@ export default function JobDetail(props: JobDetailProps) {
                   <div className="jobDetail__details__company-main__logo">
                     <svg height={35} width={35} viewBox="0 0 24 24">
                       <path d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="m19 9 1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"></path>
+                      <path d="m19 9 1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5L9 4z"></path>
                     </svg>
                   </div>
                   <div className="jobDetail__details__company-main__info">
@@ -281,72 +316,125 @@ export default function JobDetail(props: JobDetailProps) {
                 <p className="jobDetail__form__container__title">
                   The Application Form
                 </p>
-                <div className="jobDetail__form__container__main">
-                  <div className="jobDetail__form__container__main__inputs">
-                    <InputField
-                      label="Full Name"
-                      type="text"
-                      name="fullName"
-                      placeholder="Enter your full name"
-                      value=""
-                      onChange={() => {}}
-                      required
-                    />
-                    <InputField
-                      label="Email"
-                      type="text"
-                      name="email"
-                      placeholder="Enter your email"
-                      value=""
-                      onChange={() => {}}
-                      required
-                    />
-                    <InputField
-                      label="Phone Number"
-                      type="text"
-                      name="phone"
-                      placeholder="Enter your phone number"
-                      value=""
-                      onChange={() => {}}
-                      required
-                    />
+                <Formik
+                  initialValues={{
+                    fullName: "",
+                    phone: "",
+                    linkedin: "",
+                    resume: null,
+                    project: "",
+                  }}
+                  validationSchema={validationSchema}
+                  onSubmit={handleSubmit}
+                >
+                  {(formik) => (
+                    <Form>
+                      <div className="jobDetail__form__container__main">
+                        <div className="jobDetail__form__container__main__inputs">
+                          <div className="input-wrapper">
+                            <InputField
+                              label="Full Name"
+                              type="text"
+                              name="fullName"
+                              placeholder="Enter your full name"
+                              value={formik.values.fullName}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              required
+                            />
+                            <ErrorMessage
+                              name="fullName"
+                              component="div"
+                              className="error"
+                            />
+                          </div>
+                          <div className="input-wrapper">
+                            <InputField
+                              label="Phone Number"
+                              type="text"
+                              name="phone"
+                              placeholder="Enter your phone number"
+                              value={formik.values.phone}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              required
+                            />
+                            <ErrorMessage
+                              name="phone"
+                              component="div"
+                              className="error"
+                            />
+                          </div>
+                          <div className="input-wrapper">
+                            <InputField
+                              label="Linkedin Profile"
+                              type="text"
+                              name="linkedin"
+                              placeholder="Paste Link"
+                              value={formik.values.linkedin}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                            />
+                            <ErrorMessage
+                              name="linkedin"
+                              component="div"
+                              className="error"
+                            />
+                          </div>
+                        </div>
+                        <div className="jobDetail__form__container__main__inputs">
+                          <div className="input-wrapper">
+                            <InputField
+                              label="Resume"
+                              type="file"
+                              name="resume"
+                              onChange={(event) => {
+                                const file =
+                                  event.currentTarget.files?.[0] || null;
+                                formik.setFieldValue("resume", file);
+                              }}
+                              onBlur={formik.handleBlur}
+                              required
+                              accept=".pdf,.doc,.docx"
+                            />
+                            <ErrorMessage
+                              name="resume"
+                              component="div"
+                              className="error"
+                            />
+                          </div>
+                          <div className="input-wrapper">
+                            <InputField
+                              label="The project you are most proud of"
+                              type="text"
+                              name="project"
+                              placeholder="Explain the project"
+                              value={formik.values.project}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              required
+                            />
+                            <ErrorMessage
+                              name="project"
+                              component="div"
+                              className="error"
+                            />
+                          </div>
+                        </div>
+                      </div>
 
-                    <InputField
-                      label="Linkedin Profile"
-                      type="text"
-                      name="linkedin"
-                      placeholder="Paste Link"
-                      value=""
-                      onChange={() => {}}
-                    />
-                  </div>
-                  <div className="jobDetail__form__container__main__inputs">
-                    <InputField
-                      label="Resume"
-                      type="file"
-                      name="resume"
-                      value=""
-                      onChange={() => {}}
-                      required
-                      accept=".pdf,.doc,.docx"
-                    />
-                    <InputField
-                      label="The project you are most proud of"
-                      type="text"
-                      name="project"
-                      placeholder="Explain the project"
-                      value=""
-                      onChange={() => {}}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="jobDetail__form__container__main__button">
-                  <Button color="dark" type="submit" style={{ width: "100%" }}>
-                    <span>Apply now</span>
-                  </Button>
-                </div>
+                      <div className="jobDetail__form__container__main__button">
+                        <Button
+                          color="dark"
+                          type="submit"
+                          style={{ width: "100%" }}
+                        >
+                          <span>Apply now</span>
+                        </Button>
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
               </div>
             </div>
           )}
