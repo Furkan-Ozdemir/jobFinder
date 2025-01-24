@@ -26,7 +26,6 @@
 
   &__select {
     padding: 1.5rem 1rem;
-
     border: 0.1rem solid #dbdbdb;
     border-radius: 1.2rem;
     font-size: 1.6rem;
@@ -36,5 +35,15 @@
     font-family: inherit;
     cursor: pointer;
     width: 100%;
+    transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+    &:focus-visible, &:active {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 1px var(--white), 0 0 0 3px var(--blue);
+    }
+
+    &:hover {
+      border-color: var(--blue);
+    }
   }
 }

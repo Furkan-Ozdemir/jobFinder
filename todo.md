@@ -11,7 +11,6 @@ basvuran ayagi
 - mvst ye basvuru yollamadan once backend serverini upgrade et
 - kategoriler ve sirketler kismi calisir hale gelsin
 - Landing page de arama yerinde animasyon yazi oynasin
-- butonlar focus olunca disinda border olsun
 - ispanyolxa ve almanca ceviri
 - aws kubernetes
 

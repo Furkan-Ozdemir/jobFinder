@@ -38,6 +38,7 @@
     border-radius: 1.6rem;
     border: 0.1rem solid #dbdbdb;
     line-height: 2rem;
+    transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
 
     @media (max-width: 768px) {
       padding: 1.2rem 0.8rem;
@@ -53,10 +54,21 @@
       border-radius: 1rem;
     }
 
+    &:focus-visible,
+    &:active {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 1px var(--white), 0 0 0 3px var(--blue);
+    }
+
+    &:hover {
+      border-color: var(--blue);
+    }
+
     &::placeholder {
       color: var(--gray);
       font-size: 1.6rem;
       line-height: 2rem;
+      opacity: 0.7;
 
       @media (max-width: 768px) {
         font-size: 1.4rem;
@@ -72,7 +84,6 @@
     &::file-selector-button {
       border: 0;
       outline: none;
-      background-color: transparent;
       text-transform: capitalize;
       text-decoration: none;
       color: var(--white);
