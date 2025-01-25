@@ -5,12 +5,14 @@ interface AuthState {
   token: string | null;
   isAuthenticated: boolean;
   user: User | null;
+  id: string | null;
 }
 
 const initialState: AuthState = {
   token: localStorage.getItem("authToken"),
   isAuthenticated: !!localStorage.getItem("authToken"),
   user: null,
+  id: null,
 };
 
 const authSlice = createSlice({
@@ -25,12 +27,14 @@ const authSlice = createSlice({
       state.token = token;
       state.user = user;
       state.isAuthenticated = true;
+      state.id = user.id;
       localStorage.setItem("authToken", token);
     },
     logout: (state) => {
       state.token = null;
       state.user = null;
       state.isAuthenticated = false;
+      state.id = null;
       localStorage.removeItem("authToken");
     },
   },

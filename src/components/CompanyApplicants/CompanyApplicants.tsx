@@ -3,15 +3,19 @@ import { JobApplication } from "../../models/models";
 import SkeletonCard from "../SkeletonCard/SkeletonCard";
 import { Link } from "react-router-dom";
 import "./index.scss";
+import { selectCurrentUser } from "../../store/slices/authSlice";
+import { useAppSelector } from "../../store/hooks";
 
-export default function MyApplications() {
+export default function CompanyApplicants() {
+  const user = useAppSelector(selectCurrentUser);
+  console.log("company user", user);
   const { data: response, isLoading } = useApiQuery<JobApplication[]>(
-    ["applications"],
-    `/api/applications/user`
+    ["company-applications"],
+    `/api/jobs/company/${user?.id}/applicants`
   );
 
   const applications = response?.data || [];
-  console.log(applications);
+  console.log("applicants", applications);
   const renderSkeletons = () => {
     return Array(6)
       .fill(0)
@@ -19,30 +23,29 @@ export default function MyApplications() {
   };
 
   return (
-    <main className="my-applications-container">
-      <h1>My Applications</h1>
+    <main className="company-applicants-container">
+      <h1>Job Applicants</h1>
       {isLoading ? (
         <div className="applications-grid">{renderSkeletons()}</div>
       ) : (
         <div className="applications-content">
           {applications.length === 0 ? (
             <div className="no-applications">
-              <p>You haven't applied to any jobs yet.</p>
+              <p>You don't have any applicants yet.</p>
             </div>
           ) : (
             <div className="applications-grid">
               {applications.map((application) => (
-                <div key={application.job._id} className="application-card">
+                <div key={application._id} className="application-card">
                   <div className="application-card__header">
-                    <div className="application-card__company-info">
-                      <div className="application-card__logo">
+                    <div className="application-card__applicant-info">
+                      <div className="application-card__avatar">
                         <svg height={24} width={24} viewBox="0 0 24 24">
-                          <path d="M0 0h24v24H0z" fill="none"></path>
-                          <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"></path>
+                          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
                         </svg>
                       </div>
                       <div>
-                        <h3>{application.job.company_name}</h3>
+                        <h3>{application.fullName}</h3>
                         <Link
                           to={`/job/${application.job._id}`}
                           target="_blank"

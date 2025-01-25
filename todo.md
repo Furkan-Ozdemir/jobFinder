@@ -4,8 +4,7 @@ mvp icin
 
 basvuran ayagi
 
-- basvurulan sirketlerin listelenmesi
-- is veren basvurulari goruntuleyebilsin, cvler aws s3 dan yuklenir
+- explore duzgun calismiyor onceki stateleri tutuyor
 - mvst ye basvuru yollamadan once backend serverini upgrade et
 - kategoriler ve sirketler kismi calisir hale gelsin
 - devtoolstan yuklenme olaylarina bakilacak

@@ -5,11 +5,17 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { logout, selectIsAuthenticated } from "../../store/slices/authSlice";
+import {
+  logout,
+  selectCurrentUser,
+  selectIsAuthenticated,
+} from "../../store/slices/authSlice";
 import { toast } from "react-toastify";
 
 export default function Header() {
   const isLoggedIn = useAppSelector(selectIsAuthenticated);
+  const currentUser = useAppSelector(selectCurrentUser);
+  const personType = currentUser?.personType;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [modals, setModals] = useState<{ login: boolean; register: boolean }>({
@@ -17,9 +23,15 @@ export default function Header() {
     register: false,
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const renderMyApplications = () => {
+    if (!isLoggedIn) return <Link to="/">Home</Link>;
+    else if (personType === "job_seeker")
+      return <Link to="/my-applications">My Applications</Link>;
+    else return <Link to="/company-applicants">Job Applicants</Link>;
   };
 
   return (
@@ -48,13 +60,7 @@ export default function Header() {
               isMobileMenuOpen ? "mobile-open" : ""
             }`}
           >
-            <li>
-              {isLoggedIn ? (
-                <Link to="/my-applications">My Applications</Link>
-              ) : (
-                <Link to="/">Home</Link>
-              )}
-            </li>
+            <li>{renderMyApplications()}</li>
             <li>
               <Link to="/explore">Explore</Link>
             </li>

@@ -61,8 +61,8 @@ export type PostJobResponse = ApiResponse<Job>;
 export interface User {
   fullName: string;
   email: string;
-  personType: string;
-  company_name?: string;
+  personType: "employer" | "job_seeker";
+  id: string;
 }
 
 export type JobCategoryResponse = ApiResponse<JobCategory[]>;
@@ -83,6 +83,7 @@ export interface Company {
   people_count: number;
   company_locations: string[];
   img_path: string;
+  owner: string;
 }
 
 export interface Filters {
@@ -126,6 +127,7 @@ export interface JobApplication {
   resume: { url: string; key: string; originalName: string };
   project: string;
   userEmail: string;
-  jobId: string;
+  job: Job;
   appliedAt: string;
+  _id: string;
 }

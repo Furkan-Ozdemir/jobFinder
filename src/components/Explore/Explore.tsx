@@ -26,6 +26,11 @@ export default function Explore() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalJobs, setTotalJobs] = useState<Job[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<Job[]>(totalJobs);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [title, location]);
+
   const [currentFilters, setCurrentFilters] = useState({
     jobType: "",
     experienceLevel: "",
@@ -41,9 +46,13 @@ export default function Explore() {
   );
   useEffect(() => {
     if (searchJob.data) {
-      setTotalJobs((prev) => [...prev, ...searchJob.data.data]);
+      if (currentPage === 1) {
+        setTotalJobs(searchJob.data.data);
+      } else {
+        setTotalJobs((prev) => [...prev, ...searchJob.data.data]);
+      }
     }
-  }, [searchJob.data]);
+  }, [searchJob.data, currentPage]);
 
   const employmentTypes = useApiQuery<JobType[]>(
     ["jobType"],

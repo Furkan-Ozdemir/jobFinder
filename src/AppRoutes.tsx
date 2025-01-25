@@ -6,10 +6,10 @@ import JobApply from "./components/JobApply/JobApply";
 import Search from "./components/Search/Search";
 import NotFound from "./components/NotFound/NotFound";
 import PostJob from "./components/PostJob/PostJob";
-import ProtectedRoute from "./components/ProtectedRoute";
-import EmployerRoute from "./components/EmployerRoute";
+import RoleProtectedRoute from "./components/RoleProtectedRoute";
 import CreateCompanyProfile from "./components/CompanyProfile/CreateCompanyProfile";
 import MyApplications from "./components/MyApplications/MyApplications";
+import CompanyApplicants from "./components/CompanyApplicants/CompanyApplicants";
 import Home from "./components/Home/Home";
 
 export default function AppRoutes() {
@@ -25,25 +25,33 @@ export default function AppRoutes() {
           <Route
             path="/my-applications"
             element={
-              <ProtectedRoute>
+              <RoleProtectedRoute allowedRoles={["job_seeker"]}>
                 <MyApplications />
-              </ProtectedRoute>
+              </RoleProtectedRoute>
+            }
+          />
+          <Route
+            path="/company-applicants"
+            element={
+              <RoleProtectedRoute allowedRoles={["employer"]}>
+                <CompanyApplicants />
+              </RoleProtectedRoute>
             }
           />
           <Route
             path="/post-job"
             element={
-              <ProtectedRoute>
+              <RoleProtectedRoute allowedRoles={["employer"]}>
                 <PostJob />
-              </ProtectedRoute>
+              </RoleProtectedRoute>
             }
           />
           <Route
             path="/create-company"
             element={
-              <EmployerRoute>
+              <RoleProtectedRoute allowedRoles={["employer"]}>
                 <CreateCompanyProfile />
-              </EmployerRoute>
+              </RoleProtectedRoute>
             }
           />
           <Route path="*" element={<NotFound />} />

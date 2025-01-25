@@ -12,7 +12,7 @@ export default function Unauthorized() {
         <main className="unauthorized__content">
           <div className="unauthorized__container">
             <h1>Access Denied</h1>
-            <p>Sorry, you need to be logged in to access this page.</p>
+            <p>Sorry, you cannot access this page.</p>
             <div className="unauthorized__actions">
               <Button onClick={() => navigate("/")} color="dark">
                 Go Home
