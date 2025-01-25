@@ -49,7 +49,11 @@ export default function Header() {
             }`}
           >
             <li>
-              <Link to="/">Home</Link>
+              {isLoggedIn ? (
+                <Link to="/my-applications">My Applications</Link>
+              ) : (
+                <Link to="/">Home</Link>
+              )}
             </li>
             <li>
               <Link to="/explore">Explore</Link>
@@ -81,7 +85,14 @@ export default function Header() {
                           new Promise((resolve) => setTimeout(resolve, 500)),
                           {
                             pending: "Logging out...",
-                            error: "Something went wrong",
+                            error: {
+                              render({ data }) {
+                                return (
+                                  //@ts-expect-error TODO will fix
+                                  data.error.message || "Something went wrong"
+                                );
+                              },
+                            },
                             success: "Logged out successfully",
                           }
                         );

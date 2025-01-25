@@ -5,7 +5,7 @@ import Modal from "../Modal/Modal";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { object, string } from "yup";
 import { useApiMutation } from "../../hooks/useApi";
-import { ApiResponse, RegisterResponse } from "../../models/models";
+import { ApiResponse, RegisterResponseData } from "../../models/models";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../store/hooks";
 import { setCredentials } from "../../store/slices/authSlice";
@@ -40,26 +40,27 @@ const initialValues = {
 
 export default function Register({ isOpen, onClose }: Props) {
   const dispatch = useAppDispatch();
-  const register = useApiMutation<RegisterResponse>("/api/auth/register");
+  const register = useApiMutation<RegisterResponseData>("/api/auth/register");
   const handleSubmit = async (values: FormValues) => {
     try {
-      await toast.promise<ApiResponse<RegisterResponse>>(
+      await toast.promise<ApiResponse<RegisterResponseData>>(
         register.mutateAsync(values),
         {
           pending: "Registering...",
           error: {
             render({ data }) {
               //@ts-expect-error TODO will fix
-              return data.error || "Something went wrong";
+              return data.error.message || "Something went wrong";
             },
           },
           success: {
             render(response) {
-              if (response.data.data?.data) {
+              console.log("response register", response);
+              if (response.data.data) {
                 dispatch(
                   setCredentials({
-                    token: response.data.data.data?.token,
-                    user: response.data.data.data?.user,
+                    token: response.data.data.token,
+                    user: response.data.data.user,
                   })
                 );
               }

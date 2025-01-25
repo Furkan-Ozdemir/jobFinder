@@ -1,8 +1,7 @@
 import { useState, useMemo } from "react";
 import Button from "../Button/Button";
 import ClickableTag from "../ClickableTag/ClickableTag";
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
+
 import InputField from "../InputField/InputField";
 import Select from "../Select/Select";
 import "./index.scss";
@@ -100,188 +99,182 @@ export default function Search() {
   };
 
   return (
-    <div className="container">
-      <Header />
-      <main>
-        <div className="search">
-          <div className="search__title">Advanced job search</div>
-          <div className="search__filters">
-            <div>
-              <div className="search__filters__item">
-                <label htmlFor="Time range">Time range</label>
-                <Select
-                  label="Time range"
-                  options={[
-                    { value: "24_hours", label: "Last 24 hours" },
-                    { value: "7_days", label: "Last 7 days" },
-                    { value: "30_days", label: "Last 30 days" },
-                  ]}
-                  value={timeRange}
-                  defaultValue={""}
-                  onChange={(e) => setTimeRange(e.target.value)}
-                />
-              </div>
-              <InputField
-                label="Job title"
-                placeholder="i.e. Ruby Developer"
-                value={jobTitle}
-                onChange={(e) => setJobTitle(e.target.value)}
+    <main>
+      <div className="search">
+        <div className="search__title">Advanced job search</div>
+        <div className="search__filters">
+          <div>
+            <div className="search__filters__item">
+              <label htmlFor="Time range">Time range</label>
+              <Select
+                label="Time range"
+                options={[
+                  { value: "24_hours", label: "Last 24 hours" },
+                  { value: "7_days", label: "Last 7 days" },
+                  { value: "30_days", label: "Last 30 days" },
+                ]}
+                value={timeRange}
+                defaultValue={""}
+                onChange={(e) => setTimeRange(e.target.value)}
               />
-              <div className="search__filters__item">
-                <label htmlFor="Category">Category</label>
-                <Select
-                  label="Category"
-                  options={
-                    categories.data?.data?.map((category) => ({
-                      value: category.category_name,
-                      label: category.category_name,
-                    })) || []
-                  }
-                  defaultValue=""
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                />
-              </div>
-              <div className="search__filters__tags">
-                <p className="search__filters__tags__title">Work Model</p>
-                <div className="search__filters__tags__container">
-                  <ClickableTag
-                    label="On-site"
-                    value="on-site"
-                    onClick={handleWorkModelTagClick}
-                  />
-                  <ClickableTag
-                    label="Remote"
-                    value="remote"
-                    onClick={handleWorkModelTagClick}
-                  />
-                  <ClickableTag
-                    label="Hybrid"
-                    value="hybrid"
-                    onClick={handleWorkModelTagClick}
-                  />
-                </div>
-              </div>
             </div>
-            <div>
-              <div className="search__filters__item">
-                <label htmlFor="Salary Range">Salary Range</label>
-                <Select
-                  label="Salary range"
-                  options={[
-                    { value: "0-30", label: "0-30k" },
-                    { value: "30-60", label: "30k-60k" },
-                    { value: "60-90", label: "60k-90k" },
-                    { value: "90-120", label: "90k-120k" },
-                    { value: "120-150", label: "120k-150k" },
-                    { value: "150+", label: "150k+" },
-                  ]}
-                  value={salaryRange}
-                  defaultValue=""
-                  onChange={(e) => setSalaryRange(e.target.value)}
-                />
-              </div>
-              <InputField
-                label="Location"
-                placeholder="i.e. London"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+            <InputField
+              label="Job title"
+              placeholder="i.e. Ruby Developer"
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
+            />
+            <div className="search__filters__item">
+              <label htmlFor="Category">Category</label>
+              <Select
+                label="Category"
+                options={
+                  categories.data?.data?.map((category) => ({
+                    value: category.category_name,
+                    label: category.category_name,
+                  })) || []
+                }
+                defaultValue=""
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
               />
-              <div className="search__filters__tags">
-                <p className="search__filters__tags__title">Experience</p>
-                <div className="search__filters__tags__container">
-                  <ClickableTag
-                    label="Junior"
-                    value="junior"
-                    onClick={handleExperienceTagClick}
-                  />
-                  <ClickableTag
-                    label="Mid Level"
-                    value="mid"
-                    onClick={handleExperienceTagClick}
-                  />
-                  <ClickableTag
-                    label="Senior"
-                    value="senior"
-                    onClick={handleExperienceTagClick}
-                  />
-                </div>
-              </div>
-              <div className="search__filters__tags">
-                <p className="search__filters__tags__title">Employment Type</p>
-                <div className="search__filters__tags__container">
-                  <ClickableTag
-                    label="Full Time"
-                    value="full"
-                    onClick={handleEmployementTagClick}
-                  />
-                  <ClickableTag
-                    label="Part Time"
-                    value="part"
-                    onClick={handleEmployementTagClick}
-                  />
-                  <ClickableTag
-                    label="Internship"
-                    value="internship"
-                    onClick={handleEmployementTagClick}
-                  />
-                </div>
+            </div>
+            <div className="search__filters__tags">
+              <p className="search__filters__tags__title">Work Model</p>
+              <div className="search__filters__tags__container">
+                <ClickableTag
+                  label="On-site"
+                  value="on-site"
+                  onClick={handleWorkModelTagClick}
+                />
+                <ClickableTag
+                  label="Remote"
+                  value="remote"
+                  onClick={handleWorkModelTagClick}
+                />
+                <ClickableTag
+                  label="Hybrid"
+                  value="hybrid"
+                  onClick={handleWorkModelTagClick}
+                />
               </div>
             </div>
           </div>
-          <div className="search__button">
-            <Button
-              color="dark"
-              type="submit"
-              disabled={advancedSearchResults.isFetching}
-              onClick={handleFetch}
-            >
-              {advancedSearchResults.isFetching
-                ? "Searching..."
-                : "Search Jobs"}
-            </Button>
-          </div>
-
-          {paginationData.totalItems > 0 && (
-            <div className="explore__jobs">
-              <p className="explore__jobs__count">
-                <span>We've found </span>
-                {new Intl.NumberFormat().format(paginationData.totalItems)}
-                <span> job postings</span>
-              </p>
-              {advancedSearchResults.isLoading && <LoadingIndicator />}
-              {paginationData.currentItems?.map((job) => (
-                <div className="explore__jobs__job" key={job._id}>
-                  <JobCard job={job} />
-                </div>
-              ))}
-
-              {paginationData.totalPages > 1 && (
-                <div className="search__pagination">
-                  <Button
-                    color="dark"
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                  >
-                    Previous
-                  </Button>
-                  <span className="pagination__info">
-                    Page {currentPage} of {paginationData.totalPages}
-                  </span>
-                  <Button
-                    color="dark"
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === paginationData.totalPages}
-                  >
-                    Next
-                  </Button>
-                </div>
-              )}
+          <div>
+            <div className="search__filters__item">
+              <label htmlFor="Salary Range">Salary Range</label>
+              <Select
+                label="Salary range"
+                options={[
+                  { value: "0-30", label: "0-30k" },
+                  { value: "30-60", label: "30k-60k" },
+                  { value: "60-90", label: "60k-90k" },
+                  { value: "90-120", label: "90k-120k" },
+                  { value: "120-150", label: "120k-150k" },
+                  { value: "150+", label: "150k+" },
+                ]}
+                value={salaryRange}
+                defaultValue=""
+                onChange={(e) => setSalaryRange(e.target.value)}
+              />
             </div>
-          )}
+            <InputField
+              label="Location"
+              placeholder="i.e. London"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+            <div className="search__filters__tags">
+              <p className="search__filters__tags__title">Experience</p>
+              <div className="search__filters__tags__container">
+                <ClickableTag
+                  label="Junior"
+                  value="junior"
+                  onClick={handleExperienceTagClick}
+                />
+                <ClickableTag
+                  label="Mid Level"
+                  value="mid"
+                  onClick={handleExperienceTagClick}
+                />
+                <ClickableTag
+                  label="Senior"
+                  value="senior"
+                  onClick={handleExperienceTagClick}
+                />
+              </div>
+            </div>
+            <div className="search__filters__tags">
+              <p className="search__filters__tags__title">Employment Type</p>
+              <div className="search__filters__tags__container">
+                <ClickableTag
+                  label="Full Time"
+                  value="full"
+                  onClick={handleEmployementTagClick}
+                />
+                <ClickableTag
+                  label="Part Time"
+                  value="part"
+                  onClick={handleEmployementTagClick}
+                />
+                <ClickableTag
+                  label="Internship"
+                  value="internship"
+                  onClick={handleEmployementTagClick}
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <Footer />
-    </div>
+        <div className="search__button">
+          <Button
+            color="dark"
+            type="submit"
+            disabled={advancedSearchResults.isFetching}
+            onClick={handleFetch}
+          >
+            {advancedSearchResults.isFetching ? "Searching..." : "Search Jobs"}
+          </Button>
+        </div>
+
+        {paginationData.totalItems > 0 && (
+          <div className="explore__jobs">
+            <p className="explore__jobs__count">
+              <span>We've found </span>
+              {new Intl.NumberFormat().format(paginationData.totalItems)}
+              <span> job postings</span>
+            </p>
+            {advancedSearchResults.isLoading && <LoadingIndicator />}
+            {paginationData.currentItems?.map((job) => (
+              <div className="explore__jobs__job" key={job._id}>
+                <JobCard job={job} />
+              </div>
+            ))}
+
+            {paginationData.totalPages > 1 && (
+              <div className="search__pagination">
+                <Button
+                  color="dark"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </Button>
+                <span className="pagination__info">
+                  Page {currentPage} of {paginationData.totalPages}
+                </span>
+                <Button
+                  color="dark"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === paginationData.totalPages}
+                >
+                  Next
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </main>
   );
 }

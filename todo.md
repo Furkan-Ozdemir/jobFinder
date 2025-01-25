@@ -5,14 +5,11 @@ mvp icin
 basvuran ayagi
 
 - basvurulan sirketlerin listelenmesi
-- each job should have a company_id
 - is veren basvurulari goruntuleyebilsin, cvler aws s3 dan yuklenir
-- devtoolstan yuklenme olaylarina bakilacak
 - mvst ye basvuru yollamadan once backend serverini upgrade et
 - kategoriler ve sirketler kismi calisir hale gelsin
-- Landing page de arama yerinde animasyon yazi oynasin
+- devtoolstan yuklenme olaylarina bakilacak
 - ispanyolxa ve almanca ceviri
-- aws kubernetes
 
 -Page transitions
 -Restrict pages based on user roles, with roles stored in the database

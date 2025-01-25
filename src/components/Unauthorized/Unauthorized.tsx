@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+
 import Button from "../Button/Button";
 import "./index.scss";
 
@@ -8,20 +7,20 @@ export default function Unauthorized() {
   const navigate = useNavigate();
 
   return (
-    <div className="unauthorized">
-      <Header />
-      <main className="unauthorized__content">
-        <div className="unauthorized__container">
-          <h1>Access Denied</h1>
-          <p>Sorry, you need to be logged in to access this page.</p>
-          <div className="unauthorized__actions">
-            <Button onClick={() => navigate("/")} color="dark">
-              Go Home
-            </Button>
+    <main>
+      <div className="unauthorized">
+        <main className="unauthorized__content">
+          <div className="unauthorized__container">
+            <h1>Access Denied</h1>
+            <p>Sorry, you need to be logged in to access this page.</p>
+            <div className="unauthorized__actions">
+              <Button onClick={() => navigate("/")} color="dark">
+                Go Home
+              </Button>
+            </div>
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+        </main>
+      </div>
+    </main>
   );
 }

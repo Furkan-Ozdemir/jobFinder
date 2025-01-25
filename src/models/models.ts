@@ -108,3 +108,24 @@ export interface PaginatedApiResponse<T> {
   data: T;
   metadata: PaginationMetadata;
 }
+
+export interface PostJobApplicationRequest {
+  fullName: string;
+  phone: string;
+  linkedin: string;
+  resume: File | null;
+  project: string;
+}
+
+export type PostJobApplicationResponse = ApiResponse<JobApplication>;
+
+export interface JobApplication {
+  fullName: string;
+  phone: string;
+  linkedin: string;
+  resume: { url: string; key: string; originalName: string };
+  project: string;
+  userEmail: string;
+  jobId: string;
+  appliedAt: string;
+}

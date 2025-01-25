@@ -1,26 +1,14 @@
-import Categories from "./components/Categories/Categories";
-import Footer from "./components/Footer/Footer";
+import { Outlet } from "react-router-dom";
 import Header from "./components/Header/Header";
-import HorizontalLine from "./components/HorizontalLine/HorizontalLine";
-import Main from "./components/Main/Main";
-import PromotedCompanies from "./components/PromotedCompanies/PromotedCompanies";
-import Section from "./components/Section/Section";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
-    <>
+    <div className="container">
       <Header />
-      <Main />
-      <HorizontalLine />
-      <Section>
-        <Categories />
-      </Section>
-      <HorizontalLine />
-      <PromotedCompanies />
-      {/* <HorizontalLine /> */}
-      {/* <BoostYourCareer /> */}
+      <Outlet />
       <Footer />
-    </>
+    </div>
   );
 }
 

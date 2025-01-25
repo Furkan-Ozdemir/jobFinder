@@ -33,18 +33,20 @@ export default function Categories() {
               ))}
             </>
           ) : (
-            categories.data?.data?.slice(0, 6).map((category) => (
-              <Card
-                key={category._id}
-                title={category.category_name}
-                description={`${category.total_listings_count} postings`}
-                image={category.img_path}
-                backgroundColor="transparent"
-                imageColor={
-                  imageColors[Math.floor(Math.random() * imageColors.length)]
-                }
-              />
-            ))
+            categories.data?.data
+              ?.slice(0, 6)
+              .map((category) => (
+                <Card
+                  key={category._id}
+                  title={category.category_name}
+                  description={`${category.total_listings_count} postings`}
+                  image={category.img_path}
+                  backgroundColor="transparent"
+                  imageColor={
+                    imageColors[Math.floor(Math.random() * imageColors.length)]
+                  }
+                />
+              ))
           )}
         </div>
       </div>

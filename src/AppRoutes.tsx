@@ -9,33 +9,45 @@ import PostJob from "./components/PostJob/PostJob";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EmployerRoute from "./components/EmployerRoute";
 import CreateCompanyProfile from "./components/CompanyProfile/CreateCompanyProfile";
+import MyApplications from "./components/MyApplications/MyApplications";
+import Home from "./components/Home/Home";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/job/:id" element={<JobDetail />} />
-        <Route path="/job/:id/apply" element={<JobApply />} />
-        <Route path="/search" element={<Search />} />
-        <Route
-          path="/post-job"
-          element={
-            <ProtectedRoute>
-              <PostJob />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/create-company"
-          element={
-            <EmployerRoute>
-              <CreateCompanyProfile />
-            </EmployerRoute>
-          }
-        />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<App />}>
+          <Route index element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/job/:id" element={<JobDetail />} />
+          <Route path="/job/:id/apply" element={<JobApply />} />
+          <Route path="/search" element={<Search />} />
+          <Route
+            path="/my-applications"
+            element={
+              <ProtectedRoute>
+                <MyApplications />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/post-job"
+            element={
+              <ProtectedRoute>
+                <PostJob />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/create-company"
+            element={
+              <EmployerRoute>
+                <CreateCompanyProfile />
+              </EmployerRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

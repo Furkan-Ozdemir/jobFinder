@@ -89,7 +89,17 @@ export const useApiMutation = <TData = unknown, TVariables = unknown>(
   return useMutation<ApiResponse<TData>, ApiResponse<TData>, TVariables>({
     mutationFn: async (variables) => {
       try {
-        const response = await axiosInstance.post<TData>(url, variables);
+        const config =
+          variables instanceof FormData
+            ? { headers: { "Content-Type": "multipart/form-data" } }
+            : { headers: { "Content-Type": "application/json" } };
+
+        const response = await axiosInstance.post<TData>(
+          url,
+          variables,
+          config
+        );
+        console.log("response", response);
         return {
           data: response.data,
           status: response.status,

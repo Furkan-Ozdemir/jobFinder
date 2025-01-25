@@ -9,8 +9,7 @@ import {
   Salary,
 } from "../../models/models";
 import Button from "../Button/Button";
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
+
 import HorizontalLine from "../HorizontalLine/HorizontalLine";
 import InlineForm from "../InlineForm/InlineForm";
 import JobCard from "../JobCard/JobCard";
@@ -99,8 +98,7 @@ export default function Explore() {
   }, [totalJobs]);
 
   return (
-    <>
-      <Header />
+    <main>
       <div className="explore">
         <div className="explore__wrapper">
           <p className="explore__wrapper__title pageTitle">Explore Jobs</p>
@@ -212,7 +210,6 @@ export default function Explore() {
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </main>
   );
 }
