@@ -17,8 +17,6 @@ import {
 import { useApiMutation, useApiQuery } from "../../hooks/useApi";
 import { toast } from "react-toastify";
 import React, { useState } from "react";
-import { selectCurrentUser } from "../../store/slices/authSlice";
-import { useAppSelector } from "../../store/hooks";
 
 const initialValues = {
   role: "",
@@ -53,7 +51,6 @@ const validationSchema = Yup.object().shape({
 
 export default function PostJob() {
   const [values, setValues] = useState<PostJobRequest>(initialValues);
-  const user = useAppSelector(selectCurrentUser);
   const experienceLevels = useApiQuery<ExperienceLevel[]>(
     ["experienceLevel"],
     `/api/filters/experience-levels`
@@ -68,7 +65,7 @@ export default function PostJob() {
   const handleSubmit = async (values: PostJobRequest) => {
     try {
       await toast.promise<ApiResponse<PostJobResponse>>(
-        mutation.mutateAsync({ ...values, company_name: user?.company_name }),
+        mutation.mutateAsync(values),
         {
           pending: "Creating job...",
           error: {

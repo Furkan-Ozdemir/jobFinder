@@ -42,7 +42,7 @@ export default function MyApplications() {
                         </svg>
                       </div>
                       <div>
-                        <h3>{application.job.company_name}</h3>
+                        <h3>{application.job.role}</h3>
                         <Link
                           to={`/job/${application.job._id}`}
                           target="_blank"
