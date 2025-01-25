@@ -38,7 +38,7 @@
     border-radius: 1.6rem;
     border: 0.1rem solid #dbdbdb;
     line-height: 2rem;
-    resize: vertical; // Allows resizing vertically
+    resize: vertical;
 
     @media (max-width: 768px) {
       padding: 1.2rem 0.8rem;

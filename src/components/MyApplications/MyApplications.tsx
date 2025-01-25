@@ -15,11 +15,7 @@ export default function MyApplications() {
   const renderSkeletons = () => {
     return Array(6)
       .fill(0)
-      .map((_, index) => (
-        <div key={index} className="skeleton-wrapper">
-          <SkeletonCard variant="company" />
-        </div>
-      ));
+      .map((_, index) => <SkeletonCard key={index} variant="category" />);
   };
 
   return (

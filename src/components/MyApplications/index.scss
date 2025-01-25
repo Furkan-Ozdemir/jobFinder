@@ -140,11 +140,6 @@
   }
 }
 
-.skeleton-wrapper {
-  height: 100%;
-}
-
-// Media query for smaller screens
 @media (max-width: 1200px) {
   .applications-grid {
     grid-template-columns: repeat(2, 1fr);
