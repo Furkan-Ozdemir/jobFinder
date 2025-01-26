@@ -1,8 +1,9 @@
 import Card from "../Card/Card";
 import SkeletonCard from "../SkeletonCard/SkeletonCard";
 import "./index.scss";
-import { useApiQuery } from "../../hooks/useApi";
+import { usePaginatedApiQuery } from "../../hooks/useApi";
 import { JobCategory } from "../../models/models";
+import { Link } from "react-router-dom";
 
 const imageColors = [
   "blue",
@@ -14,7 +15,7 @@ const imageColors = [
 ];
 
 export default function Categories() {
-  const categories = useApiQuery<JobCategory[]>(
+  const categories = usePaginatedApiQuery<JobCategory[]>(
     ["categories"],
     "/api/categories"
   );
@@ -33,11 +34,12 @@ export default function Categories() {
               ))}
             </>
           ) : (
-            categories.data?.data
-              ?.slice(0, 6)
-              .map((category) => (
+            categories.data?.data?.slice(0, 6).map((category) => (
+              <Link
+                to={`/explore?company_category=${category.category_name}`}
+                key={category._id}
+              >
                 <Card
-                  key={category._id}
                   title={category.category_name}
                   description={`${category.total_listings_count} postings`}
                   image={category.img_path}
@@ -46,7 +48,8 @@ export default function Categories() {
                     imageColors[Math.floor(Math.random() * imageColors.length)]
                   }
                 />
-              ))
+              </Link>
+            ))
           )}
         </div>
       </div>

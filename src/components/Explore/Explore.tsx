@@ -23,6 +23,7 @@ export default function Explore() {
 
   const title = searchParams.get("title") || "";
   const location = searchParams.get("location") || "";
+  const company_category = searchParams.get("company_category") || "";
   const [currentPage, setCurrentPage] = useState(1);
   const [totalJobs, setTotalJobs] = useState<Job[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<Job[]>(totalJobs);
@@ -41,7 +42,7 @@ export default function Explore() {
 
   const searchJob = usePaginatedApiQuery<Job[]>(
     ["jobs", title, location],
-    `/api/jobs?title=${title}&location=${location}`,
+    `/api/jobs?title=${title}&location=${location}&company_category=${company_category}`,
     { page: currentPage, limit: 10 }
   );
   useEffect(() => {
