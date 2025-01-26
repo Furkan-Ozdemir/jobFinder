@@ -6,6 +6,7 @@ import Wallet from "/assets/images/Wallet.png";
 import HorizontalLine from "../HorizontalLine/HorizontalLine";
 import { Job, PostJobRequest } from "../../models/models";
 import { useApiQuery } from "../../hooks/useApi";
+import SkeletonJobDetail from "./SkeletonJobDetail";
 
 type JobDetailProps = {
   preview?: boolean;
@@ -21,6 +22,10 @@ export default function JobDetail(props: JobDetailProps) {
   const job = useApiQuery<Job>(["job", jobId], `/api/jobs/${jobId}`, {
     enabled: !preview,
   });
+
+  if (!preview && job.isLoading) {
+    return <SkeletonJobDetail />;
+  }
 
   return (
     <main>

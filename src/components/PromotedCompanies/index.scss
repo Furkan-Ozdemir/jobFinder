@@ -8,5 +8,13 @@
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        color: var(--dark);
+      }
+    }
   }
 }

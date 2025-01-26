@@ -1,19 +1,22 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import Button from "../Button/Button";
 import ClickableTag from "../ClickableTag/ClickableTag";
 
 import InputField from "../InputField/InputField";
 import Select from "../Select/Select";
 import "./index.scss";
-import { useApiQuery } from "../../hooks/useApi";
+import { useApiQuery, usePaginatedApiQuery } from "../../hooks/useApi";
 import { JobCategory, Job } from "../../models/models";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import JobCard from "../JobCard/JobCard";
 
 export default function Search() {
+  const [searchParams] = useSearchParams();
   const [timeRange, setTimeRange] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [category, setCategory] = useState("");
+  const [company_name, setCompanyName] = useState("");
   const [location, setLocation] = useState("");
   const [salaryRange, setSalaryRange] = useState("");
   const [selectedEmploymentTypes, setSelectedEmploymentTypes] = useState<
@@ -26,7 +29,7 @@ export default function Search() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
-  const categories = useApiQuery<JobCategory[]>(
+  const categories = usePaginatedApiQuery<JobCategory[]>(
     ["categories"],
     "/api/categories"
   );
@@ -64,9 +67,9 @@ export default function Search() {
       ","
     )}&experienceTypes=${selectedExperienceTypes.join(
       ","
-    )}&timeRange=${timeRange}&category=${category}&workModel=${selectedWorkModels.join(
+    )}&timeRange=${timeRange}&company_category=${category}&workModel=${selectedWorkModels.join(
       ","
-    )}`,
+    )}&company_name=${company_name}`,
     {
       enabled: false,
     }
@@ -97,6 +100,32 @@ export default function Search() {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+
+  useEffect(() => {
+    const categoryParam = searchParams.get("company_category");
+    if (categoryParam) {
+      setCategory(categoryParam);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    const company_nameParam = searchParams.get("company_name");
+    if (company_nameParam) {
+      setCompanyName(company_nameParam);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (category) {
+      handleFetch();
+    }
+  }, [category]);
+
+  useEffect(() => {
+    if (company_name) {
+      handleFetch();
+    }
+  }, [company_name]);
 
   return (
     <main>
@@ -183,6 +212,12 @@ export default function Search() {
               placeholder="i.e. London"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+            />
+            <InputField
+              label="Company Name"
+              placeholder="i.e. Google"
+              value={company_name}
+              onChange={(e) => setCompanyName(e.target.value)}
             />
             <div className="search__filters__tags">
               <p className="search__filters__tags__title">Experience</p>

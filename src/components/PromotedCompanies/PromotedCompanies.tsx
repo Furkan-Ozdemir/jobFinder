@@ -3,8 +3,9 @@ import Section from "../Section/Section";
 import SkeletonCard from "../SkeletonCard/SkeletonCard";
 import "./index.scss";
 
-import { useApiQuery } from "../../hooks/useApi";
+import { usePaginatedApiQuery } from "../../hooks/useApi";
 import { Company } from "../../models/models";
+import { Link } from "react-router-dom";
 
 const backgroundColors: (
   | "transparent"
@@ -14,10 +15,11 @@ const backgroundColors: (
   | "purple"
 )[] = ["transparent", "pink", "green", "yellow", "purple"];
 export default function PromotedCompanies() {
-  const promotedCompanies = useApiQuery<Company[]>(
+  const promotedCompanies = usePaginatedApiQuery<Company[]>(
     ["promotedCompanies"],
     "/api/companies/promoted"
   );
+
   return (
     <Section>
       <div className="promoted">
@@ -31,19 +33,23 @@ export default function PromotedCompanies() {
             </>
           ) : (
             promotedCompanies.data?.data?.map((company) => (
-              <Card
+              <Link
+                to={`/search?company_name=${company.company_name}`}
                 key={company._id}
-                title={company.company_name}
-                description={`${company.people_count} employees`}
-                image={company.img_path}
-                positionCenter
-                backgroundColor={
-                  backgroundColors[
-                    Math.floor(Math.random() * backgroundColors.length)
-                  ]
-                }
-                button={"View"}
-              />
+              >
+                <Card
+                  title={company.company_name}
+                  description={`${company.people_count} employees`}
+                  image={company.img_path}
+                  positionCenter
+                  backgroundColor={
+                    backgroundColors[
+                      Math.floor(Math.random() * backgroundColors.length)
+                    ]
+                  }
+                  button={"View"}
+                />
+              </Link>
             ))
           )}
         </div>

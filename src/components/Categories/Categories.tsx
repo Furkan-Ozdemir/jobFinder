@@ -34,9 +34,9 @@ export default function Categories() {
               ))}
             </>
           ) : (
-            categories.data?.data?.slice(0, 6).map((category) => (
+            categories.data?.data?.map((category) => (
               <Link
-                to={`/explore?company_category=${category.category_name}`}
+                to={`/search?company_category=${category.category_name}`}
                 key={category._id}
               >
                 <Card
