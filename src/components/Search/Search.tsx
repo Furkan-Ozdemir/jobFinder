@@ -18,6 +18,8 @@ export default function Search() {
   const [category, setCategory] = useState("");
   const [company_name, setCompanyName] = useState("");
   const [location, setLocation] = useState("");
+  // TOOD
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [salaryRange, setSalaryRange] = useState("");
   const [selectedEmploymentTypes, setSelectedEmploymentTypes] = useState<
     string[]
@@ -190,7 +192,7 @@ export default function Search() {
             </div>
           </div>
           <div>
-            <div className="search__filters__item">
+            {/* <div className="search__filters__item">
               <label htmlFor="Salary Range">Salary Range</label>
               <Select
                 label="Salary range"
@@ -206,7 +208,7 @@ export default function Search() {
                 defaultValue=""
                 onChange={(e) => setSalaryRange(e.target.value)}
               />
-            </div>
+            </div> */}
             <InputField
               label="Location"
               placeholder="i.e. London"
