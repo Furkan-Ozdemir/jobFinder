@@ -91,7 +91,9 @@ export default function JobDetail(props: JobDetailProps) {
                     </svg>
                   </div>
                   <div className="jobDetail__details__company-main__details__address__text">
-                    {job.data?.data?.location || "Magic Street 676/51, London"}
+                    {job.data?.data?.location ||
+                      previewValues?.location ||
+                      "Magic Street 676/51, London"}
                   </div>
                 </div>
                 <div className="jobDetail__details__company-main__details__count">

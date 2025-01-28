@@ -122,7 +122,7 @@ export default function Explore() {
             </span>
             <div className="explore__wrapper__container__filter__categories">
               {/* TODO Joblarin date i yok */}
-              <Select
+              {/* <Select
                 label="Date Posted"
                 name="datePosted"
                 options={
@@ -133,9 +133,9 @@ export default function Explore() {
                 }
                 defaultValue={"Date Posted"}
                 onChange={filterJobs}
-              />
+              /> */}
               {/* TODO Salary i yok */}
-              <Select
+              {/* <Select
                 label="Salary"
                 name="salary"
                 options={
@@ -146,7 +146,7 @@ export default function Explore() {
                 }
                 defaultValue={"Salary"}
                 onChange={filterJobs}
-              />
+              /> */}
               <Select
                 label="Employment Type"
                 name="employment_type"

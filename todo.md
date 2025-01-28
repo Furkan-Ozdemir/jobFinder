@@ -1,6 +1,3 @@
-- explore duzgun calismiyor load more a basip yukardan search yapinca iki kere istek atiyor
-- kategoriler ve sirketler kismi calisir hale gelsin
-- arama kismina salary ve dateposted calismiyor
 - devtoolstan yuklenme olaylarina bakilacak
 - mvst ye basvuru yollamadan once backend serverini upgrade et
 - ispanyolxa ve almanca ceviri

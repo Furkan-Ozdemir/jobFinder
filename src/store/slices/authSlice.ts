@@ -6,6 +6,7 @@ interface AuthState {
   isAuthenticated: boolean;
   user: User | null;
   id: string | null;
+  company_name: string | null;
 }
 
 const initialState: AuthState = {
@@ -13,6 +14,7 @@ const initialState: AuthState = {
   isAuthenticated: !!localStorage.getItem("authToken"),
   user: null,
   id: null,
+  company_name: null,
 };
 
 const authSlice = createSlice({
@@ -24,10 +26,12 @@ const authSlice = createSlice({
       action: PayloadAction<{ token: string; user: User }>
     ) => {
       const { token, user } = action.payload;
+      console.log("user", user);
       state.token = token;
       state.user = user;
       state.isAuthenticated = true;
       state.id = user.id;
+      state.company_name = user.company_name || null;
       localStorage.setItem("authToken", token);
     },
     logout: (state) => {
@@ -35,6 +39,7 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
       state.id = null;
+      state.company_name = null;
       localStorage.removeItem("authToken");
     },
   },

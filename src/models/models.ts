@@ -37,6 +37,7 @@ export interface PostJobRequest {
   salesPitch: string;
   additionalInfo: string;
   company_name: string | undefined;
+  location: string;
 }
 
 export interface Job {
@@ -56,13 +57,14 @@ export interface Job {
   applicant_count: number;
 }
 
-export type PostJobResponse = ApiResponse<Job>;
+export type PostJobResponse = Job;
 
 export interface User {
   fullName: string;
   email: string;
   personType: "employer" | "job_seeker";
   id: string;
+  company_name?: string;
 }
 
 export type JobCategoryResponse = ApiResponse<JobCategory[]>;

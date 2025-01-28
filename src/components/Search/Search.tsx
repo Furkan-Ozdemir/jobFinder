@@ -115,17 +115,17 @@ export default function Search() {
     }
   }, [searchParams]);
 
-  useEffect(() => {
-    if (category) {
-      handleFetch();
-    }
-  }, [category]);
+  // useEffect(() => {
+  //   if (category) {
+  //     handleFetch();
+  //   }
+  // }, [category]);
 
-  useEffect(() => {
-    if (company_name) {
-      handleFetch();
-    }
-  }, [company_name]);
+  // useEffect(() => {
+  //   if (company_name) {
+  //     handleFetch();
+  //   }
+  // }, [company_name]);
 
   return (
     <main>

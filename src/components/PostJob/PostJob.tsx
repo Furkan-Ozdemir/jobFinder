@@ -17,20 +17,9 @@ import {
 import { useApiMutation, useApiQuery } from "../../hooks/useApi";
 import { toast } from "react-toastify";
 import React, { useState } from "react";
-
-const initialValues = {
-  role: "",
-  about_the_company: "",
-  role_description: "",
-  required_skills: [""],
-  responsibilities: [""],
-  employment_type: "",
-  experience_level: "",
-  work_model: "",
-  salesPitch: "",
-  additionalInfo: "",
-  company_name: "",
-};
+import { selectCurrentUser } from "../../store/slices/authSlice";
+import { useAppSelector } from "../../store/hooks";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   role: Yup.string().required("Job title is required"),
@@ -47,9 +36,28 @@ const validationSchema = Yup.object().shape({
   salesPitch: Yup.string().required("Sales pitch is required"),
   additionalInfo: Yup.string(),
   work_model: Yup.string().required("Work model is required"),
+  location: Yup.string().required("Location is required"),
 });
 
 export default function PostJob() {
+  const user = useAppSelector(selectCurrentUser);
+  const navigate = useNavigate();
+
+  console.log("user", user);
+  const initialValues = {
+    role: "",
+    about_the_company: "",
+    role_description: "",
+    required_skills: [""],
+    responsibilities: [""],
+    employment_type: "",
+    experience_level: "",
+    work_model: "",
+    salesPitch: "",
+    additionalInfo: "",
+    company_name: user?.company_name,
+    location: "",
+  };
   const [values, setValues] = useState<PostJobRequest>(initialValues);
   const experienceLevels = useApiQuery<ExperienceLevel[]>(
     ["experienceLevel"],
@@ -64,7 +72,7 @@ export default function PostJob() {
   const mutation = useApiMutation<PostJobResponse, PostJobRequest>("/api/jobs");
   const handleSubmit = async (values: PostJobRequest) => {
     try {
-      await toast.promise<ApiResponse<PostJobResponse>>(
+      const response = await toast.promise<ApiResponse<PostJobResponse>>(
         mutation.mutateAsync(values),
         {
           pending: "Creating job...",
@@ -76,7 +84,10 @@ export default function PostJob() {
           },
           success: {
             render() {
-              return "Job created successfully";
+              return "Job created successfully, navigating to job page...";
+            },
+            onClose: () => {
+              navigate(`/job/${response.data?._id}`);
             },
           },
         }
@@ -126,6 +137,28 @@ export default function PostJob() {
                     />
                     <ErrorMessage
                       name="role"
+                      component="div"
+                      className="error"
+                    />
+                  </div>
+                  <div>
+                    <InputField
+                      label="Location"
+                      placeholder="e.g. London, UK"
+                      required
+                      name="location"
+                      onChange={(e) => {
+                        handleChange(e);
+                        setValues((prev) => ({
+                          ...prev,
+                          location: e.target.value,
+                        }));
+                      }}
+                      onBlur={handleBlur}
+                      value={formValues.location}
+                    />
+                    <ErrorMessage
+                      name="location"
                       component="div"
                       className="error"
                     />
