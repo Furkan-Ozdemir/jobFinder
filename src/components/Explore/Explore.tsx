@@ -1,12 +1,12 @@
 import { useSearchParams } from "react-router-dom";
 import { useApiQuery, usePaginatedApiQuery } from "../../hooks/useApi";
 import {
-  DatePosted,
+  // DatePosted,
   ExperienceLevel,
   Job,
   JobType,
   WorkModelType,
-  Salary,
+  // Salary,
 } from "../../models/models";
 import Button from "../Button/Button";
 
@@ -68,14 +68,14 @@ export default function Explore() {
     `/api/filters/work-models`
   );
 
-  const datePosted = useApiQuery<DatePosted[]>(
-    ["datePosted"],
-    `/api/filters/date-posted`
-  );
-  const salary = useApiQuery<Salary[]>(
-    ["salary"],
-    `/api/filters/salary-ranges`
-  );
+  // const datePosted = useApiQuery<DatePosted[]>(
+  //   ["datePosted"],
+  //   `/api/filters/date-posted`
+  // );
+  // const salary = useApiQuery<Salary[]>(
+  //   ["salary"],
+  //   `/api/filters/salary-ranges`
+  // );
 
   const filterJobs = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newFilters = {
