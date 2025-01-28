@@ -2,6 +2,7 @@ import { usePaginatedApiQuery } from "../../hooks/useApi";
 import { Job } from "../../models/models";
 import InlineForm from "../InlineForm/InlineForm";
 import Section from "../Section/Section";
+import AnimatedCounter from "../AnimatedCounter/AnimatedCounter";
 import "./index.scss";
 
 export default function Main() {
@@ -16,7 +17,11 @@ export default function Main() {
               <span>Over</span>
               <span className="main__container__title__highlight">
                 {" "}
-                {jobs.data?.metadata.total}{" "}
+                {jobs.isLoading ? (
+                  <AnimatedCounter endValue={1000} />
+                ) : (
+                  jobs.data?.metadata.total
+                )}{" "}
               </span>
               <span>jobs are waiting for you</span>
             </p>
