@@ -19,8 +19,7 @@ export default function Search() {
   const [company_name, setCompanyName] = useState("");
   const [location, setLocation] = useState("");
   // TOOD
-  //eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [salaryRange, setSalaryRange] = useState("");
+  // const [salaryRange, setSalaryRange] = useState("");
   const [selectedEmploymentTypes, setSelectedEmploymentTypes] = useState<
     string[]
   >([]);
@@ -65,7 +64,7 @@ export default function Search() {
 
   const advancedSearchResults = useApiQuery<Job[]>(
     ["jobs"],
-    `/api/jobs/advancedSearch?title=${jobTitle}&location=${location}&salaryRange=${salaryRange}&employmentTypes=${selectedEmploymentTypes.join(
+    `/api/jobs/advancedSearch?title=${jobTitle}&location=${location}&employmentTypes=${selectedEmploymentTypes.join(
       ","
     )}&experienceTypes=${selectedExperienceTypes.join(
       ","
